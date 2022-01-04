@@ -49,17 +49,25 @@ class _HomePageState extends State<HomePage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        IconButton(
-                          icon: Icon(
-                            Icons.home,
-                            color: currentIndex == 0
-                                ? Colors.orange
-                                : Colors.grey.shade400,
+                        Container(
+                          height: 50,
+                          width: 50,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.grey,
                           ),
-                          onPressed: () {
-                            setBottomBarIndex(0);
-                          },
-                          splashColor: Colors.white,
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.home,
+                              color: currentIndex == 0
+                                  ? Colors.orange
+                                  : Colors.grey.shade400,
+                            ),
+                            onPressed: () {
+                              setBottomBarIndex(0);
+                            },
+                            splashColor: Colors.white,
+                          ),
                         ),
                         IconButton(
                             icon: Icon(
@@ -116,11 +124,11 @@ class BNBCustomPainter extends CustomPainter {
 
     Path path = Path();
     path.moveTo(0, 20); // Start
-    path.quadraticBezierTo(size.width * 0.20, 0, size.width * 0.35, 0);
+    path.quadraticBezierTo(size.width * 0.20, 0, size.width * 0.40, 0);
     path.quadraticBezierTo(size.width * 0.40, 0, size.width * 0.40, 20);
-    path.arcToPoint(Offset(size.width * 0.60, 20),
+    path.arcToPoint(Offset(size.width * 0.60, 10),
         radius: const Radius.circular(20.0), clockwise: false);
-    path.quadraticBezierTo(size.width * 0.60, 0, size.width * 0.65, 0);
+    path.quadraticBezierTo(size.width * 0.60, 0, size.width * 0.60, 0);
     path.quadraticBezierTo(size.width * 0.80, 0, size.width, 20);
     path.lineTo(size.width, size.height);
     path.lineTo(0, size.height);
