@@ -6,6 +6,7 @@ import 'package:sidq/Widgets/nav.dart';
 import 'package:sidq/Widgets/text.dart';
 import 'package:sidq/core/consts.dart';
 import 'package:sidq/features/navigation_bar/presentation/pages/navigation_bar.dart';
+import 'package:sidq/features/report_fake_news/presentation/pages/report_fake_news.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -52,7 +53,13 @@ class MainPage extends StatelessWidget {
                 item('ارسل  \nتحقيقا', () {
                   () {};
                 }),
-                item('ابلغ عن  \nخبر زائف', () {})
+                item('ابلغ عن  \nخبر زائف', () {
+                  nav(
+                      context,
+                      const ReportFakeNews(
+                        title: 'الابلاغ عن خبر زائف',
+                      ));
+                })
               ],
             ),
             SizedBox(
