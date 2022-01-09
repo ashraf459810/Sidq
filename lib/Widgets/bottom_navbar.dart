@@ -37,7 +37,7 @@ class _ButtomNavBarState extends State<ButtomNavBar> {
         currentIndex: selectedIndex!,
         selectedIconTheme:
             const IconThemeData(color: Colors.grey, opacity: 0.2),
-        selectedItemColor: AppColor.blue,
+        selectedItemColor: Colors.blue,
         unselectedItemColor: Colors.grey,
         onTap: _onItemTapped,
       ),
@@ -57,7 +57,7 @@ class _ButtomNavBarState extends State<ButtomNavBar> {
         icon: SvgPicture.asset(
           items[i].image,
           alignment: Alignment.center,
-          color: selectedIndex == i ? AppColor.blue : Colors.grey,
+          color: selectedIndex == i ? Colors.blue : Colors.grey,
           height: h(30),
           width: w(30),
         ),

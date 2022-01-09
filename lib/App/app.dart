@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sidq/features/home_page/presentation/pages/home_page.dart';
+
+import 'package:sidq/features/main/presentation/pages/main_page.dart';
 
 import 'app_localizations.dart';
 
@@ -70,7 +71,7 @@ class _MyAppState extends State<MyApp> {
                 );
               },
 
-              home: const HomePage(),
+              home: const MainPage(),
             ));
   }
 }

@@ -56,7 +56,7 @@ class _DropDownState extends State<DropDown> {
                           )
                         : TextStyle(
                             fontSize: 15.sp,
-                            color: AppColor.blue,
+                            color: Colors.blue,
                             fontWeight: FontWeight.bold),
                   ))
                 : Center(

@@ -12,11 +12,12 @@ Widget textform(
     Color? hintColor,
     double? hintsize,
     required String keyboard,
-    required validation,
+    required String Function(String?) validation,
     EdgeInsetsGeometry? padding,
     int? maxlines,
     bool? issecure}) {
   return TextFormField(
+    textDirection: TextDirection.rtl,
     key: key,
     style: TextStyle(color: Colors.black, fontSize: 14.sp),
     obscureText: issecure ?? false,
