@@ -87,7 +87,7 @@ class _ReportFakeNewsState extends State<ReportFakeNews> {
               height: h(30),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(h(12.0)),
               child: container(
                   borderRadius: 20,
                   hight: h(50),

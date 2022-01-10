@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sidq/App/app.dart';
 import 'package:sidq/Widgets/container.dart';
 import 'package:sidq/Widgets/custom_list_view.dart';
+import 'package:sidq/Widgets/nav.dart';
 import 'package:sidq/Widgets/text.dart';
 import 'package:sidq/Widgets/text_form.dart';
 import 'package:sidq/core/consts.dart';
@@ -31,7 +32,7 @@ class _HomeBarState extends State<HomeBar> {
     return Scaffold(
       backgroundColor: AppColor.purple,
       bottomNavigationBar: SizedBox(
-        height: h(110),
+        height: size.height * 0.12,
         child: Stack(
           children: [
             Positioned(
@@ -39,7 +40,7 @@ class _HomeBarState extends State<HomeBar> {
               left: 0,
               child: SizedBox(
                 width: size.width,
-                height: 80,
+                height: h(80),
                 child: Stack(
                   children: [
                     CustomPaint(
@@ -60,17 +61,18 @@ class _HomeBarState extends State<HomeBar> {
                     ),
                     SizedBox(
                       width: size.width,
-                      height: 80,
+                      height: h(80),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           GestureDetector(
                             onTap: () {
                               setBottomBarIndex(0);
+                              nav(context, const HomeBar());
                             },
                             child: Container(
-                                height: 50,
-                                width: 50,
+                                height: h(50),
+                                width: w(50),
                                 decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     color: currentIndex == 0
@@ -91,8 +93,8 @@ class _HomeBarState extends State<HomeBar> {
                               setBottomBarIndex(1);
                             },
                             child: Container(
-                                height: 50,
-                                width: 50,
+                                height: h(50),
+                                width: w(50),
                                 decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     color: currentIndex == 1
@@ -116,8 +118,8 @@ class _HomeBarState extends State<HomeBar> {
                               setBottomBarIndex(2);
                             },
                             child: Container(
-                                height: 50,
-                                width: 50,
+                                height: h(50),
+                                width: w(50),
                                 decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     color: currentIndex == 2
@@ -139,8 +141,8 @@ class _HomeBarState extends State<HomeBar> {
                               setBottomBarIndex(3);
                             },
                             child: Container(
-                                height: 50,
-                                width: 50,
+                                height: h(50),
+                                width: w(50),
                                 decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     color: currentIndex == 3
@@ -167,16 +169,15 @@ class _HomeBarState extends State<HomeBar> {
           ],
         ),
       ),
-      body: ListView(
-        shrinkWrap: true,
+      body: Column(
         children: [
           SizedBox(
-            height: h(20),
+            height: h(50),
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: w(20)),
             child: container(
-                width: w(300),
+                width: w(320),
                 hight: h(50),
                 color: Colors.white,
                 borderRadius: 20,
@@ -217,20 +218,22 @@ class _HomeBarState extends State<HomeBar> {
                   );
                 }),
           ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.62,
-            child: customlistview(
-                padding: 0,
-                direction: 'vertical',
-                scroll: true,
-                controller: ScrollController(),
-                itemcount: 6,
-                function: (context, index) {
-                  return Padding(
-                      padding: EdgeInsets.symmetric(vertical: h(8)),
-                      child: newsSample("d",
-                          "losdf asfasfasf asf asf asf as fasfas fasfsafasfasfasfasfas asfas fas fas fasfasfasfasfasfasf rem asasasda"));
-                }),
+          SingleChildScrollView(
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height * 0.633,
+              child: customlistview(
+                  padding: 0,
+                  direction: 'vertical',
+                  scroll: true,
+                  controller: ScrollController(),
+                  itemcount: 6,
+                  function: (context, index) {
+                    return Padding(
+                        padding: EdgeInsets.symmetric(vertical: h(8)),
+                        child: newsSample("d",
+                            "losdf asfasfasf asf asf asf as fasfas fasfsafasfasfasfasfas asfas fas fas fasfasfasfasfasfasf rem asasasda"));
+                  }),
+            ),
           )
         ],
       ),
