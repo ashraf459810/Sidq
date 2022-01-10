@@ -168,6 +168,7 @@ class _HomeBarState extends State<HomeBar> {
         ),
       ),
       body: ListView(
+        shrinkWrap: true,
         children: [
           SizedBox(
             height: h(20),
@@ -217,7 +218,7 @@ class _HomeBarState extends State<HomeBar> {
                 }),
           ),
           SizedBox(
-            height: h(460),
+            height: MediaQuery.of(context).size.height * 0.62,
             child: customlistview(
                 padding: 0,
                 direction: 'vertical',
@@ -255,8 +256,8 @@ class _HomeBarState extends State<HomeBar> {
             )),
         ClipRRect(
           borderRadius: const BorderRadius.all(Radius.circular(10)),
-          child: Image.network(
-            "https://image.shutterstock.com/image-vector/news-anchor-on-tv-breaking-600w-664193623.jpg",
+          child: Image.asset(
+            "assets/images/news.jpeg",
             height: h(120),
             width: w(120),
             fit: BoxFit.fitHeight,

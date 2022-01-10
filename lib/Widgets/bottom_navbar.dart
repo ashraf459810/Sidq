@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sidq/App/app.dart';
-import 'package:sidq/Core/consts.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ButtomNavBar extends StatefulWidget {

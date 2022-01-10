@@ -29,6 +29,7 @@ Widget textform(
                 ? TextInputType.emailAddress
                 : TextInputType.text,
     decoration: InputDecoration(
+        hintTextDirection: TextDirection.rtl,
         errorStyle: TextStyle(fontSize: 10.sp),
         contentPadding: padding ?? EdgeInsets.all(w(5)),
         border: InputBorder.none,

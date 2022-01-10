@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sidq/App/app.dart';
@@ -10,8 +8,11 @@ import 'package:sidq/core/consts.dart';
 
 class ReportFakeNews extends StatefulWidget {
   final String? title;
+  @required
+  final bool isReport;
 
-  const ReportFakeNews({Key? key, this.title}) : super(key: key);
+  const ReportFakeNews({Key? key, this.title, required this.isReport})
+      : super(key: key);
 
   @override
   _ReportFakeNewsState createState() => _ReportFakeNewsState();
@@ -21,6 +22,10 @@ class _ReportFakeNewsState extends State<ReportFakeNews> {
   String? name = '';
   String? claim = '';
   String? clamisLinks = '';
+  String? truth = '';
+  String? truthLinks = '';
+  TextEditingController truthLinksc = TextEditingController();
+  TextEditingController truthc = TextEditingController();
   TextEditingController namec = TextEditingController();
   TextEditingController claimsc = TextEditingController();
   TextEditingController clamisLinksc = TextEditingController();
@@ -45,7 +50,8 @@ class _ReportFakeNewsState extends State<ReportFakeNews> {
                   child: text(
                       text: widget.title!,
                       fontfamily: 'marai',
-                      fontsize: 18.sp)),
+                      fontsize: 18.sp,
+                      fontWeight: FontWeight.bold)),
             ),
             SizedBox(
               height: h(50),
@@ -58,8 +64,43 @@ class _ReportFakeNewsState extends State<ReportFakeNews> {
             SizedBox(
               height: h(20),
             ),
-            inputForm(h(120), w(100), 'روابط \nناشري\n الادعاء', clamisLinksc,
-                claim!, w(250), 5, 20),
+            inputForm(widget.isReport ? h(120) : h(80), w(100),
+                'روابط \nناشري\n الادعاء', clamisLinksc, claim!, w(250), 5, 20),
+            Visibility(
+              visible: !widget.isReport,
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: h(20),
+                  ),
+                  inputForm(
+                      h(80), w(100), 'الحقيقة', truthc, truth!, w(250), 5, 20),
+                  SizedBox(
+                    height: h(20),
+                  ),
+                  inputForm(h(80), w(100), 'روابط \nالحقيقة', truthLinksc,
+                      truthLinks!, w(250), 5, 20),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: h(30),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: container(
+                  borderRadius: 20,
+                  hight: h(50),
+                  width: w(200),
+                  color: Colors.green[900],
+                  child: Center(
+                      child: text(
+                          text: "ارسال",
+                          color: Colors.white,
+                          fontfamily: 'marai',
+                          fontWeight: FontWeight.bold,
+                          textAlign: TextAlign.center))),
+            )
           ],
         ),
       ),

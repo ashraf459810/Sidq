@@ -17,6 +17,7 @@ class MainPage extends StatelessWidget {
       backgroundColor: AppColor.purple,
       body: Center(
         child: ListView(
+          shrinkWrap: true,
           children: [
             SizedBox(
               height: h(50),
@@ -51,13 +52,19 @@ class MainPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 item('ارسل  \nتحقيقا', () {
-                  () {};
+                  nav(
+                      context,
+                      const ReportFakeNews(
+                        title: 'ارسل تحقيقا',
+                        isReport: false,
+                      ));
                 }),
                 item('ابلغ عن  \nخبر زائف', () {
                   nav(
                       context,
                       const ReportFakeNews(
                         title: 'الابلاغ عن خبر زائف',
+                        isReport: true,
                       ));
                 })
               ],
