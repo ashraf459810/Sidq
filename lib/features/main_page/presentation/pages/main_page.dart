@@ -7,6 +7,7 @@ import 'package:sidq/Widgets/text.dart';
 import 'package:sidq/core/consts.dart';
 import 'package:sidq/features/navigation_bar/presentation/pages/navigation_bar.dart';
 import 'package:sidq/features/report_fake_news/presentation/pages/report_fake_news.dart';
+import 'package:sidq/features/reverse_serach/presentation/pages/reverse_image_search.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -32,7 +33,9 @@ class MainPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                item('البحث \nالعكسي', () {}),
+                item('البحث \nالعكسي', () {
+                  nav(context, const ReverseImageSearch());
+                }),
                 item('تصفح \nالتحقيقات', () {
                   nav(context, const HomeBar());
                 })
