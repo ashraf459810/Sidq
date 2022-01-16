@@ -46,7 +46,14 @@ class MainPage extends StatelessWidget {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [item('وعي', () {}), item('فديو', () {})],
+              children: [
+                item('وعي', () {
+                  nav(context, const HomeBar());
+                }),
+                item('فديو', () {
+                  nav(context, const HomeBar());
+                })
+              ],
             ),
             SizedBox(
               height: h(25),

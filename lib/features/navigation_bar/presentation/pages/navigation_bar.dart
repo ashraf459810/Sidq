@@ -68,7 +68,7 @@ class _HomeBarState extends State<HomeBar> {
                           GestureDetector(
                             onTap: () {
                               setBottomBarIndex(0);
-                              nav(context, const HomeBar());
+                              // nav(context, const HomeBar());
                             },
                             child: Container(
                                 height: h(50),

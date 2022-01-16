@@ -2,12 +2,12 @@
 import 'package:data_connection_checker/data_connection_checker.dart';
 
 abstract class NetworkInf {
-  final String baseUrl = "http://134.209.78.88:8080";
+  final String baseUrl = "http://80.208.227.48/api/api";
   Future<bool>? get isConnected;
 }
 
 class NetworkInfImpl implements NetworkInf {
-  final String baseurl = "http://134.209.78.88:8080";
+  final String baseurl = "http://80.208.227.48/api/api";
 
   // final String url = "https://fakestoreapi.com/products?limit=";
   final DataConnectionChecker? connectionChecker;
