@@ -11,14 +11,15 @@ class NetworkInfImpl implements NetworkInf {
   final String baseurl = "http://80.208.227.48/api/api";
 
   // final String url = "https://fakestoreapi.com/products?limit=";
-  final InternetConnectionChecker? connectionChecker;
+  InternetConnectionChecker? connectionChecker = InternetConnectionChecker();
 
   NetworkInfImpl([
     this.connectionChecker,
   ]);
 
   @override
-  Future<bool>? get isConnected => connectionChecker?.hasConnection;
+  Future<bool>? get isConnected async =>
+      await InternetConnectionChecker().hasConnection;
 
   @override
   String get baseUrl => baseurl.toString();

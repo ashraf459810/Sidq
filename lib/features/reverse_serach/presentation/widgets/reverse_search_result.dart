@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sidq/App/app.dart';
 import 'package:sidq/Widgets/container.dart';
 import 'package:sidq/Widgets/text.dart';
+import 'package:sidq/core/consts.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class ReverseSearchResult extends StatefulWidget {
@@ -15,31 +17,48 @@ class ReverseSearchResult extends StatefulWidget {
 }
 
 class _ReverseSearchResultState extends State<ReverseSearchResult> {
+  List<String> sites = ['Google', 'Bing', 'TinEye', 'Yandex'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[50],
-      body: Column(
-        children: [
-          SizedBox(
-            height: h(40),
-          ),
-          Row(
-            children: [
-              container(
-                  hight: h(20),
-                  width: w(60),
-                  borderRadius: 20,
-                  color: Colors.white,
-                  child: text(text: "Google"))
-            ],
-          ),
-          container(
-              hight: h(600),
-              child: WebView(
-                  initialUrl:
-                      'https://www.google.com/searchbyimage?site=search&sa=X&image_url=${widget.imageLink}'))
-        ],
+      body: SafeArea(
+        top: true,
+        child: Column(
+          children: [
+            Container(
+              color: Colors.white,
+              height: h(70),
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 4,
+                    itemBuilder: (context, index) => Padding(
+                      padding: EdgeInsets.symmetric(horizontal: w(10)),
+                      child: container(
+                          hight: h(50),
+                          width: w(70),
+                          borderRadius: 10,
+                          color: AppColor.purple,
+                          child: text(
+                              text: sites[index],
+                              fontsize: 12.sp,
+                              color: Colors.white)),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            container(
+                hight: h(700),
+                child: WebView(
+                    javascriptMode: JavascriptMode.unrestricted,
+                    initialUrl:
+                        'https://www.google.com/searchbyimage?site=search&sa=X&image_url=${widget.imageLink}'))
+          ],
+        ),
       ),
     );
   }

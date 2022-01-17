@@ -98,6 +98,7 @@ dependencies:
   # firebase_core: ^1.2.1
   # google_sign_in: ^4.5.3
   pin_code_text_field: ^1.8.0
+  image_picker: ^0.8.4+4
   flutter_lints: ^1.0.0
   equatable: ^2.0.3
 
