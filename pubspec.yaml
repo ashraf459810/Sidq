@@ -101,7 +101,8 @@ dependencies:
   flutter_lints: ^1.0.0
   equatable: ^2.0.3
 
-  data_connection_checker: ^0.3.4
+ 
+  internet_connection_checker: ^0.0.1+3
   test:
   
 
