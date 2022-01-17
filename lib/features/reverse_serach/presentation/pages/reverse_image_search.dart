@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:image_cropper/image_cropper.dart';
+
 import 'package:sidq/App/app.dart';
 import 'package:sidq/Widgets/container.dart';
 import 'package:sidq/Widgets/text.dart';
@@ -14,7 +17,7 @@ class ReverseImageSearch extends StatefulWidget {
 }
 
 class _ReverseImageSearchState extends State<ReverseImageSearch> {
-  final ImagePicker picker = ImagePicker();
+  File? imageFile;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,8 +53,24 @@ class _ReverseImageSearchState extends State<ReverseImageSearch> {
           ),
           GestureDetector(
             onTap: () async {
-              final XFile? image =
-                  await picker.pickImage(source: ImageSource.gallery);
+              imageFile = await ImageCropper.cropImage(
+                  sourcePath: imageFile!.path,
+                  aspectRatioPresets: [
+                    CropAspectRatioPreset.square,
+                    CropAspectRatioPreset.ratio3x2,
+                    CropAspectRatioPreset.original,
+                    CropAspectRatioPreset.ratio4x3,
+                    CropAspectRatioPreset.ratio16x9
+                  ],
+                  androidUiSettings: const AndroidUiSettings(
+                      toolbarTitle: 'Cropper',
+                      toolbarColor: Colors.deepOrange,
+                      toolbarWidgetColor: Colors.white,
+                      initAspectRatio: CropAspectRatioPreset.original,
+                      lockAspectRatio: false),
+                  iosUiSettings: const IOSUiSettings(
+                    minimumAspectRatio: 1.0,
+                  ));
             },
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: w(30)),

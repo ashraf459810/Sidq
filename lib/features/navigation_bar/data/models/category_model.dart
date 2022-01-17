@@ -20,9 +20,9 @@ class CategoryModel {
   });
 
   List<Result>? result;
-  dynamic? targetUrl;
+  dynamic targetUrl;
   bool? success;
-  dynamic? error;
+  dynamic error;
   bool? unAuthorizedRequest;
   bool? abp;
 

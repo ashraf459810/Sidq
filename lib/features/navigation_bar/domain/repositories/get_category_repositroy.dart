@@ -1,3 +1,4 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:dartz/dartz.dart';
 import 'package:sidq/core/error/failures.dart';
 import 'package:sidq/features/navigation_bar/data/models/category_model.dart';

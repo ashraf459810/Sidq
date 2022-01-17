@@ -1,4 +1,4 @@
-import 'dart:ffi';
+// ignore_for_file: import_of_legacy_library_into_null_safe
 
 import 'package:dartz/dartz.dart';
 import 'package:sidq/core/error/failures.dart';

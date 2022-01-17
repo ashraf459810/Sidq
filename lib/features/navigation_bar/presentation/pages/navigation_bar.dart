@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sidq/App/app.dart';
 import 'package:sidq/Widgets/container.dart';
 import 'package:sidq/Widgets/custom_list_view.dart';
-import 'package:sidq/Widgets/nav.dart';
+
 import 'package:sidq/Widgets/text.dart';
 import 'package:sidq/Widgets/text_form.dart';
 import 'package:sidq/core/consts.dart';
