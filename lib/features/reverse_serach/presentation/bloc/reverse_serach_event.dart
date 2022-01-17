@@ -6,3 +6,9 @@ abstract class ReverseSerachEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class UploadImageEvent extends ReverseSerachEvent {
+  final File imageLink;
+
+  const UploadImageEvent(this.imageLink);
+}

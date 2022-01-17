@@ -41,7 +41,7 @@ dependencies:
   # flutter_absolute_path :
   rxdart: ^0.24.1
   toast: ^0.1.5
-  get_it: ^3.0.1
+  get_it: ^7.2.0
   bloc_test:
   # flutter_datetime_picker: ^1.5.1
   bubble: ^1.1.9+1
@@ -101,7 +101,7 @@ dependencies:
   flutter_lints: ^1.0.0
   equatable: ^2.0.3
 
-  data_connection_checker:
+  data_connection_checker: ^0.3.4
   test:
   
 
