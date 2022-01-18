@@ -21,7 +21,7 @@ class NetworkFunctionsImp implements NetworkFunctions {
         'Content-Type': 'application/json',
       },
     );
-
+    log(response.statusCode.toString());
     if (response.statusCode == 200) {
       log("200");
       return response.body;

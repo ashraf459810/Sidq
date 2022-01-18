@@ -6,3 +6,16 @@ abstract class NavigationBarBlocEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class GetCategoriesEvent extends NavigationBarBlocEvent {
+  final int page;
+  final int size;
+
+  const GetCategoriesEvent(this.page, this.size);
+}
+
+class GetNewsEvent extends NavigationBarBlocEvent {
+  final SearchParamsModel searchParamsModel;
+
+  const GetNewsEvent(this.searchParamsModel);
+}
