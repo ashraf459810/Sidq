@@ -5,7 +5,8 @@ import 'package:sidq/Widgets/container.dart';
 import 'package:sidq/Widgets/nav.dart';
 import 'package:sidq/Widgets/text.dart';
 import 'package:sidq/core/consts.dart';
-import 'package:sidq/features/navigation_bar/presentation/pages/navigation_bar.dart';
+import 'package:sidq/features/home/presentation/pages/navigation_bar.dart';
+
 import 'package:sidq/features/report_fake_news/presentation/pages/report_fake_news.dart';
 import 'package:sidq/features/reverse_serach/presentation/pages/reverse_image_search.dart';
 

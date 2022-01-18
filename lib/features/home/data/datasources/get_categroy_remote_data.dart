@@ -1,6 +1,7 @@
 import 'package:sidq/core/network/network_info.dart';
 import 'package:sidq/core/remote_data_function/http_methods.dart';
-import 'package:sidq/features/navigation_bar/data/models/category_model.dart';
+import 'package:sidq/features/home/data/models/category_model.dart';
+
 
 abstract class GetCategoryRemoteData {
   Future<dynamic> getCategoriesRemoteData(int page, int size);

@@ -63,6 +63,7 @@ class _ReverseImageSearchState extends State<ReverseImageSearch> {
             Builder(builder: (context) {
               return GestureDetector(
                 onTap: () async {
+                  // ignore: unused_local_variable
                   final pickedImage = await ImagePicker()
                       .pickImage(source: ImageSource.gallery)
                       .then((value) => ImageCropper.cropImage(

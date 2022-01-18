@@ -2,9 +2,9 @@ import 'package:sidq/core/error/exceptions.dart';
 import 'package:sidq/core/error/failures.dart';
 import 'package:dartz/dartz.dart';
 import 'package:sidq/core/network/network_info.dart';
-import 'package:sidq/features/navigation_bar/data/datasources/get_categroy_remote_data.dart';
-import 'package:sidq/features/navigation_bar/data/models/category_model.dart';
-import 'package:sidq/features/navigation_bar/domain/repositories/get_category_repositroy.dart';
+import 'package:sidq/features/home/data/datasources/get_categroy_remote_data.dart';
+import 'package:sidq/features/home/data/models/category_model.dart';
+import 'package:sidq/features/home/domain/repositories/get_category_repositroy.dart';
 
 class GetCategoryRepositroyImp implements GetCategoryRepository {
   final GetCategoryRemoteData getCategoryRemoteData;

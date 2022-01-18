@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:sidq/core/error/exceptions.dart';
@@ -28,7 +29,7 @@ class UploadImageRemoteDataImp implements UploadImageRemoteData {
     request.files.add(pic);
 
     var response = await request.send();
-    print(response.statusCode);
+    log(response.statusCode.toString());
 
     if (response.statusCode == 200) {
       var jsonn = await http.Response.fromStream(response);
