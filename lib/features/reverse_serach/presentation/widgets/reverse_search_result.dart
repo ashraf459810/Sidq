@@ -56,7 +56,7 @@ class _ReverseSearchResultState extends State<ReverseSearchResult> {
                 child: WebView(
                     javascriptMode: JavascriptMode.unrestricted,
                     initialUrl:
-                        'https://www.google.com/searchbyimage?site=search&sa=X&image_url=${widget.imageLink}'))
+                        'https://images.google.com/searchbyimage?image_url=${widget.imageLink}'))
           ],
         ),
       ),

@@ -101,8 +101,10 @@ class _ReverseImageSearchState extends State<ReverseImageSearch> {
                   },
                   builder: (context, state) {
                     if (state is Loading) {
-                      return CircularProgressIndicator(
-                        backgroundColor: AppColor.purple,
+                      return Center(
+                        child: CircularProgressIndicator(
+                          backgroundColor: AppColor.purple,
+                        ),
                       );
                     }
                     return Padding(
