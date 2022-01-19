@@ -15,12 +15,15 @@ class NetworkFunctionsImp implements NetworkFunctions {
   @override
   Future<dynamic> getMethod(
       {required String url, required String baseurl}) async {
+    log('here from htttp');
     final response = await client.get(
       Uri.parse(baseurl + url),
       headers: {
         'Content-Type': 'application/json',
       },
     );
+    print(response);
+    log(baseurl + url);
     log(response.statusCode.toString());
     if (response.statusCode == 200) {
       log("200");
@@ -46,6 +49,9 @@ class NetworkFunctionsImp implements NetworkFunctions {
           'Content-Type': 'application/json',
         },
         body: body);
+
+    log(baseurl + url);
+    log(response.statusCode.toString());
 
     if (response.statusCode == 200) {
       log("200");

@@ -11,7 +11,7 @@ String categoryModelToJson(CategoryModel data) => json.encode(data.toJson());
 
 class CategoryModel {
   CategoryModel({
-    this.result,
+    required this.result,
     this.targetUrl,
     this.success,
     this.error,
@@ -19,7 +19,7 @@ class CategoryModel {
     this.abp,
   });
 
-  List<Result>? result;
+  late List<Result> result;
   dynamic targetUrl;
   bool? success;
   dynamic error;
@@ -37,7 +37,7 @@ class CategoryModel {
       );
 
   Map<String, dynamic> toJson() => {
-        "result": List<dynamic>.from(result!.map((x) => x.toJson())),
+        "result": List<dynamic>.from(result.map((x) => x.toJson())),
         "targetUrl": targetUrl,
         "success": success,
         "error": error,

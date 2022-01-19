@@ -26,7 +26,7 @@ class HomeBar extends StatefulWidget {
 }
 
 class _HomeBarState extends State<HomeBar> {
-  CategoryModel categoryModel = CategoryModel();
+  List<Result> categoryModel = [];
   List<NewsModel> list = [];
   String? serach;
   TextEditingController searchc = TextEditingController();
@@ -222,15 +222,15 @@ class _HomeBarState extends State<HomeBar> {
               child: BlocBuilder<NavigationBarBloc, NavigationBarBlocState>(
                 builder: (context, state) {
                   if (state is NavigationBarBlocInitial) {
-                    return CircularProgressIndicator();
+                    return const Center(child: CircularProgressIndicator());
                   }
                   if (state is LoadingCategory) {
                     return loadingCategoreis();
                   }
                   if (state is GetCategoriesState) {
-                    categoryModel = state.categoryModel;
+                    categoryModel = state.categoryModel.result;
                     SearchParamsModel searchParamsModel = SearchParamsModel(
-                        categoryId: categoryModel.result![0].id,
+                        categoryId: categoryModel[0].id,
                         isTrue: true,
                         isVotable: false,
                         pageNumber: page,
@@ -249,12 +249,12 @@ class _HomeBarState extends State<HomeBar> {
                         textColor: Colors.white,
                         fontSize: 16.0);
                   }
-                  return categoryModel.result!.isNotEmpty
+                  return categoryModel.isNotEmpty
                       ? customlistview(
                           padding: 10,
                           scroll: true,
                           controller: scrollController,
-                          itemcount: categoryModel.result!.length,
+                          itemcount: categoryModel.length,
                           function: (context, index) {
                             return Padding(
                               padding: EdgeInsets.symmetric(horizontal: w(7)),
@@ -264,8 +264,7 @@ class _HomeBarState extends State<HomeBar> {
                                   color: Colors.white,
                                   borderRadius: 20,
                                   child: text(
-                                      text: categoryModel.result![index].name ??
-                                          '',
+                                      text: categoryModel[index].name ?? '',
                                       fontfamily: 'marai')),
                             );
                           })
@@ -286,11 +285,10 @@ class _HomeBarState extends State<HomeBar> {
                         onNotification: (notification) {
                           if (notification is ScrollEndNotification &&
                               scrollController.position.extentAfter == 0) {
-                            print("here from listener");
                             page++;
                             SearchParamsModel searchParamsModel =
                                 SearchParamsModel(
-                                    categoryId: categoryModel.result![0].id,
+                                    categoryId: categoryModel[0].id,
                                     isTrue: true,
                                     isVotable: false,
                                     pageNumber: page,

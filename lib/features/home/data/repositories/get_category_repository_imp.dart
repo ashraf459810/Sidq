@@ -25,7 +25,7 @@ class GetCategoryRepositroyImp implements GetCategoryRepository {
         return const Left(ServerFailure("Error"));
       }
     } else {
-      return const Left(NetWorkFailure());
+      return const Left(NetWorkFailure('check internet connection'));
     }
   }
 }
