@@ -16,6 +16,7 @@ import 'package:sidq/features/reverse_serach/data/repositories/upload_image_repo
 import 'package:sidq/features/reverse_serach/domain/repositories/upload_image_repository.dart';
 import 'package:sidq/features/reverse_serach/domain/usecases/upload_image_use_case.dart';
 
+import 'core/navigatuin_service/navigation.dart';
 import 'features/home/presentation/bloc/home_page_bloc.dart';
 import 'features/reverse_serach/presentation/bloc/reverse_serach_bloc.dart';
 
@@ -96,4 +97,6 @@ Future<void> init() async {
     () => NetworkInfImpl(),
   );
   sl.registerLazySingleton(() => InternetConnectionChecker());
+
+  sl.registerLazySingleton(() => NavigationService());
 }
