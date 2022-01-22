@@ -20,6 +20,7 @@ class NetworkFunctionsImp implements NetworkFunctions {
       Uri.parse(baseurl + url),
       headers: {
         'Content-Type': 'application/json',
+        'Accept-Language':'ar-sy'
       },
     );
     print(response);
@@ -46,11 +47,13 @@ class NetworkFunctionsImp implements NetworkFunctions {
       {required String url, required String baseurl, body}) async {
     final response = await client.post(Uri.parse(baseurl + url),
         headers: {
+            'Accept-Language':'ar-sy',
           'Content-Type': 'application/json',
         },
         body: body);
 
     log(baseurl + url);
+    print(response.body);
     log(response.statusCode.toString());
 
     if (response.statusCode == 200) {

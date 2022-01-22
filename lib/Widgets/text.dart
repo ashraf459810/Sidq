@@ -13,6 +13,7 @@ Widget text(
     text,
     textAlign: textAlign ?? TextAlign.start,
     style: TextStyle(
+      
         decoration: textDecoration ?? TextDecoration.none,
         fontFamily: fontfamily ?? "font",
         color: color,

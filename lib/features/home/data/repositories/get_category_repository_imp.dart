@@ -20,7 +20,7 @@ class GetCategoryRepositroyImp implements GetCategoryRepository {
         final categgories =
             await getCategoryRemoteData.getCategoriesRemoteData(page, size);
 
-        return Right(categoryModelFromJson(categgories));
+        return Right((categgories));
       } on ServerException {
         return const Left(ServerFailure("Error"));
       }

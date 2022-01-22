@@ -4,6 +4,6 @@ import 'package:sidq/features/home/data/models/news_model.dart';
 import 'package:sidq/features/home/data/models/search_params_model.dart';
 
 abstract class GetNewsRepository {
-  Future<Either<Failure, List<NewsModel>>> getNewsFromRepository(
+  Future<Either<Failure, NewsModel>> getNewsFromRepository(
       SearchParamsModel searchParamsModel);
 }

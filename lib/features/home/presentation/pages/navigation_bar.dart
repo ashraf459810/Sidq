@@ -27,7 +27,7 @@ class HomeBar extends StatefulWidget {
 
 class _HomeBarState extends State<HomeBar> {
   List<Result> categoryModel = [];
-  List<NewsModel> list = [];
+  List<News> list = [];
   String? serach;
   TextEditingController searchc = TextEditingController();
   int currentIndex = 0;
@@ -221,6 +221,9 @@ class _HomeBarState extends State<HomeBar> {
               height: h(60),
               child: BlocBuilder<NavigationBarBloc, NavigationBarBlocState>(
                 builder: (context, state) {
+                  if (state is GetNewsState){
+                    list = state.newsmodel;
+                  }
                   if (state is NavigationBarBlocInitial) {
                     return const Center(child: CircularProgressIndicator());
                   }
@@ -230,9 +233,9 @@ class _HomeBarState extends State<HomeBar> {
                   if (state is GetCategoriesState) {
                     categoryModel = state.categoryModel.result;
                     SearchParamsModel searchParamsModel = SearchParamsModel(
-                        categoryId: categoryModel[0].id,
-                        isTrue: true,
-                        isVotable: false,
+                      searchQuery: '',
+        
+                      orderDescending: true,
                         pageNumber: page,
                         pageLength: pageSize);
                     context
@@ -288,9 +291,9 @@ class _HomeBarState extends State<HomeBar> {
                             page++;
                             SearchParamsModel searchParamsModel =
                                 SearchParamsModel(
-                                    categoryId: categoryModel[0].id,
-                                    isTrue: true,
-                                    isVotable: false,
+          
+                               searchQuery: '',
+                               orderDescending: true,
                                     pageNumber: page,
                                     pageLength: pageSize);
                             context
@@ -309,8 +312,9 @@ class _HomeBarState extends State<HomeBar> {
                             function: (context, index) {
                               return Padding(
                                   padding: EdgeInsets.symmetric(vertical: h(8)),
-                                  child: newsSample("d",
-                                      "losdf asfasfasf asf asf asf as fasfas fasfsafasfasfasfasfas asfas fas fas fasfasfasfasfasfasf rem asasasda"));
+                                  child: newsSample(
+                                    list[index].fileLink!,
+                                      list[index].briefDescription!,list[index].title!));
                             }));
                   },
                 ),
@@ -322,7 +326,7 @@ class _HomeBarState extends State<HomeBar> {
     );
   }
 
-  Widget newsSample(String image, String desc) {
+  Widget newsSample(String image, String desc,String title) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -333,16 +337,18 @@ class _HomeBarState extends State<HomeBar> {
             borderRadius: 10,
             child: Column(
               children: [
+                  text(text: title,fontsize: 13.sp,fontWeight: FontWeight.bold),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: text(text: desc),
+                  child: text(
+                    text: desc,fontsize: 11.sp),
                 ),
               ],
             )),
         ClipRRect(
           borderRadius: const BorderRadius.all(Radius.circular(10)),
-          child: Image.asset(
-            "assets/images/news.jpeg",
+          child: Image.network(
+            image,
             height: h(120),
             width: w(120),
             fit: BoxFit.fitHeight,

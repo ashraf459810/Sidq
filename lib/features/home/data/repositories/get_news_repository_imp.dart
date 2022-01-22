@@ -18,7 +18,7 @@ class GetNewsRepositoryImp implements GetNewsRepository {
   );
 
   @override
-  Future<Either<Failure, List<NewsModel>>> getNewsFromRepository(
+  Future<Either<Failure, NewsModel>> getNewsFromRepository(
       SearchParamsModel searchParamsModel) async {
     if (await networkInf.isConnected!) {
       try {

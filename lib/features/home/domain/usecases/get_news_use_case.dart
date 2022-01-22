@@ -8,7 +8,7 @@ import 'package:sidq/features/home/domain/repositories/get_news_repository.dart'
 
 
 abstract class GetNewsUseCase {
-  Future<Either<Failure, List<NewsModel>>> getMixedNewsUseCase(
+  Future<Either<Failure, NewsModel>> getMixedNewsUseCase(
       SearchParamsModel searchParamsModel);
 }
 
@@ -18,7 +18,7 @@ class GetNewsUseCaseImp implements GetNewsUseCase {
   GetNewsUseCaseImp(this.getNewsRepository);
 
   @override
-  Future<Either<Failure, List<NewsModel>>> getMixedNewsUseCase(
+  Future<Either<Failure, NewsModel>> getMixedNewsUseCase(
       SearchParamsModel searchParamsModel) async {
     return await getNewsRepository.getNewsFromRepository(searchParamsModel);
   }

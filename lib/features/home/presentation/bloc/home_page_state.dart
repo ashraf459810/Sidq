@@ -16,7 +16,7 @@ class GetCategoriesState extends NavigationBarBlocState {
 }
 
 class GetNewsState extends NavigationBarBlocState {
-  final List<NewsModel> newsmodel;
+  final List<News> newsmodel;
 
   const GetNewsState(this.newsmodel);
 }

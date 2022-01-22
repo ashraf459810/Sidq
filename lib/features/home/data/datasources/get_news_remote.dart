@@ -14,14 +14,13 @@ class GetMixedNewsRemoteDataImp implements GetNewsRemoteData {
 
   @override
   Future getMixedNews(SearchParamsModel searchParamsModel) async {
-    return await networkFunctions.postMethod(
+    var response = await networkFunctions.postMethod(
         url: '/Client/News/FilterDatatable',
         baseurl: networkInf.baseUrl,
-        body: {
-          "searchQuery": "",
-          "pageNumber": 0,
-          "pageLength": 1000,
-          "orderDescending": true
-        });
+        body: searchParamsModelToJson(searchParamsModel));
+
+        return response;
+        
+        
   }
 }

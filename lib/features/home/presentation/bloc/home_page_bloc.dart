@@ -13,7 +13,7 @@ part 'home_page_state.dart';
 
 class NavigationBarBloc
     extends Bloc<NavigationBarBlocEvent, NavigationBarBlocState> {
-  List<NewsModel> news = [];
+  List<News> news = [];
   final GetNewsUseCase getNewsUseCase;
   final GetCategroyUseCase getCategroyUseCase;
   NavigationBarBloc(this.getNewsUseCase, this.getCategroyUseCase)
@@ -33,9 +33,9 @@ class NavigationBarBloc
             await getNewsUseCase.getMixedNewsUseCase(event.searchParamsModel);
         response.fold((l) => emit(Error(l.error!)), (r) {
           if (news.isNotEmpty) {
-            news = r;
+            news = r.result!;
           } else {
-            news.addAll(r);
+            news.addAll(r.result!);
             emit(GetNewsState(news));
           }
         });
