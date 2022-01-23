@@ -14,10 +14,12 @@ class NewsDetailsInitial extends NewsDetailsState {}
 class Loading  extends NewsDetailsState{}
 
 
-class Error extends NewsDetailsState{}
+class Error extends NewsDetailsState{
+  Error(String? error);
+}
 
-class GetnewsState extends NewsDetailsState {
+class GetnewsDetailsState extends NewsDetailsState {
   final NewsDetailsModel newsDetailsModel;
 
-  const GetnewsState(this.newsDetailsModel);
+  const GetnewsDetailsState(this.newsDetailsModel);
 }
