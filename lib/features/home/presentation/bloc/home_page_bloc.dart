@@ -1,7 +1,9 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:sidq/features/home/data/models/category_model.dart';
 import 'package:sidq/features/home/data/models/news_model.dart';
 import 'package:sidq/features/home/data/models/search_params_model.dart';
@@ -12,7 +14,7 @@ part 'home_page_event.dart';
 part 'home_page_state.dart';
 
 class NavigationBarBloc
-    extends Bloc<NavigationBarBlocEvent, NavigationBarBlocState> {
+    extends HydratedBloc<NavigationBarBlocEvent, NavigationBarBlocState> {
   List<News> news = [];
   final GetNewsUseCase getNewsUseCase;
   final GetCategroyUseCase getCategroyUseCase;
@@ -32,14 +34,47 @@ class NavigationBarBloc
         final response =
             await getNewsUseCase.getMixedNewsUseCase(event.searchParamsModel);
         response.fold((l) => emit(Error(l.error!)), (r) {
-          if (news.isNotEmpty) {
+          if (news.isEmpty) {
             news = r.result!;
+            NewsModel newsModel = NewsModel(result: news);
+              emit(GetNewsState(newsModel));
+            
           } else {
             news.addAll(r.result!);
-            emit(GetNewsState(news));
+                NewsModel newsModel = NewsModel(result: news);
+              emit(GetNewsState(newsModel));
+       
           }
+             
         });
       }
     });
   }
-}
+
+  @override
+  NavigationBarBlocState? fromJson(Map<String, dynamic> json) {
+   try {
+      final news = NewsModel.fromJson(json);
+      return GetNewsState(news);
+    } catch (_) {
+      return null;
+    }
+  }
+
+  @override
+  Map<String, dynamic>? toJson(NavigationBarBlocState state) {
+   if (state is GetNewsState){
+
+    
+    var result =     state.newsmodel.toJson();
+   
+    return result;
+   }
+   
+   else {return null;}
+  }
+
+
+
+  }
+

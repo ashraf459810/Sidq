@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+
 Widget text(
     {required String text,
     Color? color,
@@ -9,15 +10,19 @@ Widget text(
     String ?fontfamily,
     TextDecoration? textDecoration,
     TextAlign? textAlign}) {
-  return Text(
-    text,
-    textAlign: textAlign ?? TextAlign.start,
-    style: TextStyle(
+  return Directionality(textDirection: TextDirection.rtl,
+    child: Text(
       
-        decoration: textDecoration ?? TextDecoration.none,
-        fontFamily: fontfamily ?? "font",
-        color: color,
-        fontSize: fontsize ?? 14.sp,
-        fontWeight: fontWeight ?? FontWeight.normal),
+      text,
+      textAlign: textAlign ?? TextAlign.start,
+  
+      style: TextStyle(
+        
+          decoration: textDecoration ?? TextDecoration.none,
+          fontFamily: fontfamily ?? "font",
+          color: color,
+          fontSize: fontsize ?? 14.sp,
+          fontWeight: fontWeight ?? FontWeight.normal),
+    ),
   );
 }

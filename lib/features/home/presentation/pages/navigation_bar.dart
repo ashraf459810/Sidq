@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sidq/App/app.dart';
 import 'package:sidq/Widgets/container.dart';
 import 'package:sidq/Widgets/custom_list_view.dart';
+import 'package:sidq/Widgets/nav.dart';
 
 import 'package:sidq/Widgets/text.dart';
 import 'package:sidq/Widgets/text_form.dart';
@@ -15,6 +18,7 @@ import 'package:sidq/features/home/data/models/search_params_model.dart';
 import 'package:sidq/features/home/presentation/bloc/home_page_bloc.dart';
 import 'package:sidq/features/home/presentation/widgets/loading_categories.dart';
 import 'package:sidq/features/home/presentation/widgets/loading_news.dart';
+import 'package:sidq/features/news_details/presentation/pages/news_details.dart';
 
 import '../../../../injection_container.dart';
 
@@ -221,8 +225,8 @@ class _HomeBarState extends State<HomeBar> {
               height: h(60),
               child: BlocBuilder<NavigationBarBloc, NavigationBarBlocState>(
                 builder: (context, state) {
-                  if (state is GetNewsState){
-                    list = state.newsmodel;
+                  if (state is GetNewsState) {
+                    list = state.newsmodel.result!;
                   }
                   if (state is NavigationBarBlocInitial) {
                     return const Center(child: CircularProgressIndicator());
@@ -233,9 +237,8 @@ class _HomeBarState extends State<HomeBar> {
                   if (state is GetCategoriesState) {
                     categoryModel = state.categoryModel.result;
                     SearchParamsModel searchParamsModel = SearchParamsModel(
-                      searchQuery: '',
-        
-                      orderDescending: true,
+                        searchQuery: '',
+                        orderDescending: true,
                         pageNumber: page,
                         pageLength: pageSize);
                     context
@@ -256,7 +259,7 @@ class _HomeBarState extends State<HomeBar> {
                       ? customlistview(
                           padding: 10,
                           scroll: true,
-                          controller: scrollController,
+                          // controller: scrollController,
                           itemcount: categoryModel.length,
                           function: (context, index) {
                             return Padding(
@@ -277,12 +280,10 @@ class _HomeBarState extends State<HomeBar> {
             ),
             SingleChildScrollView(
               child: SizedBox(
-                height: MediaQuery.of(context).size.height * 0.633,
+                height: MediaQuery.of(context).size.height * 0.653,
                 child: BlocBuilder<NavigationBarBloc, NavigationBarBlocState>(
                   builder: (context, state) {
-                    if (state is LoadingNews) {
-                      return loadingNews();
-                    }
+         
 
                     return NotificationListener<ScrollNotification>(
                         onNotification: (notification) {
@@ -291,9 +292,8 @@ class _HomeBarState extends State<HomeBar> {
                             page++;
                             SearchParamsModel searchParamsModel =
                                 SearchParamsModel(
-          
-                               searchQuery: '',
-                               orderDescending: true,
+                                    searchQuery: '',
+                                    orderDescending: true,
                                     pageNumber: page,
                                     pageLength: pageSize);
                             context
@@ -304,17 +304,36 @@ class _HomeBarState extends State<HomeBar> {
                           return false;
                         },
                         child: customlistview(
-                            padding: 0,
+                            padding: 10,
                             direction: 'vertical',
                             scroll: true,
-                            controller: ScrollController(),
-                            itemcount: list.length,
+                            controller: scrollController,
+                            itemcount: list.length + 1,
                             function: (context, index) {
-                              return Padding(
-                                  padding: EdgeInsets.symmetric(vertical: h(8)),
-                                  child: newsSample(
-                                    list[index].fileLink!,
-                                      list[index].briefDescription!,list[index].title!));
+                              if (index <list.length) {
+                                return Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(vertical: h(8)),
+                                    child: GestureDetector(
+                                      onTap: (){
+                                        nav(context, NewsDetails(news:  list[index]));
+                                      },
+                                      child: newsSample(
+                                          list[index].fileLink!,
+                                          list[index].briefDescription!,
+                                          list[index].title!),
+                                    ));
+                              } else {
+                                return BlocBuilder<NavigationBarBloc, NavigationBarBlocState>(
+                                  builder: (context, state) {
+                                    if (state is LoadingNews){
+                                      log('here from loading');
+                                                    return  Center(child: CircularProgressIndicator(backgroundColor: AppColor.purple,));
+                                    }
+                                    return  SizedBox(height: h(100),);
+                                  },
+                                );
+                              }
                             }));
                   },
                 ),
@@ -326,7 +345,7 @@ class _HomeBarState extends State<HomeBar> {
     );
   }
 
-  Widget newsSample(String image, String desc,String title) {
+  Widget newsSample(String image, String desc, String title) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -337,11 +356,10 @@ class _HomeBarState extends State<HomeBar> {
             borderRadius: 10,
             child: Column(
               children: [
-                  text(text: title,fontsize: 13.sp,fontWeight: FontWeight.bold),
+                text(text: title, fontsize: 13.sp, fontWeight: FontWeight.bold),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: text(
-                    text: desc,fontsize: 11.sp),
+                  child: text(text: desc, fontsize: 11.sp),
                 ),
               ],
             )),
