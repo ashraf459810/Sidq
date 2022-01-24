@@ -19,7 +19,7 @@ Widget textform(
   return TextFormField(
     textDirection: TextDirection.rtl,
     key: key,
-    style: TextStyle(color: Colors.black, fontSize: 14.sp),
+    style: TextStyle(color: Colors.black, fontSize: 18.sp,),
     obscureText: issecure ?? false,
     keyboardType: keyboard == "number"
         ? TextInputType.phone

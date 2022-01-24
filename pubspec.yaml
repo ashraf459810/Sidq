@@ -55,7 +55,7 @@ dependencies:
   permission_handler: ^8.1.0
   hydrated_bloc: ^8.0.0
   # built_value: ^7.1.0
-  analyzer: ^0.41.2
+  analyzer: ^1.0.0
   # flutter_spinkit: "^4.0.0"
   flutter_screenutil: ^5.0.0
   # firebase_auth: ^1.4.1

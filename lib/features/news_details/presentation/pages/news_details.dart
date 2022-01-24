@@ -18,6 +18,8 @@ import 'package:sidq/features/home/data/models/news_model.dart';
 import 'package:sidq/features/news_details/data/models/news_details.dart';
 import 'package:sidq/features/news_details/presentation/bloc/news_details_bloc.dart';
 import 'package:sidq/features/news_details/presentation/widgets/loading_news_details.dart';
+import 'package:test/test.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../injection_container.dart';
 
@@ -114,102 +116,143 @@ class _NewsDetailsState extends State<NewsDetails> {
                                    SizedBox(height: h(20),),
                                    Padding(
                                      padding: const EdgeInsets.all(8.0),
-                                     child: IgnorePointer(
-                                       child: ListView(shrinkWrap: true,
-                                         children: [
-                                               Directionality(
+                                     child: Column(
+                                     
+                                       children: [
+                                         ListView(shrinkWrap: true,
+                                         physics: const ScrollPhysics(parent: NeverScrollableScrollPhysics()),
+                                           children: [
+                                                 Directionality(
+                                                   
+                                                   textDirection: TextDirection.rtl,
+                                                   child: Html(
                                                  
-                                                 textDirection: TextDirection.rtl,
-                                                 child: Html(
-                                               
-                                                   shrinkWrap: true,
-                                                   data: newsDetailsModel.result!.description!,),
-                                               ),
-                                               SizedBox(height: h(10),),
-                                               text(text: 'روابط مريفة',color: Colors.black,fontsize: 20.sp,fontWeight: FontWeight.bold),
-                                     
-                                               customlistview(
-                                                 padding: 10,
-                                                 scroll: false,
-                                                 hight:  newsDetailsModel.result!.falseLinks!.isNotEmpty?
-                                                 newsDetailsModel.result!.falseLinks!.length * h(100) :h(30),
-                                                 direction: 'vertical',
-                                                 itemcount: newsDetailsModel.result!.falseLinks!.length,
-                                                 controller: ScrollController(),
-                                                 function: (context , index){
-                                                 return  container(color: AppColor.purple,
-                                                   hight: h(60), width: w(200),borderRadius: 10,child: text(text: newsDetailsModel.result!.falseLinks![index],color: Colors.white));
-                                               }),
-                                                       SizedBox(height: h(10),),
-                                               text(text: 'روابط حقيقية',color: Colors.black,fontsize: 20.sp,fontWeight: FontWeight.bold),
-                                     
-                                               customlistview(
-                                                 padding: 10,
-                                                 scroll: false,
-                                                 hight:  newsDetailsModel.result!.trueLinks!.isNotEmpty?
-                                                 newsDetailsModel.result!.falseLinks!.length * h(100) :h(30),
-                                                 direction: 'vertical',
-                                                 itemcount: newsDetailsModel.result!.trueLinks!.length,
-                                                 controller: ScrollController(),
-                                                 function: (context , index){
-                                                 return  container(color: AppColor.purple,
-                                                   hight: h(60), width: w(200),borderRadius: 10,child: text(text: newsDetailsModel.result!.trueLinks![index],color: Colors.white));
-                                               }),
-
-
-                                              //  SizedBox(height: h(30),), 
-
-                                               Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                 children: [
-                                                 container(
-                                                   borderRadius: 5,
-                                                   width: w(150),
-                                                   color: AppColor.purple,
-
-                                                   child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                     children: [
-                                                       Icon(Icons.check,color: Colors.white,size: 35.sp,),
-                                                       text(text: 'خبر صحيح',color: Colors.white),
-                                                      // SizedBox(width: w(10),),
-                                                              text(text:  newsDetailsModel.result!.trueVotesCount.toString(),color: Colors.white),
-                                                     ],
-                                                   ),
+                                                     shrinkWrap: true,
+                                                     data: newsDetailsModel.result!.description!,),
                                                  ),
-                                                         container(
-                                                   borderRadius: 5,
-                                                   width: w(150),
-                                                   color: AppColor.purple,
+                                                 SizedBox(height: h(10),),
+                                         newsDetailsModel.result!.falseLinks!.isNotEmpty?           Column(
+                                                   children: [
+                                                     text(text: 'روابط مريفة',color: Colors.black,fontsize: 20.sp,fontWeight: FontWeight.bold),
+                                         
+                                                     customlistview(
+                                                       padding: 10,
+                                                       scroll: false,
+                                                       hight:  newsDetailsModel.result!.falseLinks!.isNotEmpty?
+                                                       newsDetailsModel.result!.falseLinks!.length * h(100) :h(30),
+                                                       direction: 'vertical',
+                                                       itemcount: newsDetailsModel.result!.falseLinks!.length,
+                                                       controller: ScrollController(),
+                                                       function: (context , index){
+                                                       return  Padding(
+                                                         padding: const EdgeInsets.all(8.0),
+                                                         child: container(color: AppColor.purple,
+                                                           hight: h(60), width: w(200),borderRadius: 10,child: text(text: newsDetailsModel.result!.falseLinks![index],color: Colors.white)),
+                                                       );
+                                                     }),
+                                                   ],
+                                                 ):const SizedBox(),
+                                                         SizedBox(height: h(10),),
+                                            newsDetailsModel.result!.trueLinks!.isNotEmpty?      Column(
+                                                   children: [
+                                                     text(text: 'روابط حقيقية',color: Colors.black,fontsize: 20.sp,fontWeight: FontWeight.bold),
+                                         
+                                                     customlistview(
+                                                       padding: 10,
+                                                       scroll: false,
+                                                       hight:  newsDetailsModel.result!.trueLinks!.isNotEmpty?
+                                                       newsDetailsModel.result!.falseLinks!.length * h(150) :h(30),
+                                                       direction: 'vertical',
+                                                       itemcount: newsDetailsModel.result!.trueLinks!.length,
+                                                       controller: ScrollController(),
+                                                       function: (context , index){
+                                                       return  Padding(
+                                                         padding: const EdgeInsets.all(8.0),
+                                                         child: GestureDetector(onTap: () async{
+                                                                                                                 await   launchInWebViewOrVC(newsDetailsModel.result!.trueLinks![index]);
+                                                         
+                                                         },
+                                                           child: container(color: AppColor.purple,
+                                                             hight: h(60), width: w(200),borderRadius: 10,child: text(text: newsDetailsModel.result!.trueLinks![index],color: Colors.white)),
+                                                         ),
+                                                       );
+                                                     }),
+                                                   ],
+                                                 ):const SizedBox(),
 
-                                                   child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                     children: [
-                                                       Icon(Icons.clear,color: Colors.white,size: 35.sp,),
-                                                       text(text: 'خبر خاطئ',color: Colors.white),
-                                                      // SizedBox(width: w(10),),
-                                                              text(text:  newsDetailsModel.result!.falseVotesCount.toString(),color: Colors.white),
-                                                     ],
+
+                                                //  SizedBox(height: h(30),), 
+
+                                                 Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                   children: [
+                                                   container(
+                                                     borderRadius: 5,
+                                                     width: w(150),
+                                                     color: AppColor.purple,
+
+                                                     child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                       children: [
+                                                         Icon(Icons.check,color: Colors.white,size: 35.sp,),
+                                                         text(text: 'خبر صحيح',color: Colors.white),
+                                                        // SizedBox(width: w(10),),
+                                                                text(text:  newsDetailsModel.result!.trueVotesCount.toString(),color: Colors.white),
+                                                       ],
+                                                     ),
                                                    ),
-                                                 ),
-                                               ],),
-                                         newsDetailsModel.result!.comments!.isNotEmpty?      customlistview(
-                                              direction: 'vertical',
-                                                 padding: 10,
-                                                 hight: newsDetailsModel.result!.comments!.length * h(100),
-                                                 controller: ScrollController(),
-                                                 itemcount: newsDetailsModel.result!.comments!.length,
-                                                 function: (context , index){
-                                                        return Column(children: [
-                                                          text(text: newsDetailsModel.result!.comments![index])
-                                                        ]);
+                                                           container(
+                                                     borderRadius: 5,
+                                                     width: w(150),
+                                                     color: AppColor.purple,
+
+                                                     child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                       children: [
+                                                         Icon(Icons.clear,color: Colors.white,size: 35.sp,),
+                                                         text(text: 'خبر خاطئ',color: Colors.white),
+                                                        // SizedBox(width: w(10),),
+                                                                text(text:  newsDetailsModel.result!.falseVotesCount.toString(),color: Colors.white),
+                                                       ],
+                                                     ),
+                                                   ),
+                                                 ],),
+                                           newsDetailsModel.result!.comments!.isNotEmpty?      customlistview(
+                                                direction: 'vertical',
+                                                   padding: 10,
+                                                   hight: newsDetailsModel.result!.comments!.length * h(100),
+                                                   controller: ScrollController(),
+                                                   itemcount: newsDetailsModel.result!.comments!.length,
+                                                   function: (context , index){
+                                                          return Column(children: [
+                                                            text(text: newsDetailsModel.result!.comments![index])
+                                                          ]);
+                                            
                                           
-                                        
-                                                  } ):const SizedBox(
+                                                    } ):const SizedBox(
 
-                                                  ),
-                                                  SizedBox(height: h(30),),
-                                                  text(text: 'اكتب تعليقا',fontsize: 30),
+                                                    ),
+                                                    SizedBox(height: h(30),),
+                                                    text(text: 'اكتب تعليقا',fontsize: 30),
 
-                                                  textform(controller: commentc, function: (val){comment= val;}, keyboard: 'name', validation: (val){return val!;})
-                                                  ],),
+                                         ],),
+                                                     container(color: Colors.grey[200],
+                                                     
+                                                     
+                                                      hight: h(100),
+                                                      width: w(330),
+                                                      borderRadius: 10,
+                                                        child: textform(
+                                                          padding : EdgeInsets.only(bottom: h(40),right: w(5)),
+                        hint: '',
+                        hintsize: w(20),
+                        controller: commentc,
+                        function: (val) {
+                          comment = val;
+                        },
+                        keyboard: 'name',
+                        validation: (val) {
+                          return val!;
+                        }),
+                                                                                            )
+                                       ],
                                      ),
                                    )
           
@@ -230,5 +273,16 @@ class _NewsDetailsState extends State<NewsDetails> {
 
           })));
   }
+    Future<void> launchInWebViewOrVC(String url) async {
+    if (!await launch(
+      url,
+      forceSafariVC: true,
+      forceWebView: true,
+      headers: <String, String>{'my_header_key': 'my_header_value'},
+    )) {
+      throw 'Could not launch $url';
+    }
+  }
+
 
 }
