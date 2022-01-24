@@ -83,6 +83,7 @@ dependencies:
   # dash_chat: 
   # flutter_country_picker: ^0.1.6
   dartz: ^0.10.0
+  cached_network_image: ^3.2.0
   # either_option: ^1.0.5
   regexpattern: ^0.2.4
   flutter_rounded_date_picker: ^1.0.4

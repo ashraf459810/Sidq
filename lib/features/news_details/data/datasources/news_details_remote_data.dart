@@ -21,8 +21,9 @@ class NewsDetaulsRemoteDataImp implements NewsDetailsRemoteData{
   Future<dynamic> getNewsDetailsRemoteData(String newsId) async {
 
     var response= await networkFunctions.getMethod(url: '/Client/News/GetById?Id=$newsId', baseurl: networkInf.baseUrl);
+    print(response);
 
-    return newsDetailsFromJson(response);
+    return newsDetailsModelFromJson(response);
    
   }
 }

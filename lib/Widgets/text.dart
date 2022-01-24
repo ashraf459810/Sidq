@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
 Widget text(
+  
     {required String text,
     Color? color,
     double ?fontsize,
@@ -17,6 +18,7 @@ Widget text(
       textAlign: textAlign ?? TextAlign.start,
   
       style: TextStyle(
+        overflow: TextOverflow.fade,
         
           decoration: textDecoration ?? TextDecoration.none,
           fontFamily: fontfamily ?? "font",

@@ -22,7 +22,7 @@ class NewsDetailsRepositoryImp implements NewsDetailsRepository {
       try {
         final news = await newsDetailsRemoteData.getNewsDetailsRemoteData(newsId);
 
-        return Right(newsDetailsFromJson(news));
+        return Right(news);
       } on ServerException {
         return const Left(ServerFailure("Error"));
       }

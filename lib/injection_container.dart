@@ -11,6 +11,11 @@ import 'package:sidq/features/home/domain/repositories/get_category_repositroy.d
 import 'package:sidq/features/home/domain/repositories/get_news_repository.dart';
 import 'package:sidq/features/home/domain/usecases/get_category_use_case.dart';
 import 'package:sidq/features/home/domain/usecases/get_news_use_case.dart';
+import 'package:sidq/features/news_details/data/datasources/news_details_remote_data.dart';
+import 'package:sidq/features/news_details/data/repositories/news_details_repository_imp.dart';
+import 'package:sidq/features/news_details/domain/repositories/news_details_repositroy.dart';
+import 'package:sidq/features/news_details/domain/usecases/news_details_use_case.dart';
+import 'package:sidq/features/news_details/presentation/bloc/news_details_bloc.dart';
 import 'package:sidq/features/reverse_serach/data/datasources/upload_image_remote_data.dart';
 import 'package:sidq/features/reverse_serach/data/repositories/upload_image_repository_imp.dart';
 import 'package:sidq/features/reverse_serach/domain/repositories/upload_image_repository.dart';
@@ -30,6 +35,11 @@ Future<void> init() async {
       sl(),
     ),
   );
+    sl.registerFactory(
+    () => NewsDetailsBloc(
+      sl(),
+    ),
+  );
   sl.registerFactory(
     () => NavigationBarBloc(sl(), sl()),
   );
@@ -40,7 +50,11 @@ Future<void> init() async {
       sl(),
     ),
   );
-
+sl.registerLazySingleton<NewsDetailsUseCase>(
+    () => NewsDetailsUseCaseImp(
+      sl(),
+    ),
+  );
   sl.registerLazySingleton<GetCategroyUseCase>(
     () => GetCategoryUseCaseImp(
       sl(),
@@ -60,7 +74,12 @@ Future<void> init() async {
       sl(),
     ),
   );
-
+  sl.registerLazySingleton<NewsDetailsRepository>(
+    () => NewsDetailsRepositoryImp(
+      sl(),
+      sl(),
+    ),
+  );
   sl.registerLazySingleton<GetCategoryRepository>(
     () => GetCategoryRepositroyImp(
       sl(),
@@ -77,6 +96,10 @@ Future<void> init() async {
   // Data sources
   sl.registerLazySingleton<UploadImageRemoteData>(
     () => UploadImageRemoteDataImp(sl(), sl()),
+  );
+
+    sl.registerLazySingleton<NewsDetailsRemoteData>(
+    () => NewsDetaulsRemoteDataImp(sl(), sl()),
   );
 
   sl.registerLazySingleton<GetCategoryRemoteData>(

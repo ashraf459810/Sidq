@@ -1,16 +1,57 @@
 // To parse this JSON data, do
 //
-//     final newsDetails = newsDetailsFromJson(jsonString);
+//     final newsDetailsModel = newsDetailsModelFromJson(jsonString);
 
 import 'dart:convert';
 
-NewsDetailsModel newsDetailsFromJson(String str) => NewsDetailsModel.fromJson(json.decode(str));
+NewsDetailsModel newsDetailsModelFromJson(String str) => NewsDetailsModel.fromJson(json.decode(str));
 
-String newsDetailsToJson(NewsDetailsModel data) => json.encode(data.toJson());
+String newsDetailsModelToJson(NewsDetailsModel data) => json.encode(data.toJson());
 
 class NewsDetailsModel {
     NewsDetailsModel({
-        this.id,
+        this.result,
+        this.targetUrl,
+        this.success,
+        this.error,
+        this.unAuthorizedRequest,
+        this.abp,
+    });
+
+    Result ?result;
+    dynamic targetUrl;
+    bool ?success;
+    dynamic error;
+    bool ?unAuthorizedRequest;
+    bool? abp;
+
+    factory NewsDetailsModel.fromJson(Map<String, dynamic> json) => NewsDetailsModel(
+        result: Result.fromJson(json["result"]),
+        targetUrl: json["targetUrl"],
+        success: json["success"],
+        error: json["error"],
+        unAuthorizedRequest: json["unAuthorizedRequest"],
+        abp: json["__abp"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "result": result!.toJson(),
+        "targetUrl": targetUrl,
+        "success": success,
+        "error": error,
+        "unAuthorizedRequest": unAuthorizedRequest,
+        "__abp": abp,
+    };
+}
+
+class Result {
+    Result({
+        this.description,
+        this.trueLinks,
+        this.falseLinks,
+        this.trueVotesCount,
+        this.falseVotesCount,
+        this.comments,
         this.title,
         this.briefDescription,
         this.isTrue,
@@ -20,33 +61,33 @@ class NewsDetailsModel {
         this.categoryName,
         this.fileId,
         this.fileLink,
-        this.description,
-        this.trueLinks,
-        this.falseLinks,
-        this.trueVotesCount,
-        this.falseVotesCount,
-        this.comments,
+        this.id,
     });
 
-    String ?id;
-    String? title;
+    String ? description;
+    List<dynamic> ?trueLinks;
+    List<String> ? falseLinks;
+    int ?trueVotesCount;
+    int ?falseVotesCount;
+    List<dynamic>? comments;
+    String ?title;
     String? briefDescription;
     bool ?isTrue;
     bool ?isPublic;
     bool ?isVotable;
-    String? categoryId;
-    String? categoryName;
-    String? fileId;
-    String? fileLink;
-    String? description;
-    List<String>? trueLinks;
-    List<String>? falseLinks;
-    int ?trueVotesCount;
-    int? falseVotesCount;
-    List<String>? comments;
+    String ?categoryId;
+    String ?categoryName;
+    String ?fileId;
+    String ?fileLink;
+    String? id;
 
-    factory NewsDetailsModel.fromJson(Map<String, dynamic> json) => NewsDetailsModel(
-        id: json["id"],
+    factory Result.fromJson(Map<String, dynamic> json) => Result(
+        description: json["description"],
+        trueLinks: List<dynamic>.from(json["trueLinks"].map((x) => x)),
+        falseLinks: List<String>.from(json["falseLinks"].map((x) => x)),
+        trueVotesCount: json["trueVotesCount"],
+        falseVotesCount: json["falseVotesCount"],
+        comments: List<dynamic>.from(json["comments"].map((x) => x)),
         title: json["title"],
         briefDescription: json["briefDescription"],
         isTrue: json["isTrue"],
@@ -56,16 +97,16 @@ class NewsDetailsModel {
         categoryName: json["categoryName"],
         fileId: json["fileId"],
         fileLink: json["fileLink"],
-        description: json["description"],
-        trueLinks: List<String>.from(json["trueLinks"].map((x) => x)),
-        falseLinks: List<String>.from(json["falseLinks"].map((x) => x)),
-        trueVotesCount: json["trueVotesCount"],
-        falseVotesCount: json["falseVotesCount"],
-        comments: List<String>.from(json["comments"].map((x) => x)),
+        id: json["id"],
     );
 
     Map<String, dynamic> toJson() => {
-        "id": id,
+        "description": description,
+        "trueLinks": List<dynamic>.from(trueLinks!.map((x) => x)),
+        "falseLinks": List<dynamic>.from(falseLinks!.map((x) => x)),
+        "trueVotesCount": trueVotesCount,
+        "falseVotesCount": falseVotesCount,
+        "comments": List<dynamic>.from(comments!.map((x) => x)),
         "title": title,
         "briefDescription": briefDescription,
         "isTrue": isTrue,
@@ -75,11 +116,6 @@ class NewsDetailsModel {
         "categoryName": categoryName,
         "fileId": fileId,
         "fileLink": fileLink,
-        "description": description,
-        "trueLinks": List<dynamic>.from(trueLinks!.map((x) => x)),
-        "falseLinks": List<dynamic>.from(falseLinks!.map((x) => x)),
-        "trueVotesCount": trueVotesCount,
-        "falseVotesCount": falseVotesCount,
-        "comments": List<dynamic>.from(comments!.map((x) => x)),
+        "id": id,
     };
 }

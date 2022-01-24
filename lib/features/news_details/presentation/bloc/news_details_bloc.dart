@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -13,9 +15,10 @@ class NewsDetailsBloc extends Bloc<NewsDetailsEvent, NewsDetailsState> {
    
     on<NewsDetailsEvent>((event, emit) async {
       if (event is GetNewsDetailsEvent){
+        log('here from  the bloc');
         emit(Loading());
         var response = await newsDetailsUseCase.newsDetailsUseCase(event.newsId);
-        response.fold((l) => emit(Error(l.error)), (r) => emit(GetnewsDetailsState(r)));
+        response.fold((l) => emit(Error(l.error!)), (r) => emit(GetnewsDetailsState(r)));
         
 
 

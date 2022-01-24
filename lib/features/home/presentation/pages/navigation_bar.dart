@@ -1,9 +1,11 @@
 import 'dart:developer';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:sidq/App/app.dart';
 import 'package:sidq/Widgets/container.dart';
 import 'package:sidq/Widgets/custom_list_view.dart';
@@ -17,7 +19,7 @@ import 'package:sidq/features/home/data/models/news_model.dart';
 import 'package:sidq/features/home/data/models/search_params_model.dart';
 import 'package:sidq/features/home/presentation/bloc/home_page_bloc.dart';
 import 'package:sidq/features/home/presentation/widgets/loading_categories.dart';
-import 'package:sidq/features/home/presentation/widgets/loading_news.dart';
+
 import 'package:sidq/features/news_details/presentation/pages/news_details.dart';
 
 import '../../../../injection_container.dart';
@@ -316,7 +318,7 @@ class _HomeBarState extends State<HomeBar> {
                                         EdgeInsets.symmetric(vertical: h(8)),
                                     child: GestureDetector(
                                       onTap: (){
-                                        nav(context, NewsDetails(news:  list[index]));
+                                        Navigator.of(context).push( SecondPageRoute(list[index]));
                                       },
                                       child: newsSample(
                                           list[index].fileLink!,
@@ -365,12 +367,27 @@ class _HomeBarState extends State<HomeBar> {
             )),
         ClipRRect(
           borderRadius: const BorderRadius.all(Radius.circular(10)),
-          child: Image.network(
-            image,
-            height: h(120),
+
+          child: CachedNetworkImage(         height: h(120),
             width: w(120),
             fit: BoxFit.fitHeight,
+        imageUrl: image,
+        placeholder: (context, url) => Shimmer(child: Container(height: h(120),), gradient:const LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              colors: [
+                Colors.grey,
+                Colors.black,
+              ],
+            )
           ),
+
+        errorWidget: (context, url, error) => const Icon(Icons.error),
+     ),
+          
+          
+          
+    
         )
       ],
     );

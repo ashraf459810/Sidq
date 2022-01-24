@@ -15,7 +15,8 @@ class Loading  extends NewsDetailsState{}
 
 
 class Error extends NewsDetailsState{
-  Error(String? error);
+  final String error;
+  const Error(this. error);
 }
 
 class GetnewsDetailsState extends NewsDetailsState {
