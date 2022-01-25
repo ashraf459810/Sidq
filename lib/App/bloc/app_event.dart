@@ -1,6 +1,12 @@
 part of 'app_bloc.dart';
 
-@immutable
-abstract class AppEvent {}
+abstract class AppEvent extends Equatable {
+  const AppEvent();
 
-class IsVerfiyEvent extends AppEvent {}
+  @override
+  List<Object> get props => [];
+}
+
+
+
+class GetTokensEvent extends AppEvent{}

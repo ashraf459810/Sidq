@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sidq/App/bloc/app_bloc.dart';
 import 'package:sidq/core/network/network_info.dart';
 import 'package:sidq/core/remote_data_function/http_methods.dart';
 import 'package:sidq/features/home/data/datasources/get_categroy_remote_data.dart';
@@ -35,6 +36,14 @@ Future<void> init() async {
       sl(),
     ),
   );
+
+
+sl.registerFactory(
+    () => AppBloc(
+
+    ),
+  );
+
     sl.registerFactory(
     () => NewsDetailsBloc(
       sl(),

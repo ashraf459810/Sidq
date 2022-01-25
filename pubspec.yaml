@@ -58,6 +58,7 @@ dependencies:
   analyzer: ^1.0.0
   # flutter_spinkit: "^4.0.0"
   flutter_screenutil: ^5.0.0
+  platform_device_id: ^1.0.1
   # firebase_auth: ^1.4.1
   url_launcher: ^6.0.6
   flutter_html: ^2.2.1

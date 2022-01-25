@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +9,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sidq/App/bloc/app_bloc.dart';
+
 import 'package:sidq/core/consts.dart';
 import 'package:sidq/core/navigatuin_service/navigation.dart';
 
@@ -63,11 +67,15 @@ class MyApp extends StatefulWidget {
 }
 
 @override
-void initState() {}
+void initState() {
+
+
+}
 
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
+      sl<AppBloc>().add(GetTokensEvent());
     return ScreenUtilInit(
         designSize: const Size(375, 812),
         builder: () => MaterialApp(
@@ -205,7 +213,7 @@ class _MyAppState extends State<MyApp> {
       String? token = await FirebaseMessaging.instance.getToken();
       print(token);
       await SharedPreferences.getInstance()
-          .then((value) => value.setString(Con.fcmToken!, token!));
+          .then((value) => value.setString(Con.fcmToken, token!));
     }
   }
 

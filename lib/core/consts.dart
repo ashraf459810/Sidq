@@ -8,8 +8,8 @@ class AppColor {
 }
 
 class Con {
-  static String? fcmToken;
-  static String? isverify;
+  static String fcmToken = '';
+  static String isverify= '';
   static String savedcontactsforemergency = "false";
   static String token = 'token';
 }

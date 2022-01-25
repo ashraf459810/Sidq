@@ -1,12 +1,10 @@
 part of 'app_bloc.dart';
 
-@immutable
-abstract class AppState {}
+abstract class AppState extends Equatable {
+  const AppState();
+  
+  @override
+  List<Object> get props => [];
+}
 
 class AppInitial extends AppState {}
-
-class IsVerfitState extends AppState {
-  final bool isverfiy;
-
-  IsVerfitState(this.isverfiy);
-}
