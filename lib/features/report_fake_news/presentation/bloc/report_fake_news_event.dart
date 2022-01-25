@@ -6,3 +6,9 @@ abstract class ReportFakeNewsEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class AddTicketEvent  extends ReportFakeNewsEvent {
+  final TicketRequestBody ticketRequestBody ;
+
+ const AddTicketEvent(this.ticketRequestBody);
+}

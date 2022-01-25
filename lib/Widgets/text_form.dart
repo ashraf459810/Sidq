@@ -17,6 +17,7 @@ Widget textform(
     int? maxlines,
     bool? issecure}) {
   return TextFormField(
+    
     textDirection: TextDirection.rtl,
     key: key,
     style: TextStyle(color: Colors.black, fontSize: 18.sp,),
@@ -24,7 +25,7 @@ Widget textform(
     keyboardType: keyboard == "number"
         ? TextInputType.phone
         : keyboard == "name"
-            ? TextInputType.name
+            ? TextInputType.multiline
             : keyboard == "email"
                 ? TextInputType.emailAddress
                 : TextInputType.text,
