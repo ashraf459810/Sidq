@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'dart:developer';
 
 import 'package:sidq/core/network/network_info.dart';
 import 'package:sidq/core/remote_data_function/http_methods.dart';
@@ -16,6 +17,7 @@ class AddTicketRemoteDataImp implements AddTicketRemoteData{
 
   @override
   Future<void> addTicket(TicketRequestBody ticketRequestBody) async {
+    log(ticketRequestBodyToJson(ticketRequestBody));
    return await  networkFunctions.postMethod(body: ticketRequestBodyToJson(ticketRequestBody),
      url: '/Client/Ticket/Create', baseurl: networkInf.baseUrl);
   }

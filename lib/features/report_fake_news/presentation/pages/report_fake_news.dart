@@ -108,6 +108,18 @@ class _ReportFakeNewsState extends State<ReportFakeNews> {
                 padding: EdgeInsets.all(h(12.0)),
                 child: BlocConsumer<ReportFakeNewsBloc, ReportFakeNewsState>(
                   listener: (context, state) {
+                                  log('error state is here');
+                    if (state is Error){
+                               Fluttertoast.showToast(
+        msg: state.error,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.sp
+    );
+                    }
                     if (state is AddTicketState){
                       log('state is here');
                       Fluttertoast.showToast(
@@ -117,7 +129,7 @@ class _ReportFakeNewsState extends State<ReportFakeNews> {
         timeInSecForIosWeb: 1,
         backgroundColor: Colors.red,
         textColor: Colors.white,
-        fontSize: 16.0
+        fontSize: 16.sp
     );
                
                     }
