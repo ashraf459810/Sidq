@@ -3,7 +3,6 @@ import 'package:sidq/core/error/exceptions.dart';
 import 'package:sidq/core/error/failures.dart';
 import 'package:sidq/core/network/network_info.dart';
 import 'package:sidq/features/news_details/data/models/vote_response_model.dart';
-import 'package:sidq/features/report_fake_news/data/remote_data/add_ticket.dart';
 import 'package:sidq/features/news_details/data/datasources/add_vote.dart';
 import 'package:sidq/features/news_details/domain/repositories/add_vote_repository.dart';
 

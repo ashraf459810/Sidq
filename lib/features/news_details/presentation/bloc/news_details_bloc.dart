@@ -11,6 +11,7 @@ import 'package:sidq/features/news_details/domain/usecases/news_details_use_case
 
 
 
+
 part 'news_details_event.dart';
 part 'news_details_state.dart';
 
@@ -30,10 +31,11 @@ class NewsDetailsBloc extends Bloc<NewsDetailsEvent, NewsDetailsState> {
 
       }
      if (event is AddVoteEvent){
-      
+      emit(LoadingVote());
         var response = await addVoteUseCase.addVoteUseCase(event.newsId, event.vote);
         response.fold((l) => emit(Error(l.error!)), (r) { 
-       
+          log('here from bloc');
+       log(r.result!.trueVotesCounts.toString());
           emit(AddVoteState(r));});
         } 
 

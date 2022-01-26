@@ -19,7 +19,7 @@ class VoteResponseModel {
     });
 
     Result? result;
-    dynamic? targetUrl;
+    dynamic targetUrl;
     bool? success;
     dynamic error;
     bool? unAuthorizedRequest;

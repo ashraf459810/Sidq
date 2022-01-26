@@ -13,8 +13,11 @@ Widget text(
     TextAlign? textAlign}) {
   return Directionality(textDirection: TextDirection.rtl,
     child: Text(
+         
       
       text,
+       				overflow: TextOverflow.fade,
+      
       textAlign: textAlign ?? TextAlign.start,
   
       style: TextStyle(

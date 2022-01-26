@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:sidq/App/app.dart';
 import 'package:sidq/Widgets/container.dart';
@@ -68,6 +67,14 @@ class _NewsDetailsState extends State<NewsDetails> {
             sl<NewsDetailsBloc>()..add(GetNewsDetailsEvent(widget.news!.id!)),
         child: Scaffold(body: BlocBuilder<NewsDetailsBloc, NewsDetailsState>(
             builder: (context, state) {
+                   if (state  is AddVoteState){
+         log('here add vote state ');
+     log(state.voteResponseModel.result!.trueVotesCounts!.toString());
+                                
+       trueVotesNumber = state.voteResponseModel.result!.trueVotesCounts!;
+   falseVotesNumber = state.voteResponseModel.result!.falseVotesCounts!;
+                                    
+                                            }
           if (state is NewsDetailsInitial) {
             return loadingNewsDetils();
           }
@@ -101,10 +108,10 @@ class _NewsDetailsState extends State<NewsDetails> {
                   flexibleSpace: FlexibleSpaceBar(
                       centerTitle: true,
                       title: Text(newsDetailsModel.result!.title!),
-                      // background: Image.network(
-                      //   newsDetailsModel.result!.fileLink!,
-                      //   fit: BoxFit.fill,
-                      // )
+                      background: Image.network(
+                        newsDetailsModel.result!.fileLink!,
+                        fit: BoxFit.fill,
+                      )
                       ),
 
                   // titlePadding: EdgeInsets.symmetric(vertical: w(50)),
@@ -264,34 +271,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                                   //  SizedBox(height: h(30),),
 
                                   newsDetailsModel.result!.isVotable!
-                                      ? BlocConsumer<NewsDetailsBloc, NewsDetailsState>(
-                                          listener: (context, state) {
-                                                            if (state is AddVoteState){
-                                            
-
-                                              Fluttertoast.showToast(
-                                         msg: "شكرا لصوتك",
-                               toastLength: Toast.LENGTH_SHORT,
-                               gravity: ToastGravity.CENTER,
-                                 timeInSecForIosWeb: 1,
-                           backgroundColor: Colors.grey[600],
-                            textColor: Colors.white,
-                      fontSize: 16.0
-              );
-                                              
-                                            }
-                                          },
-                                          builder: (context, state) {
-                             
-                                            if (state  is AddVoteState){
-                                              log('here add vote state ');
-                                              log(state.voteResponseModel.result!.trueVotesCounts!.toString());
-                                
-                                          //  trueVotesNumber = state.voteResponseModel.result!.trueVotesCounts!;
-                                          //  falseVotesNumber = state.voteResponseModel.result!.falseVotesCounts!;
-                                    
-                                            }
-                                            return Row(
+                                      ? Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.spaceAround,
                                               children: [
@@ -379,8 +359,8 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                   ),
                                                 ),
                                               ],
-                                            );
-                                          },
+                                      
+                                          
                                         )
                                       : const SizedBox(
                                           height: 1,

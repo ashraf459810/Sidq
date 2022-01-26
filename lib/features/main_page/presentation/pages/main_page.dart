@@ -35,10 +35,10 @@ class MainPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 item('البحث \nالعكسي', () {
-                  nav(context, const ReverseImageSearch());
+                  navWithReplaceAll(context, const ReverseImageSearch());
                 }),
                 item('تصفح \nالتحقيقات', () {
-                  nav(context, const HomeBar());
+                  navWithReplaceAll(context, const HomeBar());
                 })
               ],
             ),
@@ -49,10 +49,10 @@ class MainPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 item('وعي', () {
-                  nav(context, const HomeBar());
+                  navWithReplaceAll(context, const HomeBar());
                 }),
                 item('فديو', () {
-                  nav(context, const HomeBar());
+                  navWithReplaceAll(context, const HomeBar());
                 })
               ],
             ),
@@ -63,7 +63,7 @@ class MainPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 item('ارسل  \nتحقيقا', () {
-                  nav(
+                  navWithReplaceAll(
                       context,
                       const ReportFakeNews(
                         title: 'ارسل تحقيقا',
@@ -71,7 +71,7 @@ class MainPage extends StatelessWidget {
                       ));
                 }),
                 item('ابلغ عن  \nخبر زائف', () {
-                  nav(
+                  navWithReplaceAll(
                       context,
                       const ReportFakeNews(
                         title: 'الابلاغ عن خبر زائف',

@@ -19,8 +19,11 @@ import 'package:sidq/features/home/data/models/news_model.dart';
 import 'package:sidq/features/home/data/models/search_params_model.dart';
 import 'package:sidq/features/home/presentation/bloc/home_page_bloc.dart';
 import 'package:sidq/features/home/presentation/widgets/loading_categories.dart';
+import 'package:sidq/features/main_page/presentation/pages/main_page.dart';
 
 import 'package:sidq/features/news_details/presentation/pages/news_details.dart';
+import 'package:sidq/features/report_fake_news/presentation/pages/report_fake_news.dart';
+import 'package:sidq/features/reverse_serach/presentation/pages/reverse_image_search.dart';
 
 import '../../../../injection_container.dart';
 
@@ -36,7 +39,7 @@ class _HomeBarState extends State<HomeBar> {
   List<News> list = [];
   String? serach;
   TextEditingController searchc = TextEditingController();
-  int currentIndex = 0;
+  int currentIndex = 2;
   int page = 0;
   int pageSize = 10;
   ScrollController scrollController = ScrollController();
@@ -81,7 +84,7 @@ class _HomeBarState extends State<HomeBar> {
                               size: 40,
                             ),
                             elevation: 0.1,
-                            onPressed: () {}),
+                            onPressed: () {     nav(context,const ReverseImageSearch());}),
                       ),
                       SizedBox(
                         width: size.width,
@@ -92,7 +95,7 @@ class _HomeBarState extends State<HomeBar> {
                             GestureDetector(
                               onTap: () {
                                 setBottomBarIndex(0);
-                                // nav(context, const HomeBar());
+                                nav(context, const ReportFakeNews(isReport: false,title: 'ارسل تحقيق',));
                               },
                               child: Container(
                                   height: h(50),
@@ -105,7 +108,7 @@ class _HomeBarState extends State<HomeBar> {
                                   child: Center(
                                       child: text(
                                           fontfamily: 'marai',
-                                          text: "وعي",
+                                          text: "تحقيق",
                                           color: currentIndex == 0
                                               ? AppColor.purple
                                               : Colors.grey,
@@ -115,6 +118,7 @@ class _HomeBarState extends State<HomeBar> {
                             GestureDetector(
                               onTap: () {
                                 setBottomBarIndex(1);
+                                      nav(context, const ReportFakeNews(isReport: true,title: 'ارسل ابلاغ',));
                               },
                               child: Container(
                                   height: h(50),
@@ -127,7 +131,7 @@ class _HomeBarState extends State<HomeBar> {
                                   child: Center(
                                       child: text(
                                           fontfamily: 'marai',
-                                          text: "فديو",
+                                          text: "ابلاغ",
                                           color: currentIndex == 1
                                               ? AppColor.purple
                                               : Colors.grey,
@@ -152,7 +156,7 @@ class _HomeBarState extends State<HomeBar> {
                                   child: Center(
                                       child: text(
                                           fontfamily: 'marai',
-                                          text: "تصفح التحقيقات",
+                                          text: "تصفح الاخبار",
                                           color: currentIndex == 2
                                               ? AppColor.purple
                                               : Colors.grey,
@@ -163,6 +167,7 @@ class _HomeBarState extends State<HomeBar> {
                             GestureDetector(
                               onTap: () {
                                 setBottomBarIndex(3);
+                                nav(context, const MainPage());
                               },
                               child: Container(
                                   height: h(50),
@@ -321,7 +326,7 @@ class _HomeBarState extends State<HomeBar> {
                                         Navigator.of(context).push( SecondPageRoute(list[index]));
                                       },
                                       child: newsSample(
-                                        '',
+                                          list[index].fileLink!,
                                           list[index].briefDescription!,
                                           list[index].title!),
                                     ));
@@ -358,7 +363,7 @@ class _HomeBarState extends State<HomeBar> {
             borderRadius: 10,
             child: Column(
               children: [
-                text(text: title, fontsize: 13.sp, fontWeight: FontWeight.bold),
+                Flexible(child: text(text: title, fontsize: 13.sp, fontWeight: FontWeight.bold)),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: text(text: desc, fontsize: 11.sp),
@@ -368,6 +373,7 @@ class _HomeBarState extends State<HomeBar> {
         ClipRRect(
           borderRadius: const BorderRadius.all(Radius.circular(10)),
 
+          // ignore: unnecessary_null_comparison
           child: image!=null? CachedNetworkImage(         height: h(120),
             width: w(120),
             fit: BoxFit.fitHeight,

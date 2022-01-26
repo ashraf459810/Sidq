@@ -1,3 +1,5 @@
+
+
 import 'dart:developer';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -211,9 +213,9 @@ class _MyAppState extends State<MyApp> {
       );
 
       String? token = await FirebaseMessaging.instance.getToken();
-      print(token);
+      log(token!);
       await SharedPreferences.getInstance()
-          .then((value) => value.setString(Con.fcmToken, token!));
+          .then((value) => value.setString(Con.fcmToken, token));
     }
   }
 
@@ -242,7 +244,7 @@ class _MyAppState extends State<MyApp> {
             payload: payload);
       }
 
-      print(message);
+      log(message.toString());
     });
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {});
   }

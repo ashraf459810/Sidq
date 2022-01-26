@@ -115,7 +115,7 @@ class _ReportFakeNewsState extends State<ReportFakeNews> {
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.grey[600],
         textColor: Colors.white,
         fontSize: 16.sp
     );
@@ -127,7 +127,7 @@ class _ReportFakeNewsState extends State<ReportFakeNews> {
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.grey[600],
         textColor: Colors.white,
         fontSize: 16.sp
     );
