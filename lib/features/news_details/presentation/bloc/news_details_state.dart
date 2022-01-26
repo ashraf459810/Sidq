@@ -24,3 +24,6 @@ class GetnewsDetailsState extends NewsDetailsState {
 
   const GetnewsDetailsState(this.newsDetailsModel);
 }
+
+
+class AddVoteState extends NewsDetailsState {}

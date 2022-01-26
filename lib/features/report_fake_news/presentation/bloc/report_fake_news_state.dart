@@ -23,3 +23,4 @@ class Error extends ReportFakeNewsState {
 class Loading extends ReportFakeNewsState{
 
 }
+

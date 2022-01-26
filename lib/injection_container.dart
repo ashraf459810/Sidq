@@ -18,9 +18,13 @@ import 'package:sidq/features/news_details/domain/repositories/news_details_repo
 import 'package:sidq/features/news_details/domain/usecases/news_details_use_case.dart';
 import 'package:sidq/features/news_details/presentation/bloc/news_details_bloc.dart';
 import 'package:sidq/features/report_fake_news/data/remote_data/add_ticket.dart';
+import 'package:sidq/features/news_details/data/datasources/add_vote.dart';
 import 'package:sidq/features/report_fake_news/data/repositroy/add_ticket_repository.dart';
+import 'package:sidq/features/news_details/data/repositories/add_vote_repositroy.dart';
 import 'package:sidq/features/report_fake_news/domain/repository/add_ticket_repository.dart';
+import 'package:sidq/features/news_details/domain/repositories/add_vote_repository.dart';
 import 'package:sidq/features/report_fake_news/domain/use_case/add_ticket_use_case.dart';
+import 'package:sidq/features/news_details/domain/usecases/add_vote_use_case.dart';
 import 'package:sidq/features/reverse_serach/data/datasources/upload_image_remote_data.dart';
 import 'package:sidq/features/reverse_serach/data/repositories/upload_image_repository_imp.dart';
 import 'package:sidq/features/reverse_serach/domain/repositories/upload_image_repository.dart';
@@ -46,6 +50,7 @@ Future<void> init() async {
     sl.registerFactory(
     () => ReportFakeNewsBloc(
       sl(),
+ 
     ),
   );
 
@@ -58,7 +63,7 @@ sl.registerFactory(
 
     sl.registerFactory(
     () => NewsDetailsBloc(
-      sl(),
+      sl(),sl()
     ),
   );
   sl.registerFactory(
@@ -68,6 +73,11 @@ sl.registerFactory(
   // Use cases
   sl.registerLazySingleton<UploadImageUseCase>(
     () => UploadImageUseCaseImp(
+      sl(),
+    ),
+  );
+   sl.registerLazySingleton<AddVoteUseCase>(
+    () => AddVoteUseCaseImp(
       sl(),
     ),
   );
@@ -96,6 +106,12 @@ sl.registerLazySingleton<NewsDetailsUseCase>(
 
   sl.registerLazySingleton<UploadImageRepostiry>(
     () => UploadImageRepositoryImp(
+      sl(),
+      sl(),
+    ),
+  );
+   sl.registerLazySingleton<AddVoteRepository>(
+    () => AddVoteRepositoryImp(
       sl(),
       sl(),
     ),
@@ -131,6 +147,11 @@ sl.registerLazySingleton<NewsDetailsUseCase>(
   sl.registerLazySingleton<UploadImageRemoteData>(
     () => UploadImageRemoteDataImp(sl(), sl()),
   );
+
+  sl.registerLazySingleton<AddVoteRemoteData>(
+    () => AddVoteRemoteDataImp(sl(), sl()),
+  );
+
 
    sl.registerLazySingleton<AddTicketRemoteData>(
     () => AddTicketRemoteDataImp(sl(), sl()),

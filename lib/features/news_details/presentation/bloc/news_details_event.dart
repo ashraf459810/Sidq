@@ -13,3 +13,10 @@ class GetNewsDetailsEvent extends NewsDetailsEvent {
 
  const GetNewsDetailsEvent(this.newsId);
 }
+
+class AddVoteEvent extends NewsDetailsEvent {
+  final String newsId;
+  final bool vote ;
+
+const  AddVoteEvent(this.newsId, this.vote);
+}

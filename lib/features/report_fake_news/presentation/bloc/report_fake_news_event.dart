@@ -12,3 +12,4 @@ class AddTicketEvent  extends ReportFakeNewsEvent {
 
  const AddTicketEvent(this.ticketRequestBody);
 }
+
