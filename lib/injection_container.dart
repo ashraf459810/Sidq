@@ -12,9 +12,13 @@ import 'package:sidq/features/home/domain/repositories/get_category_repositroy.d
 import 'package:sidq/features/home/domain/repositories/get_news_repository.dart';
 import 'package:sidq/features/home/domain/usecases/get_category_use_case.dart';
 import 'package:sidq/features/home/domain/usecases/get_news_use_case.dart';
+import 'package:sidq/features/news_details/data/datasources/add_comment.dart';
 import 'package:sidq/features/news_details/data/datasources/news_details_remote_data.dart';
+import 'package:sidq/features/news_details/data/repositories/add_comment_repository.dart';
 import 'package:sidq/features/news_details/data/repositories/news_details_repository_imp.dart';
+import 'package:sidq/features/news_details/domain/repositories/add_comment_repository.dart';
 import 'package:sidq/features/news_details/domain/repositories/news_details_repositroy.dart';
+import 'package:sidq/features/news_details/domain/usecases/add_comment_use_case.dart';
 import 'package:sidq/features/news_details/domain/usecases/news_details_use_case.dart';
 import 'package:sidq/features/news_details/presentation/bloc/news_details_bloc.dart';
 import 'package:sidq/features/report_fake_news/data/remote_data/add_ticket.dart';
@@ -63,7 +67,7 @@ sl.registerFactory(
 
     sl.registerFactory(
     () => NewsDetailsBloc(
-      sl(),sl()
+      sl(),sl(),sl()
     ),
   );
   sl.registerFactory(
@@ -76,6 +80,13 @@ sl.registerFactory(
       sl(),
     ),
   );
+
+  sl.registerLazySingleton<AddCommentUseCase>(
+    () => AddCommentUseCaseImp(
+      sl(),
+    ),
+  );
+  
    sl.registerLazySingleton<AddVoteUseCase>(
     () => AddVoteUseCaseImp(
       sl(),
@@ -106,6 +117,13 @@ sl.registerLazySingleton<NewsDetailsUseCase>(
 
   sl.registerLazySingleton<UploadImageRepostiry>(
     () => UploadImageRepositoryImp(
+      sl(),
+      sl(),
+    ),
+  );
+
+  sl.registerLazySingleton<AddCommentRepository>(
+    () => AddCommentRepositoryImp(
       sl(),
       sl(),
     ),
@@ -146,6 +164,10 @@ sl.registerLazySingleton<NewsDetailsUseCase>(
   // Data sources
   sl.registerLazySingleton<UploadImageRemoteData>(
     () => UploadImageRemoteDataImp(sl(), sl()),
+  );
+
+   sl.registerLazySingleton<AddCommentRemoteData>(
+    () => AddCommentRemoteDataImp(sl(), sl()),
   );
 
   sl.registerLazySingleton<AddVoteRemoteData>(

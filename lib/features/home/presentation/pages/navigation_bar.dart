@@ -321,7 +321,7 @@ class _HomeBarState extends State<HomeBar> {
                                         Navigator.of(context).push( SecondPageRoute(list[index]));
                                       },
                                       child: newsSample(
-                                          list[index].fileLink!,
+                                        '',
                                           list[index].briefDescription!,
                                           list[index].title!),
                                     ));
@@ -368,7 +368,7 @@ class _HomeBarState extends State<HomeBar> {
         ClipRRect(
           borderRadius: const BorderRadius.all(Radius.circular(10)),
 
-          child: CachedNetworkImage(         height: h(120),
+          child: image!=null? CachedNetworkImage(         height: h(120),
             width: w(120),
             fit: BoxFit.fitHeight,
         imageUrl: image,
@@ -383,7 +383,7 @@ class _HomeBarState extends State<HomeBar> {
           ),
 
         errorWidget: (context, url, error) => const Icon(Icons.error),
-     ),
+     ):const SizedBox(),
           
           
           

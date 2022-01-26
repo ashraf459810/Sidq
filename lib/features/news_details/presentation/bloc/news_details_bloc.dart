@@ -4,8 +4,12 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
 import 'package:sidq/features/news_details/data/models/news_details.dart';
+import 'package:sidq/features/news_details/data/models/vote_response_model.dart';
+import 'package:sidq/features/news_details/domain/usecases/add_comment_use_case.dart';
 import 'package:sidq/features/news_details/domain/usecases/add_vote_use_case.dart';
 import 'package:sidq/features/news_details/domain/usecases/news_details_use_case.dart';
+
+
 
 part 'news_details_event.dart';
 part 'news_details_state.dart';
@@ -13,7 +17,8 @@ part 'news_details_state.dart';
 class NewsDetailsBloc extends Bloc<NewsDetailsEvent, NewsDetailsState> {
   final AddVoteUseCase addVoteUseCase;
   final NewsDetailsUseCase newsDetailsUseCase;
-  NewsDetailsBloc(this.newsDetailsUseCase, this.addVoteUseCase) : super(NewsDetailsInitial()) {
+  final AddCommentUseCase addCommentUseCase;
+  NewsDetailsBloc(this.newsDetailsUseCase, this.addVoteUseCase, this.addCommentUseCase) : super(NewsDetailsInitial()) {
    
     on<NewsDetailsEvent>((event, emit) async {
       if (event is GetNewsDetailsEvent){
@@ -23,12 +28,25 @@ class NewsDetailsBloc extends Bloc<NewsDetailsEvent, NewsDetailsState> {
         response.fold((l) => emit(Error(l.error!)), (r) => emit(GetnewsDetailsState(r)));
         
 
-
       }
-          if (event is AddVoteEvent){
+     if (event is AddVoteEvent){
+      
         var response = await addVoteUseCase.addVoteUseCase(event.newsId, event.vote);
-        response.fold((l) => emit(Error(l.error!)), (r) => emit(AddVoteState()));
-      }
-    });
+        response.fold((l) => emit(Error(l.error!)), (r) { 
+       
+          emit(AddVoteState(r));});
+        } 
+
+        if (event is AddCommentEvent){
+          var response = await addCommentUseCase.addCommentUseCase(event.newsId, event.comment);
+
+          response.fold((l) => emit(Error(l.error!)), (r) => emit(AddCommentState(r)));
+        }
+
+        
+        
+           }
+    );
+  
   }
 }

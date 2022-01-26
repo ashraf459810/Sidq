@@ -26,4 +26,18 @@ class GetnewsDetailsState extends NewsDetailsState {
 }
 
 
-class AddVoteState extends NewsDetailsState {}
+class AddVoteState extends NewsDetailsState {
+ final VoteResponseModel voteResponseModel;
+
+const  AddVoteState(this.voteResponseModel);
+ 
+}
+
+class LoadingVote extends NewsDetailsState{}
+
+
+class AddCommentState extends NewsDetailsState {
+  final List<String>comments;
+
+ const AddCommentState(this.comments);
+}

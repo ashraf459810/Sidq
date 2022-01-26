@@ -20,3 +20,11 @@ class AddVoteEvent extends NewsDetailsEvent {
 
 const  AddVoteEvent(this.newsId, this.vote);
 }
+
+class AddCommentEvent extends NewsDetailsEvent{
+ final String newsId;
+ final String comment;
+
+ const AddCommentEvent(this.newsId, this.comment);
+  
+}
