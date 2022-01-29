@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 Widget customlistview(
+  
     {final double? hight,
     final double? width,
     final int? itemcount,
@@ -13,6 +14,7 @@ Widget customlistview(
     height: hight,
     width: width,
     child: ListView.builder(
+      
         physics: ScrollPhysics(
             parent: scroll!
                 ? const AlwaysScrollableScrollPhysics()

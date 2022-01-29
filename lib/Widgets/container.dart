@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 Widget container({
+  BoxConstraints ?boxConstraints,
   double? hight,
   double? width,
   double? borderRadius,
@@ -10,6 +11,7 @@ Widget container({
   bool? shadow,
 }) {
   return Container(
+    constraints: boxConstraints?? BoxConstraints() ,
     height: hight,
     width: width,
     child: Center(child: child),

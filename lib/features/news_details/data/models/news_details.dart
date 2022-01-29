@@ -69,7 +69,7 @@ class Result {
     List<String> ? falseLinks;
     int ?trueVotesCount;
     int ?falseVotesCount;
-    List<dynamic>? comments;
+    List<String>? comments;
     String ?title;
     String? briefDescription;
     bool ?isTrue;
@@ -87,7 +87,7 @@ class Result {
         falseLinks: List<String>.from(json["falseLinks"].map((x) => x)),
         trueVotesCount: json["trueVotesCount"],
         falseVotesCount: json["falseVotesCount"],
-        comments: List<dynamic>.from(json["comments"].map((x) => x)),
+        comments: List<String>.from(json["comments"].map((x) => x)),
         title: json["title"],
         briefDescription: json["briefDescription"],
         isTrue: json["isTrue"],

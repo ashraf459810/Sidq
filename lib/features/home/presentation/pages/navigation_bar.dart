@@ -235,11 +235,10 @@ class _HomeBarState extends State<HomeBar> {
                   if (state is GetNewsState) {
                     list = state.newsmodel.result!;
                   }
-                  if (state is NavigationBarBlocInitial) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
+                  
                   if (state is LoadingCategory) {
-                    return loadingCategoreis();
+                    log('here loading categories');
+                    return loadingcategories();
                   }
                   if (state is GetCategoriesState) {
                     categoryModel = state.categoryModel.result;
@@ -262,7 +261,8 @@ class _HomeBarState extends State<HomeBar> {
                         textColor: Colors.white,
                         fontSize: 16.0);
                   }
-                  return categoryModel.isNotEmpty
+                  return
+                   categoryModel.isNotEmpty
                       ? customlistview(
                           padding: 10,
                           scroll: true,

@@ -100,6 +100,7 @@ dependencies:
   http: ^0.13.2
   # either_dart: ^0.0.5
   carousel_slider : ^2.2.1
+  expandable_text: ^2.2.0
   fluttertoast: ^8.0.8
   # firebase_core: ^1.2.1
   # google_sign_in: ^4.5.3

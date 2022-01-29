@@ -33,11 +33,16 @@ import 'package:sidq/features/reverse_serach/data/datasources/upload_image_remot
 import 'package:sidq/features/reverse_serach/data/repositories/upload_image_repository_imp.dart';
 import 'package:sidq/features/reverse_serach/domain/repositories/upload_image_repository.dart';
 import 'package:sidq/features/reverse_serach/domain/usecases/upload_image_use_case.dart';
+import 'package:sidq/features/review_tickets/data/datasources/get_tickets_remote_data.dart';
+import 'package:sidq/features/review_tickets/data/repositories/tickts_repository_imp.dart';
+import 'package:sidq/features/review_tickets/domain/repositories/get_tickets_repository.dart';
+import 'package:sidq/features/review_tickets/domain/usecases/get_tickets_use_case.dart';
 
 import 'core/navigatuin_service/navigation.dart';
 import 'features/home/presentation/bloc/home_page_bloc.dart';
 import 'features/report_fake_news/presentation/bloc/report_fake_news_bloc.dart';
 import 'features/reverse_serach/presentation/bloc/reverse_serach_bloc.dart';
+import 'features/review_tickets/presentation/bloc/review_tickets_bloc.dart';
 
 final sl = GetIt.instance;
 
@@ -46,6 +51,12 @@ Future<void> init() async {
   // Bloc
   sl.registerFactory(
     () => ReverseSerachBloc(
+      sl(),
+    ),
+  );
+
+    sl.registerFactory(
+    () => ReviewTicketsBloc(
       sl(),
     ),
   );
@@ -77,6 +88,12 @@ sl.registerFactory(
   // Use cases
   sl.registerLazySingleton<UploadImageUseCase>(
     () => UploadImageUseCaseImp(
+      sl(),
+    ),
+  );
+
+    sl.registerLazySingleton<GetTicketsUseCase>(
+    () => GetTicketsUseCaseImp(
       sl(),
     ),
   );
@@ -117,6 +134,12 @@ sl.registerLazySingleton<NewsDetailsUseCase>(
 
   sl.registerLazySingleton<UploadImageRepostiry>(
     () => UploadImageRepositoryImp(
+      sl(),
+      sl(),
+    ),
+  );  
+  sl.registerLazySingleton<GetTicketsRepository>(
+    () => GetTicketsRepositroyImp(
       sl(),
       sl(),
     ),
@@ -164,6 +187,10 @@ sl.registerLazySingleton<NewsDetailsUseCase>(
   // Data sources
   sl.registerLazySingleton<UploadImageRemoteData>(
     () => UploadImageRemoteDataImp(sl(), sl()),
+  );
+
+  sl.registerLazySingleton<GetTicketsRemoteData>(
+    () => GetTicketsRemoteDataImp(sl(), sl()),
   );
 
    sl.registerLazySingleton<AddCommentRemoteData>(

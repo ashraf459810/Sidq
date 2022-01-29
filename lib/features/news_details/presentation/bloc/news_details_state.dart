@@ -41,3 +41,4 @@ class AddCommentState extends NewsDetailsState {
 
  const AddCommentState(this.comments);
 }
+class LoadingComment extends NewsDetailsState{}

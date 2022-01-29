@@ -9,6 +9,7 @@ import 'package:sidq/features/home/presentation/pages/navigation_bar.dart';
 
 import 'package:sidq/features/report_fake_news/presentation/pages/report_fake_news.dart';
 import 'package:sidq/features/reverse_serach/presentation/pages/reverse_image_search.dart';
+import 'package:sidq/features/review_tickets/presentation/pages/review_tickets.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -35,10 +36,10 @@ class MainPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 item('البحث \nالعكسي', () {
-                  navWithReplaceAll(context, const ReverseImageSearch());
+                  nav(context, const ReverseImageSearch());
                 }),
                 item('تصفح \nالتحقيقات', () {
-                  navWithReplaceAll(context, const HomeBar());
+                  nav(context,  ReviewTickets());
                 })
               ],
             ),
@@ -49,10 +50,10 @@ class MainPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 item('وعي', () {
-                  navWithReplaceAll(context, const HomeBar());
+                  nav(context, const HomeBar());
                 }),
                 item('فديو', () {
-                  navWithReplaceAll(context, const HomeBar());
+                  nav(context, const HomeBar());
                 })
               ],
             ),
@@ -63,7 +64,7 @@ class MainPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 item('ارسل  \nتحقيقا', () {
-                  navWithReplaceAll(
+                  nav(
                       context,
                       const ReportFakeNews(
                         title: 'ارسل تحقيقا',
@@ -71,7 +72,7 @@ class MainPage extends StatelessWidget {
                       ));
                 }),
                 item('ابلغ عن  \nخبر زائف', () {
-                  navWithReplaceAll(
+                  nav(
                       context,
                       const ReportFakeNews(
                         title: 'الابلاغ عن خبر زائف',

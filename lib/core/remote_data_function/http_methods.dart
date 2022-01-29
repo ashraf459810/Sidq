@@ -59,12 +59,12 @@ class NetworkFunctionsImp implements NetworkFunctions {
             final shared = await SharedPreferences.getInstance();
          String? token=   shared.getString(Con.token);
           String? fcmToken=  shared.getString(Con.fcmToken);
-          // log(token!);
-          // log(fcmToken!);
+          log(token!);
+          log(fcmToken!);
     final response = await client.post(Uri.parse(baseurl + url),
         headers: {
-          'DeviceToken' : token!,
-          'FCMToken' : fcmToken!,
+          'DeviceToken' : token,
+          'FCMToken' : fcmToken,
             'Accept-Language':'ar-sy',
           'Content-Type': 'application/json',
         },

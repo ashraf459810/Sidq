@@ -57,9 +57,10 @@ class _NewsDetailsState extends State<NewsDetails> {
   String? comment;
   ScrollController scrollController = ScrollController();
   ScrollController scrollController2 = ScrollController();
-  int trueVotesNumber =0;
+  int trueVotesNumber = 0;
   int falseVotesNumber = 0;
   var newsDetailsModel = NewsDetailsModel();
+  List<String> comments = [];
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -67,14 +68,14 @@ class _NewsDetailsState extends State<NewsDetails> {
             sl<NewsDetailsBloc>()..add(GetNewsDetailsEvent(widget.news!.id!)),
         child: Scaffold(body: BlocBuilder<NewsDetailsBloc, NewsDetailsState>(
             builder: (context, state) {
-                   if (state  is AddVoteState){
-         log('here add vote state ');
-     log(state.voteResponseModel.result!.trueVotesCounts!.toString());
-                                
-       trueVotesNumber = state.voteResponseModel.result!.trueVotesCounts!;
-   falseVotesNumber = state.voteResponseModel.result!.falseVotesCounts!;
-                                    
-                                            }
+          if (state is AddVoteState) {
+            log('here add vote state ');
+            log(state.voteResponseModel.result!.trueVotesCounts!.toString());
+
+            trueVotesNumber = state.voteResponseModel.result!.trueVotesCounts!;
+            falseVotesNumber =
+                state.voteResponseModel.result!.falseVotesCounts!;
+          }
           if (state is NewsDetailsInitial) {
             return loadingNewsDetils();
           }
@@ -84,7 +85,8 @@ class _NewsDetailsState extends State<NewsDetails> {
           if (state is GetnewsDetailsState) {
             newsDetailsModel = state.newsDetailsModel;
             trueVotesNumber = state.newsDetailsModel.result!.trueVotesCount!;
-            falseVotesNumber =state.newsDetailsModel.result!.falseVotesCount!;
+            falseVotesNumber = state.newsDetailsModel.result!.falseVotesCount!;
+            comments = state.newsDetailsModel.result!.comments!;
           }
           if (state is Error) {
             return text(text: state.error);
@@ -92,6 +94,11 @@ class _NewsDetailsState extends State<NewsDetails> {
           if (state is GetnewsDetailsState) {
             log('here from tate ');
             newsDetailsModel = state.newsDetailsModel;
+          }
+          if (state is AddCommentState) {
+            log('here from comments state ');
+
+            comments = state.comments;
           }
           return SafeArea(
             top: true,
@@ -107,12 +114,11 @@ class _NewsDetailsState extends State<NewsDetails> {
                   expandedHeight: h(300),
                   flexibleSpace: FlexibleSpaceBar(
                       centerTitle: true,
-                      title: Text(newsDetailsModel.result!.title!),
+                      // title: Text(newsDetailsModel.result!.title!),
                       background: Image.network(
                         newsDetailsModel.result!.fileLink!,
                         fit: BoxFit.fill,
-                      )
-                      ),
+                      )),
 
                   // titlePadding: EdgeInsets.symmetric(vertical: w(50)),
                 ),
@@ -272,142 +278,178 @@ class _NewsDetailsState extends State<NewsDetails> {
 
                                   newsDetailsModel.result!.isVotable!
                                       ? Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceAround,
-                                              children: [
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      voteTrue = true;
-                                                      voteFalse = false;
-                                                    });
-                                                    context
-                                                        .read<NewsDetailsBloc>()
-                                                        .add(AddVoteEvent(
-                                                            newsDetailsModel
-                                                                .result!.id!,
-                                                            true));
-                                                  },
-                                                  child: container(
-                                                    borderRadius: 5,
-                                                    width: w(150),
-                                                    color: voteTrue
-                                                        ? Colors.green[900]
-                                                        : AppColor.purple,
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceEvenly,
-                                                      children: [
-                                                        Icon(
-                                                          Icons.check,
-                                                          color: Colors.white,
-                                                          size: 35.sp,
-                                                        ),
-                                                        text(
-                                                            text: 'خبر صحيح',
-                                                            color:
-                                                                Colors.white),
-                                                        // SizedBox(width: w(10),),
-                                                        text(
-                                                            text:trueVotesNumber.toString(),
-                                                            color:
-                                                                Colors.white),
-                                                      ],
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  voteTrue = true;
+                                                  voteFalse = false;
+                                                });
+                                                context
+                                                    .read<NewsDetailsBloc>()
+                                                    .add(AddVoteEvent(
+                                                        newsDetailsModel
+                                                            .result!.id!,
+                                                        true));
+                                              },
+                                              child: container(
+                                                borderRadius: 5,
+                                                width: w(150),
+                                                color: voteTrue
+                                                    ? Colors.green[900]
+                                                    : AppColor.purple,
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceEvenly,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.check,
+                                                      color: Colors.white,
+                                                      size: 35.sp,
                                                     ),
-                                                  ),
+                                                    text(
+                                                        text: 'خبر صحيح',
+                                                        color: Colors.white),
+                                                    // SizedBox(width: w(10),),
+                                                    text(
+                                                        text: trueVotesNumber
+                                                            .toString(),
+                                                        color: Colors.white),
+                                                  ],
                                                 ),
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    voteTrue = false;
-                                                    voteFalse = true;
-                                                    setState(() {});
-                                                    context
-                                                        .read<NewsDetailsBloc>()
-                                                        .add(AddVoteEvent(
-                                                            newsDetailsModel
-                                                                .result!.id!,
-                                                            false));
-                                                  },
-                                                  child: container(
-                                                    borderRadius: 5,
-                                                    width: w(150),
-                                                    color: voteFalse
-                                                        ? Colors.green[900]
-                                                        : AppColor.purple,
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceEvenly,
-                                                      children: [
-                                                        Icon(
-                                                          Icons.clear,
-                                                          color: Colors.white,
-                                                          size: 35.sp,
-                                                        ),
-                                                        text(
-                                                            text: 'خبر خاطئ',
-                                                            color:
-                                                                Colors.white),
-                                                        // SizedBox(width: w(10),),
-                                                        text(
-                                                            text: falseVotesNumber.toString(),
-                                                            color:
-                                                                Colors.white),
-                                                      ],
+                                              ),
+                                            ),
+                                            GestureDetector(
+                                              onTap: () {
+                                                voteTrue = false;
+                                                voteFalse = true;
+                                                setState(() {});
+                                                context
+                                                    .read<NewsDetailsBloc>()
+                                                    .add(AddVoteEvent(
+                                                        newsDetailsModel
+                                                            .result!.id!,
+                                                        false));
+                                              },
+                                              child: container(
+                                                borderRadius: 5,
+                                                width: w(150),
+                                                color: voteFalse
+                                                    ? Colors.green[900]
+                                                    : AppColor.purple,
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceEvenly,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.clear,
+                                                      color: Colors.white,
+                                                      size: 35.sp,
                                                     ),
-                                                  ),
+                                                    text(
+                                                        text: 'خبر خاطئ',
+                                                        color: Colors.white),
+                                                    // SizedBox(width: w(10),),
+                                                    text(
+                                                        text: falseVotesNumber
+                                                            .toString(),
+                                                        color: Colors.white),
+                                                  ],
                                                 ),
-                                              ],
-                                      
-                                          
+                                              ),
+                                            ),
+                                          ],
                                         )
                                       : const SizedBox(
                                           height: 1,
                                         ),
-                                  newsDetailsModel.result!.comments!.isNotEmpty
+
+                                  SizedBox(
+                                    height: h(30),
+                                  ),
+                                  text(text: 'اكتب تعليقا', fontsize: 20.sp),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      GestureDetector(onTap: () {
+                                        context.read<NewsDetailsBloc>().add(
+                                            AddCommentEvent(
+                                                widget.news!.id.toString(),
+                                                comment.toString()));
+                                      }, child: BlocBuilder<NewsDetailsBloc,
+                                          NewsDetailsState>(
+                                        builder: (context, state) {
+                                          if (state is LoadingComment){
+                                            return const Center(child: CircularProgressIndicator());
+                                          }
+                                          return container(
+                                              hight: h(50),
+                                              width: w(80),
+                                              borderRadius: 10,
+                                              color: Colors.green[900],
+                                              child: text(
+                                                  text: 'ارسال',
+                                                  color: Colors.white));
+                                        },
+                                      )),
+                                      container(
+                                        color: Colors.grey[200],
+                                        hight: h(100),
+                                        width: w(240),
+                                        borderRadius: 10,
+                                        child: textform(
+                                            padding: EdgeInsets.only(
+                                                bottom: h(40), right: w(5)),
+                                            hint: '',
+                                            hintsize: w(20),
+                                            controller: commentc,
+                                            function: (val) {
+                                              comment = val;
+                                            },
+                                            keyboard: 'name',
+                                            validation: (val) {
+                                              return val!;
+                                            }),
+                                      ),
+                                    ],
+                                  ),
+                                  comments.isNotEmpty
                                       ? customlistview(
+
+                                          scroll: false,
                                           direction: 'vertical',
                                           padding: 10,
-                                          hight: newsDetailsModel
-                                                  .result!.comments!.length *
-                                              h(100),
+                                          hight: comments.length * h(150),
                                           controller: ScrollController(),
                                           itemcount: newsDetailsModel
                                               .result!.comments!.length,
                                           function: (context, index) {
-                                            return Column(children: [
-                                              text(
-                                                  text: newsDetailsModel
-                                                      .result!.comments![index])
-                                            ]);
+                                            return Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: Column(
+                                                children: [
+                                                  Container(
+                                                    alignment: Alignment.topRight,
+                                                    decoration:
+                                                     BoxDecoration(shape: BoxShape.rectangle, color: Colors.grey[200],borderRadius:BorderRadius.all(Radius.circular(10)) ),
+                                                    // constraints: BoxConstraints(minHeight: h(50),maxWidth: w(250),maxHeight: h(120),minWidth:w(250) ),
+                                                   
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.all(8.0),
+                                                      child: text(text: comments[index],color: Colors.black),
+                                                    )),
+                                                ],
+                                              ),
+                                            );
                                           })
                                       : const SizedBox(),
-                                  SizedBox(
-                                    height: h(30),
-                                  ),
-                                  text(text: 'اكتب تعليقا', fontsize: 30),
                                 ],
                               ),
-                              container(
-                                color: Colors.grey[200],
-                                hight: h(100),
-                                width: w(330),
-                                borderRadius: 10,
-                                child: textform(
-                                    padding: EdgeInsets.only(
-                                        bottom: h(40), right: w(5)),
-                                    hint: '',
-                                    hintsize: w(20),
-                                    controller: commentc,
-                                    function: (val) {
-                                      comment = val;
-                                    },
-                                    keyboard: 'name',
-                                    validation: (val) {
-                                      return val!;
-                                    }),
-                              )
                             ],
                           ),
                         )
