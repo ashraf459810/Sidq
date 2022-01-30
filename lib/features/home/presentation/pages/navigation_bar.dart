@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:new_version/new_version.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sidq/App/app.dart';
 import 'package:sidq/Widgets/container.dart';
@@ -14,6 +15,7 @@ import 'package:sidq/Widgets/nav.dart';
 import 'package:sidq/Widgets/text.dart';
 import 'package:sidq/Widgets/text_form.dart';
 import 'package:sidq/core/consts.dart';
+import 'package:sidq/core/navigatuin_service/navigation.dart';
 import 'package:sidq/features/home/data/models/category_model.dart';
 import 'package:sidq/features/home/data/models/news_model.dart';
 import 'package:sidq/features/home/data/models/search_params_model.dart';
@@ -23,18 +25,23 @@ import 'package:sidq/features/main_page/presentation/pages/main_page.dart';
 
 import 'package:sidq/features/news_details/presentation/pages/news_details.dart';
 import 'package:sidq/features/report_fake_news/presentation/pages/report_fake_news.dart';
+
+
 import 'package:sidq/features/reverse_serach/presentation/pages/reverse_image_search.dart';
 
 import '../../../../injection_container.dart';
 
 class HomeBar extends StatefulWidget {
-  const HomeBar({Key? key}) : super(key: key);
+  const HomeBar({GlobalKey? key}) : super(key: key);
 
   @override
   _HomeBarState createState() => _HomeBarState();
 }
 
-class _HomeBarState extends State<HomeBar> {
+class _HomeBarState extends State<HomeBar> with RouteAware {
+   final GlobalKey _fabKey = GlobalKey();
+  bool fabVisible = true;
+
   List<Result> categoryModel = [];
   List<News> list = [];
   String? serach;
@@ -45,11 +52,45 @@ class _HomeBarState extends State<HomeBar> {
   ScrollController scrollController = ScrollController();
 
   setBottomBarIndex(index) {
+
     setState(() {
       currentIndex = index;
+      
     });
   }
+  @override
+  didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context) as PageRoute);
+  }
 
+ @override
+  void initState() {
+    super.initState();
+
+    // Instantiate NewVersion manager object (Using GCP Console app as example)
+    final newVersion = NewVersion(
+      iOSId: 'com.example.sidq',
+      androidId: 'com.example.sidq',
+    );
+
+    // You can let the plugin handle fetching the status and showing a dialog,
+    // or you can fetch the status and display your own dialog, or no dialog.
+    const simpleBehavior = true;
+
+    if (simpleBehavior) {
+      basicStatusCheck(newVersion);
+    }
+     
+  
+  }
+
+  basicStatusCheck(NewVersion newVersion) {
+    newVersion.showAlertIfNecessary(context: context);
+  }
+
+
+  
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -74,18 +115,7 @@ class _HomeBarState extends State<HomeBar> {
                         size: Size(size.width, 80),
                         painter: BNBCustomPainter(),
                       ),
-                      Center(
-                        heightFactor: 0.6,
-                        child: FloatingActionButton(
-                            backgroundColor: Colors.white,
-                            child: const Icon(
-                              Icons.search,
-                              color: Colors.black,
-                              size: 40,
-                            ),
-                            elevation: 0.1,
-                            onPressed: () {     nav(context,const ReverseImageSearch());}),
-                      ),
+            buildFAB(context,_fabKey),
                       SizedBox(
                         width: size.width,
                         height: h(80),
@@ -398,7 +428,100 @@ class _HomeBarState extends State<HomeBar> {
       ],
     );
   }
+    onFabTap(BuildContext context) {
+    
+    // Hide the FAB on transition start
+    setState(() => fabVisible = false);
+
+    final RenderBox fabRenderBox = sl<NavigationService>().navigatorKey.currentContext
+                                             !.findRenderObject() as RenderBox;  
+    final fabSize = fabRenderBox.size;
+    final fabOffset = fabRenderBox.localToGlobal(Offset.zero);
+
+    Navigator.of(context).push(PageRouteBuilder(
+      transitionDuration: duration,
+      pageBuilder: (BuildContext context, Animation<double> animation,
+              Animation<double> secondaryAnimation) =>
+const ReverseImageSearch(),
+      transitionsBuilder: (BuildContext context, Animation<double> animation,
+              Animation<double> secondaryAnimation, Widget child) =>
+          buildTransition(child, animation, fabSize, fabOffset),
+    ));
+  }
+
+   buildTransition(
+    Widget page,
+    Animation<double> animation,
+    Size fabSize,
+    Offset fabOffset,
+  ) {
+    if (animation.value == 1) return page;
+
+    final borderTween = BorderRadiusTween(
+      begin: BorderRadius.circular(fabSize.width / 2),
+      end: BorderRadius.circular(0.0),
+    );
+    final sizeTween = SizeTween(
+      begin: fabSize,
+      end: MediaQuery.of(context).size,
+    );
+    final offsetTween = Tween<Offset>(
+      begin: fabOffset,
+      end: Offset.zero,
+    );
+
+    final easeInAnimation = CurvedAnimation(
+      parent: animation,
+      curve: Curves.easeIn,
+    );
+    final easeAnimation = CurvedAnimation(
+      parent: animation,
+      curve: Curves.easeOut,
+    );
+
+    final radius = borderTween.evaluate(easeInAnimation);
+    final offset = offsetTween.evaluate(animation);
+    final size = sizeTween.evaluate(easeInAnimation);
+
+    final transitionFab = Opacity(
+      opacity: 1 - easeAnimation.value,
+      child: buildFAB(context,_fabKey),
+    );
+
+    Widget positionedClippedChild(Widget child) => Positioned(
+        width: size?.width,
+        height: size?.height,
+        left: offset.dx,
+        top: offset.dy,
+        child: ClipRRect(
+          borderRadius: radius,
+          child: child,
+          
+        ));
+
+    return Stack(
+      children: [
+        positionedClippedChild(page),
+        positionedClippedChild(transitionFab),
+      ],
+    );
+        
 }
+
+  buildFAB( context, GlobalKey fabKey) {
+        return  Center(
+                        heightFactor: 0.6,
+                        child: FloatingActionButton(
+                            backgroundColor: Colors.white,
+                            child: const Icon(
+                              Icons.search,
+                              color: Colors.black,
+                              size: 40,
+                            ),
+                            elevation: 0.1,
+                            onPressed: () {  onFabTap(context);}),
+                      );
+  }}
 
 class BNBCustomPainter extends CustomPainter {
   @override
@@ -427,3 +550,4 @@ class BNBCustomPainter extends CustomPainter {
     return false;
   }
 }
+

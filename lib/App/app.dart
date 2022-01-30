@@ -21,6 +21,9 @@ import 'package:sidq/features/main_page/presentation/pages/main_page.dart';
 import '../injection_container.dart';
 import 'app_localizations.dart';
 
+final routeObserver = RouteObserver<PageRoute>();
+const duration =  Duration(milliseconds: 400);
+
 /// Streams are created so that app can respond to notification-related events
 /// since the plugin is initialised in the `main` function
 final BehaviorSubject<ReceivedNotification> didReceiveLocalNotificationSubject =
@@ -81,6 +84,7 @@ class _MyAppState extends State<MyApp> {
     return ScreenUtilInit(
         designSize: const Size(375, 812),
         builder: () => MaterialApp(
+           navigatorObservers: [routeObserver],
               navigatorKey: sl<NavigationService>().navigatorKey,
               supportedLocales: const [
                 Locale('en', 'US'),
