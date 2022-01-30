@@ -377,11 +377,12 @@ class _NewsDetailsState extends State<NewsDetails> {
                                         MainAxisAlignment.spaceEvenly,
                                     children: [
                                       GestureDetector(onTap: () {
+                                        if (comment!=null){
                                         context.read<NewsDetailsBloc>().add(
                                             AddCommentEvent(
                                                 widget.news!.id.toString(),
                                                 comment.toString()));
-                                      }, child: BlocBuilder<NewsDetailsBloc,
+                                          }    }, child: BlocBuilder<NewsDetailsBloc,
                                           NewsDetailsState>(
                                         builder: (context, state) {
                                           if (state is LoadingComment){
@@ -397,6 +398,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                   color: Colors.white));
                                         },
                                       )),
+
                                       container(
                                         color: Colors.grey[200],
                                         hight: h(100),
@@ -416,6 +418,11 @@ class _NewsDetailsState extends State<NewsDetails> {
                                               return val!;
                                             }),
                                       ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      // container(hight: ),
                                     ],
                                   ),
                                   comments.isNotEmpty

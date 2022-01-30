@@ -198,7 +198,7 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
                             GestureDetector(
                               onTap: () {
                                 setBottomBarIndex(3);
-                                nav(context, const MainPage());
+                                navWithReplaceAll(context, const MainPage());
                               },
                               child: Container(
                                   height: h(50),
@@ -385,7 +385,7 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
                                   builder: (context, state) {
                                     if (state is LoadingNews){
                                       log('here from loading');
-                                                    return   Center(child: CircularProgressIndicator(backgroundColor: Colors.grey,color: Colors.grey[50],));
+                                                    return Center(child: CircularProgressIndicator(backgroundColor: Colors.grey,color: Colors.grey[50],));
                                     }
                                     return  SizedBox(height: h(100),);
                                   },

@@ -3,7 +3,7 @@ import 'package:shimmer/shimmer.dart';
 import 'package:sidq/App/app.dart';
 
 Widget loadingNews() {
-  return SizedBox(height: h(400),
+  return SizedBox(height: h(300),
     child: Column(
       children: [
            SizedBox(height: h(100),),
