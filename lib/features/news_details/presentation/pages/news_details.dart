@@ -385,7 +385,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                                           NewsDetailsState>(
                                         builder: (context, state) {
                                           if (state is LoadingComment){
-                                            return const Center(child: CircularProgressIndicator());
+                                            return  Center(child: CircularProgressIndicator(backgroundColor: Colors.grey,color: Colors.grey[50],));
                                           }
                                           return container(
                                               hight: h(50),

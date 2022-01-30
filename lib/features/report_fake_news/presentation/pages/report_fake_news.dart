@@ -136,7 +136,7 @@ class _ReportFakeNewsState extends State<ReportFakeNews> {
                   },
                   builder: (context, state) {
                     if (state is Loading){
-                      return const Center(child: CircularProgressIndicator());
+                      return   Center(child: CircularProgressIndicator(backgroundColor: Colors.grey,color: Colors.grey[50],));
                     }
                     return GestureDetector(onTap: (){
                       log(name!);

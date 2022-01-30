@@ -43,6 +43,7 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
   bool fabVisible = true;
 
   List<Result> categoryModel = [];
+  String? categoryId;
   List<News> list = [];
   String? serach;
   TextEditingController searchc = TextEditingController();
@@ -273,13 +274,14 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
                   if (state is GetCategoriesState) {
                     categoryModel = state.categoryModel.result;
                     SearchParamsModel searchParamsModel = SearchParamsModel(
+                      
                         searchQuery: '',
                         orderDescending: true,
                         pageNumber: page,
                         pageLength: pageSize);
                     context
                         .read<NavigationBarBloc>()
-                        .add(GetNewsEvent(searchParamsModel));
+                        .add(GetNewsEvent(searchParamsModel,false));
                   }
                   if (state is Error) {
                     Fluttertoast.showToast(
@@ -298,17 +300,33 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
                           scroll: true,
                           // controller: scrollController,
                           itemcount: categoryModel.length,
-                          function: (context, index) {
-                            return Padding(
-                              padding: EdgeInsets.symmetric(horizontal: w(7)),
-                              child: container(
-                                  width: w(80),
-                                  hight: h(60),
-                                  color: Colors.white,
-                                  borderRadius: 20,
-                                  child: text(
-                                      text: categoryModel[index].name ?? '',
-                                      fontfamily: 'marai')),
+                          function: (BuildContext context, index) {
+                            return GestureDetector(onTap: (){
+                              page = 0;
+                              categoryId = categoryModel[index].id;
+                                           SearchParamsModel searchParamsModel =
+                                SearchParamsModel(
+                                  categoryId: categoryId,
+                                    searchQuery: '',
+                                    orderDescending: true,
+                                    pageNumber: page,
+                                    pageLength: pageSize);
+                            context.read<NavigationBarBloc>()
+                                .add(GetNewsEvent(searchParamsModel,true));
+                          
+
+                            },
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: w(7)),
+                                child: container(
+                                    width: w(80),
+                                    hight: h(60),
+                                    color: Colors.white,
+                                    borderRadius: 20,
+                                    child: text(
+                                        text: categoryModel[index].name ?? '',
+                                        fontfamily: 'marai')),
+                              ),
                             );
                           })
                       : const SizedBox();
@@ -327,15 +345,17 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
                           if (notification is ScrollEndNotification &&
                               scrollController.position.extentAfter == 0) {
                             page++;
+                            
                             SearchParamsModel searchParamsModel =
                                 SearchParamsModel(
+                                  categoryId: categoryId,
                                     searchQuery: '',
                                     orderDescending: true,
                                     pageNumber: page,
                                     pageLength: pageSize);
                             context
                                 .read<NavigationBarBloc>()
-                                .add(GetNewsEvent(searchParamsModel));
+                                .add(GetNewsEvent(searchParamsModel,false));
                           }
 
                           return false;
@@ -365,7 +385,7 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
                                   builder: (context, state) {
                                     if (state is LoadingNews){
                                       log('here from loading');
-                                                    return  Center(child: CircularProgressIndicator(backgroundColor: AppColor.purple,));
+                                                    return   Center(child: CircularProgressIndicator(backgroundColor: Colors.grey,color: Colors.grey[50],));
                                     }
                                     return  SizedBox(height: h(100),);
                                   },
@@ -435,8 +455,8 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
 
     final RenderBox fabRenderBox = sl<NavigationService>().navigatorKey.currentContext
                                              !.findRenderObject() as RenderBox;  
-    final fabSize = fabRenderBox.size;
-    final fabOffset = fabRenderBox.localToGlobal(Offset.zero);
+    final fabSize = fabRenderBox.size /4;
+    final fabOffset = fabRenderBox.localToGlobal(Offset(w(120), h(400)));
 
     Navigator.of(context).push(PageRouteBuilder(
       transitionDuration: duration,

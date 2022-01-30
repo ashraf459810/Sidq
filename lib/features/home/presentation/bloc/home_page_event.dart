@@ -16,6 +16,7 @@ class GetCategoriesEvent extends NavigationBarBlocEvent {
 
 class GetNewsEvent extends NavigationBarBlocEvent {
   final SearchParamsModel searchParamsModel;
+  final bool resetList;
 
-  const GetNewsEvent(this.searchParamsModel);
+  const GetNewsEvent(this.searchParamsModel, this.resetList);
 }

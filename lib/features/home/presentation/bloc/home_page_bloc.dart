@@ -14,8 +14,11 @@ part 'home_page_event.dart';
 part 'home_page_state.dart';
 
 class NavigationBarBloc
-    extends HydratedBloc<NavigationBarBlocEvent, NavigationBarBlocState> {
+    extends Bloc<NavigationBarBlocEvent, NavigationBarBlocState> {
+ 
   List<News> news = [];
+  bool firstTime = true;
+    String? categoryId;
   final GetNewsUseCase getNewsUseCase;
   final GetCategroyUseCase getCategroyUseCase;
   NavigationBarBloc(this.getNewsUseCase, this.getCategroyUseCase)
@@ -30,7 +33,21 @@ class NavigationBarBloc
             (r) => emit(GetCategoriesState(r)));
       }
       if (event is GetNewsEvent) {
+        
+        if (firstTime&& event.searchParamsModel.categoryId!=null){
+        categoryId = event.searchParamsModel.categoryId;
+        firstTime = false;
+          news =[];
+        }
         emit(LoadingNews());
+        
+       if  ( !firstTime &&event.searchParamsModel.categoryId !=null && categoryId != event.searchParamsModel.categoryId!){
+         categoryId = event.searchParamsModel.categoryId;
+         news =[];
+       }
+   
+      
+
         final response =
             await getNewsUseCase.getMixedNewsUseCase(event.searchParamsModel);
         response.fold((l) => emit(Error(l.error!)), (r) {
@@ -39,11 +56,17 @@ class NavigationBarBloc
             NewsModel newsModel = NewsModel(result: news);
               emit(GetNewsState(newsModel));
             
-          } else {
+          } else if (!event.resetList){
             news.addAll(r.result!);
                 NewsModel newsModel = NewsModel(result: news);
               emit(GetNewsState(newsModel));
        
+          }
+          else {
+              news = r.result!;
+            NewsModel newsModel = NewsModel(result: news);
+              emit(GetNewsState(newsModel));
+
           }
              
         });
@@ -51,28 +74,7 @@ class NavigationBarBloc
     });
   }
 
-  @override
-  NavigationBarBlocState? fromJson(Map<String, dynamic> json) {
-   try {
-      final news = NewsModel.fromJson(json);
-      return GetNewsState(news);
-    } catch (_) {
-      return null;
-    }
-  }
 
-  @override
-  Map<String, dynamic>? toJson(NavigationBarBlocState state) {
-   if (state is GetNewsState){
-
-    
-    var result =     state.newsmodel.toJson();
-   
-    return result;
-   }
-   
-   else {return null;}
-  }
 
 
 
