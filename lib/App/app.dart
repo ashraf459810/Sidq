@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:new_version/new_version.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sidq/App/bloc/app_bloc.dart';
@@ -73,8 +74,31 @@ class MyApp extends StatefulWidget {
 
 @override
 void initState() {
+      final newVersion = NewVersion(
+      iOSId: 'com.example.sidq',
+      androidId: 'com.example.sidq',
+    );
+
+    // You can let the plugin handle fetching the status and showing a dialog,
+    // or you can fetch the status and display your own dialog, or no dialog.
+    const simpleBehavior = true;
+
+    if (simpleBehavior) {
+    try{
+   
+        basicStatusCheck(newVersion);
+    }
+    catch (e){
+      log(e.toString());
+    }
+    }
 
 
+}
+
+void basicStatusCheck(NewVersion newVersion) {
+  
+    newVersion.showAlertIfNecessary(context: sl<NavigationService>().navigatorKey.currentState!.context);
 }
 
 class _MyAppState extends State<MyApp> {
@@ -252,6 +276,7 @@ class _MyAppState extends State<MyApp> {
     });
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {});
   }
+ 
 }
 
 double h(double h) {
@@ -261,3 +286,5 @@ double h(double h) {
 double w(double w) {
   return ScreenUtil().setWidth(w);
 }
+
+

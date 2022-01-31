@@ -105,7 +105,7 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
           child: Stack(
             children: [
               Positioned(
-                bottom: 0,
+                bottom: -6,
                 left: 0,
                 child: SizedBox(
                   width: size.width,

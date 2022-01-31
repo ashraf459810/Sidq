@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:path_provider/path_provider.dart';
+
 import 'package:sidq/App/app.dart';
 
 import 'injection_container.dart' as di;
@@ -11,11 +10,8 @@ Future<void> main() async {
     await Firebase.initializeApp();
 
   await di.init();
-  final storage = await HydratedStorage.build(
-    storageDirectory: await getTemporaryDirectory(),
-  );
-  HydratedBlocOverrides.runZoned(
-    () => runApp(const MyApp()),
-    storage: storage,
-  );
+
+     runApp(const MyApp());
+    
+  
 }

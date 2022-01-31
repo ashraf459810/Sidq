@@ -19,6 +19,7 @@ class ReverseSearchResult extends StatefulWidget {
 }
 
 class _ReverseSearchResultState extends State<ReverseSearchResult> {
+  String bingExtention = '&idpbck=1&selectedindex=0&id=https%3A%2F%2Fstatic01.nyt.com%2Fimages%2F2021%2F09%2F14%2Fscience%2F07CAT-STRIPES%2F07CAT-STRIPES-superJumbo.jpg%3Fquality%3D75%26amp%3Bauto%3Dwebp&ccid=MWtidL3P&mediaurl=https%3A%2F%2Fstatic01.nyt.com%2Fimages%2F2021%2F09%2F14%2Fscience%2F07CAT-STRIPES%2F07CAT-STRIPES-superJumbo.jpg%3Fquality%3D75%26auto%3Dwebp&exph=1365&expw=2048&vt=2&sim=11';
     bool isLoading=true;
   String url ='https://images.google.com/searchbyimage?image_url=' ;
   List<String> sites = ['Google', 'Bing', 'Yandex'];
@@ -48,13 +49,14 @@ class _ReverseSearchResultState extends State<ReverseSearchResult> {
                         switch(index){
                  
                           case 0 :
+                          
                       url = 'https://images.google.com/searchbyimage?image_url=';
                       navWithReplacement(context, ReverseSearchResult(site: url,imageLink: widget.imageLink)) ;     
                          
                           break;
                           case 1 :
                      
-                             url ='https://www.bing.com/images/search?view=detailv2&iss=sbi&form=SBIWEB&sbisrc=UrlPaste&q=imgurl:';
+                             url ='https://www.bing.com/images/search?view=detailv2&iss=sbi&form=SBIVSP&sbisrc=UrlPaste&q=imgurl:';
                                   navWithReplacement(context, ReverseSearchResult(site: url,imageLink: widget.imageLink,)) ;     
                          
                           break;
@@ -94,11 +96,12 @@ onPageFinished: (val){
 
   setState(() {
       isLoading = false;
-  });
+  }); 
 },
+
                         javascriptMode: JavascriptMode.unrestricted,
                         initialUrl:
-                            widget.site! + widget.imageLink!,)),
+                       widget.site!.contains('bing')?     widget.site! + widget.imageLink! +bingExtention :     widget.site! + widget.imageLink!)),
                                      isLoading ?  Center( child: SizedBox(height: h(400),
                     child: Center(child: CircularProgressIndicator(backgroundColor: Colors.grey[600],color: Colors.white,))),):const SizedBox(),
                                
