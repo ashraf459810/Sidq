@@ -15,7 +15,7 @@ Future<void> main() async {
 
   await di.init();
 
-     runApp(const MyApp());
+  runApp(const MyApp());
     
   
 }

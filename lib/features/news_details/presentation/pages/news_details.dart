@@ -51,6 +51,7 @@ class NewsDetails extends StatefulWidget {
 }
 
 class _NewsDetailsState extends State<NewsDetails> {
+  final newsDetailsBloc = sl<NewsDetailsBloc>();
   bool voteTrue = false;
   bool voteFalse = false;
   TextEditingController commentc = TextEditingController();
@@ -62,27 +63,25 @@ class _NewsDetailsState extends State<NewsDetails> {
   var newsDetailsModel = NewsDetailsModel();
   List<String> comments = [];
   @override
+  void initState() {
+    newsDetailsBloc.add(GetNewsDetailsEvent(widget.news!.id!));
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-        create: (context) =>
-            sl<NewsDetailsBloc>()..add(GetNewsDetailsEvent(widget.news!.id!)),
-        child: Scaffold(body: BlocBuilder<NewsDetailsBloc, NewsDetailsState>(
+    return Scaffold(body: BlocBuilder(
+          bloc: newsDetailsBloc,
             builder: (context, state) {
-          if (state is AddVoteState) {
-            log('here add vote state ');
-            log(state.voteResponseModel.result!.trueVotesCounts!.toString());
-
-            trueVotesNumber = state.voteResponseModel.result!.trueVotesCounts!;
-            falseVotesNumber =
-                state.voteResponseModel.result!.falseVotesCounts!;
-          }
           if (state is NewsDetailsInitial) {
+            log('here  initial state ');
             return loadingNewsDetils();
           }
           if (state is Loading) {
+            log('here loadin state ');
             return loadingNewsDetils();
           }
           if (state is GetnewsDetailsState) {
+            log('here  details state ');
             newsDetailsModel = state.newsDetailsModel;
             trueVotesNumber = state.newsDetailsModel.result!.trueVotesCount!;
             falseVotesNumber = state.newsDetailsModel.result!.falseVotesCount!;
@@ -91,16 +90,7 @@ class _NewsDetailsState extends State<NewsDetails> {
           if (state is Error) {
             return text(text: state.error);
           }
-          if (state is GetnewsDetailsState) {
-            log('here from tate ');
-            newsDetailsModel = state.newsDetailsModel;
-          }
-                                     if (state is AddCommentState) {
-            log('here from comments state ');
 
-            comments = state.comments;
-            
-          }
           return SafeArea(
             top: true,
             child: CustomScrollView(
@@ -166,7 +156,9 @@ class _NewsDetailsState extends State<NewsDetails> {
                                           RenderContext context,
                                           Map<String, String> attributes,
                                           element) {
-                                        launchInWebViewOrVC(url!);
+                                        launchInWebViewOrVC(
+                                          url!,
+                                        );
 
                                         //open URL in webview, or launch URL in browser, or any other logic here
                                       },
@@ -324,92 +316,109 @@ class _NewsDetailsState extends State<NewsDetails> {
                                         )
                                       : const SizedBox(),
                                   newsDetailsModel.result!.isVotable!
-                                      ? Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            GestureDetector(
-                                              onTap: () {
-                                                setState(() {
-                                                  voteTrue = true;
-                                                  voteFalse = false;
-                                                });
-                                                context
-                                                    .read<NewsDetailsBloc>()
-                                                    .add(AddVoteEvent(
-                                                        newsDetailsModel
-                                                            .result!.id!,
-                                                        true));
-                                              },
-                                              child: container(
-                                                borderRadius: 5,
-                                                width: w(150),
-                                                color: voteTrue
-                                                    ? Colors.green[900]
-                                                    : AppColor.purple,
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceEvenly,
-                                                  children: [
-                                                    Icon(
-                                                      Icons.check,
-                                                      color: Colors.white,
-                                                      size: 35.sp,
+                                      ? BlocBuilder(
+                                        bloc: newsDetailsBloc,
+                                          builder: (context, state) {
+                                            if (state is LoadingVote){}
+                                                    if (state is AddVoteState) {
+            log('here add vote state ');
+            log(state.voteResponseModel.result!.trueVotesCounts!.toString());
+
+            trueVotesNumber = state.voteResponseModel.result!.trueVotesCounts!;
+            falseVotesNumber =
+                state.voteResponseModel.result!.falseVotesCounts!;
+          }
+                                            return Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
+                                              children: [
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      voteTrue = true;
+                                                      voteFalse = false;
+                                                    });
+                                              newsDetailsBloc.add(AddVoteEvent(
+                                                            newsDetailsModel
+                                                                .result!.id!,
+                                                            true));
+                                                  },
+                                                  child: container(
+                                                
+                                                    borderRadius: 10,
+                                                    width: w(150),
+                                                    color: voteTrue
+                                                        ? Colors.green[900]
+                                                        : AppColor.purple,
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceEvenly,
+                                                      children: [
+                                                        Icon(
+                                                          Icons.check,
+                                                          color: Colors.white,
+                                                          size: 35.sp,
+                                                        ),
+                                                        text(
+                                                            text: 'خبر صحيح',
+                                                            color:
+                                                                Colors.white),
+                                                        // SizedBox(width: w(10),),
+                                                        text(
+                                                            text:
+                                                                trueVotesNumber
+                                                                    .toString(),
+                                                            color:
+                                                                Colors.white),
+                                                      ],
                                                     ),
-                                                    text(
-                                                        text: 'خبر صحيح',
-                                                        color: Colors.white),
-                                                    // SizedBox(width: w(10),),
-                                                    text(
-                                                        text: trueVotesNumber
-                                                            .toString(),
-                                                        color: Colors.white),
-                                                  ],
+                                                  ),
                                                 ),
-                                              ),
-                                            ),
-                                            GestureDetector(
-                                              onTap: () {
-                                                voteTrue = false;
-                                                voteFalse = true;
-                                                setState(() {});
-                                                context
-                                                    .read<NewsDetailsBloc>()
-                                                    .add(AddVoteEvent(
-                                                        newsDetailsModel
-                                                            .result!.id!,
-                                                        false));
-                                              },
-                                              child: container(
-                                                borderRadius: 5,
-                                                width: w(150),
-                                                color: voteFalse
-                                                    ? Colors.green[900]
-                                                    : AppColor.purple,
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceEvenly,
-                                                  children: [
-                                                    Icon(
-                                                      Icons.clear,
-                                                      color: Colors.white,
-                                                      size: 35.sp,
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    voteTrue = false;
+                                                    voteFalse = true;
+                                                    setState(() {});
+                                         newsDetailsBloc   .add(AddVoteEvent(
+                                                            newsDetailsModel
+                                                                .result!.id!,
+                                                            false));
+                                                  },
+                                                  child: container(
+                                                    borderRadius: 10,
+                                                    width: w(150),
+                                                    color: voteFalse
+                                                        ? Colors.green[900]
+                                                        : AppColor.purple,
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceEvenly,
+                                                      children: [
+                                                        Icon(
+                                                          Icons.clear,
+                                                          color: Colors.white,
+                                                          size: 35.sp,
+                                                        ),
+                                                        text(
+                                                            text: 'خبر خاطئ',
+                                                            color:
+                                                                Colors.white),
+                                                        // SizedBox(width: w(10),),
+                                                        text(
+                                                            text:
+                                                                falseVotesNumber
+                                                                    .toString(),
+                                                            color:
+                                                                Colors.white),
+                                                      ],
                                                     ),
-                                                    text(
-                                                        text: 'خبر خاطئ',
-                                                        color: Colors.white),
-                                                    // SizedBox(width: w(10),),
-                                                    text(
-                                                        text: falseVotesNumber
-                                                            .toString(),
-                                                        color: Colors.white),
-                                                  ],
+                                                  ),
                                                 ),
-                                              ),
-                                            ),
-                                          ],
+                                              ],
+                                            );
+                                          },
                                         )
                                       : const SizedBox(
                                           height: 1,
@@ -422,34 +431,37 @@ class _NewsDetailsState extends State<NewsDetails> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                     children: [
-                                      GestureDetector(onTap: () {
-                                        if (comment != null) {
-                                          context.read<NewsDetailsBloc>().add(
-                                              AddCommentEvent(
-                                                  widget.news!.id.toString(),
-                                                  comment.toString()));
-                                        }
-                                      }, child: BlocBuilder<NewsDetailsBloc,
-                                          NewsDetailsState>(
-                                        builder: (context, state) {
-                                          if (state is LoadingComment) {
-                                            return Center(
-                                                child:
-                                                    CircularProgressIndicator(
-                                              backgroundColor: Colors.grey,
-                                              color: Colors.grey[50],
-                                            ));
-                                          }
-                                          return container(
-                                              hight: h(50),
-                                              width: w(80),
-                                              borderRadius: 10,
-                                              color: Colors.green[900],
-                                              child: text(
-                                                  text: 'ارسال',
-                                                  color: Colors.white));
-                                        },
-                                      )),
+                                      GestureDetector(
+                                          onTap: () {
+                                            if (comment != null) {
+                                              newsDetailsBloc.add(
+                                                  AddCommentEvent(
+                                                      widget.news!.id
+                                                          .toString(),
+                                                      comment.toString()));
+                                            }
+                                          },
+                                          child: BlocBuilder(
+                                            bloc: newsDetailsBloc,
+                                            builder: (context, state) {
+                                              if (state is LoadingComment) {
+                                                return Center(
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                  backgroundColor: Colors.grey,
+                                                  color: Colors.grey[50],
+                                                ));
+                                              }
+                                              return container(
+                                                  hight: h(50),
+                                                  width: w(80),
+                                                  borderRadius: 10,
+                                                  color: Colors.green[900],
+                                                  child: text(
+                                                      text: 'ارسال',
+                                                      color: Colors.white));
+                                            },
+                                          )),
                                       container(
                                         color: Colors.grey[200],
                                         hight: h(100),
@@ -485,51 +497,57 @@ class _NewsDetailsState extends State<NewsDetails> {
                                     ],
                                   ),
                                   comments.isNotEmpty
-                                      ? 
-        
-                                             customlistview(
-                                                scroll: false,
-                                                direction: 'vertical',
-                                                padding: 10,
-                                                hight: comments.length * h(100),
-                                                controller: ScrollController(),
-                                                itemcount:comments.length,
-                                                function: (context, index) {
-                                                  return Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: Column(
-                                                      children: [
-                                                        Container(
-                                                            alignment: Alignment
-                                                                .topRight,
-                                                            decoration: BoxDecoration(
-                                                                shape: BoxShape
-                                                                    .rectangle,
-                                                                color: Colors
-                                                                    .grey[200],
-                                                                borderRadius: BorderRadius
-                                                                    .all(Radius
-                                                                        .circular(
-                                                                            10))),
-                                                            // constraints: BoxConstraints(minHeight: h(50),maxWidth: w(250),maxHeight: h(120),minWidth:w(250) ),
+                                      ? BlocBuilder(
+                                          bloc: newsDetailsBloc,
+                                          builder: (context, state) {
+                                            if (state is AddCommentState) {
+                                              comments = state.comments;
+                                            }
 
-                                                            child: Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(8.0),
-                                                              child: text(
-                                                                text: comments[
-                                                                    index],
-                                                                color: Colors
-                                                                    .black,
-                                                              ),
-                                                            )),
-                                                      ],
-                                                    ),
-                                                  );
-                                                
+                                            return customlistview(
+                                              scroll: false,
+                                              direction: 'vertical',
+                                              padding: 10,
+                                              hight: comments.length * h(100),
+                                              controller: ScrollController(),
+                                              itemcount: comments.length,
+                                              function: (context, index) {
+                                                return Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Column(
+                                                    children: [
+                                                      Container(
+                                                          alignment: Alignment
+                                                              .topRight,
+                                                          decoration: BoxDecoration(
+                                                              shape: BoxShape
+                                                                  .rectangle,
+                                                              color:
+                                                                  Colors.grey[
+                                                                      200],
+                                                              borderRadius: const BorderRadius
+                                                                  .all(Radius
+                                                                      .circular(
+                                                                          10))),
+                                                          // constraints: BoxConstraints(minHeight: h(50),maxWidth: w(250),maxHeight: h(120),minWidth:w(250) ),
+
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child: text(
+                                                              text: comments[
+                                                                  index],
+                                                              color:
+                                                                  Colors.black,
+                                                            ),
+                                                          )),
+                                                    ],
+                                                  ),
+                                                );
+                                              },
+                                            );
                                           },
                                         )
                                       : const SizedBox(),
@@ -545,7 +563,7 @@ class _NewsDetailsState extends State<NewsDetails> {
               ],
             ),
           );
-        })));
+        }));
   }
 
   Future<void> launchInWebViewOrVC(String url) async {
