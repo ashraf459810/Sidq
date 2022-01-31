@@ -23,7 +23,7 @@ class GetTicketsRepositroyImp implements GetTicketsRepository {
         return const Left(ServerFailure("Error"));
       }
     } else {
-      return const Left(NetWorkFailure());
+      return const Left(NetWorkFailure('please check your Internet'));
     }
   }
 }

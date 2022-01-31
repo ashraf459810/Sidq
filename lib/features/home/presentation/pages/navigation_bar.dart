@@ -187,11 +187,11 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
                                   child: Center(
                                       child: text(
                                           fontfamily: 'marai',
-                                          text: "تصفح الاخبار",
+                                          text: 'الاخبار',
                                           color: currentIndex == 2
                                               ? AppColor.purple
                                               : Colors.grey,
-                                          fontsize: 10.sp,
+                                       
                                           fontWeight: FontWeight.bold,
                                           textAlign: TextAlign.center))),
                             ),
@@ -289,7 +289,7 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
                         toastLength: Toast.LENGTH_SHORT,
                         gravity: ToastGravity.CENTER,
                         timeInSecForIosWeb: 1,
-                        backgroundColor: Colors.red,
+                        backgroundColor: Colors.grey[600],
                         textColor: Colors.white,
                         fontSize: 16.0);
                   }

@@ -5,6 +5,7 @@ import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sidq/App/app.dart';
 import 'package:sidq/Widgets/container.dart';
 import 'package:sidq/Widgets/custom_list_view.dart';
@@ -50,6 +51,16 @@ class _ReviewTicketsState extends State<ReviewTickets> {
                 if (state is Loading){
                   return  SizedBox(height: h(300),
                     child: Center(child: CircularProgressIndicator(backgroundColor: Colors.grey,color: Colors.grey[50],)));
+                }
+                if (state is Error){
+                     Fluttertoast.showToast(
+                        msg: state.error,
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.CENTER,
+                        timeInSecForIosWeb: 1,
+                        backgroundColor: Colors.grey[600],
+                        textColor: Colors.white,
+                        fontSize: 16.0);
                 }
                 if (state is GetTicketsState){
                   log('here from tickets');
@@ -122,7 +133,8 @@ class _ReviewTicketsState extends State<ReviewTickets> {
                           ),
                         );
                       }),
-                ):Icon(Icons.sentiment_dissatisfied_outlined,color: Colors.grey[500],);
+                ):SizedBox(height: h(300),
+                  child: Icon(Icons.sentiment_dissatisfied_outlined,color: Colors.grey[500],size: 50,));
               },
             )
           ],

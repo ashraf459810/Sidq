@@ -25,7 +25,7 @@ class UploadImageRepositoryImp implements UploadImageRepostiry {
         return const Left(ServerFailure("Error"));
       }
     } else {
-      return const Left(NetWorkFailure());
+      return const Left(NetWorkFailure('pleaase check your connection'));
     }
   }
 }

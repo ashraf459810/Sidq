@@ -420,9 +420,10 @@ class _NewsDetailsState extends State<NewsDetails> {
                                       ),
                                     ],
                                   ),
-                                  Row(
+                                  SizedBox(height: h(20),),
+                                  Row(mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
-                                      // container(hight: ),
+                                      SizedBox(width: w(150),child: text(text: 'التعليقات',fontsize: 24.sp),)
                                     ],
                                   ),
                                   comments.isNotEmpty

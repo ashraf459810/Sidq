@@ -13,6 +13,7 @@ import 'package:sidq/Widgets/text.dart';
 import 'package:sidq/core/consts.dart';
 import 'package:sidq/features/reverse_serach/presentation/bloc/reverse_serach_bloc.dart';
 import 'package:sidq/features/reverse_serach/presentation/widgets/reverse_search_result.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../injection_container.dart';
 
@@ -45,17 +46,23 @@ class _ReverseImageSearchState extends State<ReverseImageSearch> {
             SizedBox(
               height: h(80),
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: w(30)),
-              child: container(
-                  borderRadius: 20,
-                  color: Colors.green[900],
-                  hight: h(50),
-                  width: w(100),
-                  child: text(
-                      text: "بحث نصي",
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold)),
+            GestureDetector(onTap: (){
+              
+launchInWebViewOrVC('https://www.google.com');
+
+            },
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: w(30)),
+                child: container(
+                    borderRadius: 20,
+                    color: Colors.green[900],
+                    hight: h(50),
+                    width: w(100),
+                    child: text(
+                        text: "بحث نصي",
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold)),
+              ),
             ),
             SizedBox(
               height: h(50),
@@ -96,7 +103,7 @@ class _ReverseImageSearchState extends State<ReverseImageSearch> {
                       nav(
                           context,
                           ReverseSearchResult(
-                            imageLink: state.result,
+                            imageLink: state.result,site: 'https://images.google.com/searchbyimage?image_url=',
                           ));
                     }
                   },
@@ -126,3 +133,15 @@ class _ReverseImageSearchState extends State<ReverseImageSearch> {
     );
   }
 }
+
+
+Future<void> launchInWebViewOrVC(String url) async {
+    if (!await launch(
+      url,
+      forceSafariVC: true,
+      forceWebView: true,
+      headers: <String, String>{'my_header_key': 'my_header_value'},
+    )) {
+      throw 'Could not launch $url';
+    }
+  }

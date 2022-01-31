@@ -1,26 +1,34 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sidq/App/app.dart';
 import 'package:sidq/Widgets/container.dart';
+import 'package:sidq/Widgets/nav.dart';
 import 'package:sidq/Widgets/text.dart';
 import 'package:sidq/core/consts.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class ReverseSearchResult extends StatefulWidget {
   final String? imageLink;
-  const ReverseSearchResult({Key? key, this.imageLink}) : super(key: key);
+  final String ? site;
+  const ReverseSearchResult({Key? key, this.imageLink, this.site}) : super(key: key);
 
   @override
   _ReverseSearchResultState createState() => _ReverseSearchResultState();
 }
 
 class _ReverseSearchResultState extends State<ReverseSearchResult> {
-  List<String> sites = ['Google', 'Bing', 'TinEye', 'Yandex'];
+    bool isLoading=true;
+  String url ='https://images.google.com/searchbyimage?image_url=' ;
+  List<String> sites = ['Google', 'Bing', 'Yandex'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[50],
-      body: SafeArea(
+      body:
+  
+                      SafeArea(
         top: true,
         child: Column(
           children: [
@@ -32,32 +40,74 @@ class _ReverseSearchResultState extends State<ReverseSearchResult> {
                   padding: const EdgeInsets.all(8.0),
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: 4,
+                    itemCount: sites.length,
                     itemBuilder: (context, index) => Padding(
-                      padding: EdgeInsets.symmetric(horizontal: w(10)),
-                      child: container(
-                          hight: h(50),
-                          width: w(70),
-                          borderRadius: 10,
-                          color: AppColor.purple,
-                          child: text(
-                              text: sites[index],
-                              fontsize: 12.sp,
-                              color: Colors.white)),
+                      padding: EdgeInsets.symmetric(horizontal: w(25)),
+                      child: GestureDetector(onTap: (){
+                        log('here');
+                        switch(index){
+                 
+                          case 0 :
+                      url = 'https://images.google.com/searchbyimage?image_url=';
+                      navWithReplacement(context, ReverseSearchResult(site: url,imageLink: widget.imageLink)) ;     
+                         
+                          break;
+                          case 1 :
+                     
+                             url ='https://www.bing.com/images/search?view=detailv2&iss=sbi&form=SBIWEB&sbisrc=UrlPaste&q=imgurl:';
+                                  navWithReplacement(context, ReverseSearchResult(site: url,imageLink: widget.imageLink,)) ;     
+                         
+                          break;
+                          
+                    
+                          case 2 : 
+                 
+                            url = 'https://yandex.com/images/search?rpt=imageview&url=';
+                               navWithReplacement(context, ReverseSearchResult(site: url,imageLink: widget.imageLink)) ;     
+                         
+                          break;
+                        }
+                      },
+                        child: container(
+                            hight: h(50),
+                            width: w(70),
+                            borderRadius: 10,
+                            color: AppColor.purple,
+                            child: text(
+                                text: sites[index],
+                                fontsize: 12.sp,
+                                color: Colors.white)),
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-            container(
-                hight: h(700),
-                child: WebView(
-                    javascriptMode: JavascriptMode.unrestricted,
-                    initialUrl:
-                        'https://images.google.com/searchbyimage?image_url=${widget.imageLink}'))
+            Stack(
+              children: [
+         
+                container(
+                    hight: h(700),
+                    child: WebView(
+                
+onPageFinished: (val){
+
+  setState(() {
+      isLoading = false;
+  });
+},
+                        javascriptMode: JavascriptMode.unrestricted,
+                        initialUrl:
+                            widget.site! + widget.imageLink!,)),
+                                     isLoading ?  Center( child: SizedBox(height: h(400),
+                    child: Center(child: CircularProgressIndicator(backgroundColor: Colors.grey[600],color: Colors.white,))),):const SizedBox(),
+                               
+              ],
+            )
           ],
         ),
       ),
     );
   }
 }
+

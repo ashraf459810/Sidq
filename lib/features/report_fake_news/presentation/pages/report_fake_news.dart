@@ -141,9 +141,23 @@ class _ReportFakeNewsState extends State<ReportFakeNews> {
                     return GestureDetector(onTap: (){
                       log(name!);
                       log(claim!);
-                   widget.isReport?   context.read<ReportFakeNewsBloc>().add(AddTicketEvent(TicketRequestBody(name: name,text: claim,falseLinks: clamisLinks,type: 5)) ):
+                if (widget.isReport==true && name!="" && claim!="" && clamisLinks !=null)  {
+                   context.read<ReportFakeNewsBloc>().add(AddTicketEvent(TicketRequestBody(name: name,text: claim,falseLinks: clamisLinks,type: 5)));
+                   } 
+ 
+
+               else if (!widget.isReport  && name!="" && claim!="" && clamisLinks !=null && truthLinks!=null && truth!=null){
                  context.read<ReportFakeNewsBloc>().add(AddTicketEvent(TicketRequestBody(type: 4,name: name,text: claim,falseLinks: clamisLinks,truthLinks:truthLinks,truth: truth )) )   ;
-                    },
+                       } 
+                                    else {                               Fluttertoast.showToast(
+        msg: 'يرجى استكمال جميع المعلومات',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.grey[600],
+        textColor: Colors.white,
+        fontSize: 16.sp
+    );}  },
                       child: container(
                           borderRadius: 20,
                           hight: h(50),

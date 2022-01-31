@@ -16,6 +16,7 @@ class ReportFakeNewsBloc
     on<ReportFakeNewsEvent>((event, emit) async {
       if (event is AddTicketEvent){
         emit (Loading());
+        
 var response = await addTicketUseCase.addTicketUseCase(event.ticketRequestBody);
 
 response.fold((l) => emit(Error(l.error!)), (r) => emit(AddTicketState()));
