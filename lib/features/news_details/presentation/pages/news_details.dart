@@ -95,10 +95,11 @@ class _NewsDetailsState extends State<NewsDetails> {
             log('here from tate ');
             newsDetailsModel = state.newsDetailsModel;
           }
-          if (state is AddCommentState) {
+                                     if (state is AddCommentState) {
             log('here from comments state ');
 
             comments = state.comments;
+            
           }
           return SafeArea(
             top: true,
@@ -161,6 +162,14 @@ class _NewsDetailsState extends State<NewsDetails> {
                                   Directionality(
                                     textDirection: TextDirection.rtl,
                                     child: Html(
+                                      onLinkTap: (String? url,
+                                          RenderContext context,
+                                          Map<String, String> attributes,
+                                          element) {
+                                        launchInWebViewOrVC(url!);
+
+                                        //open URL in webview, or launch URL in browser, or any other logic here
+                                      },
                                       shrinkWrap: true,
                                       data:
                                           newsDetailsModel.result!.description!,
@@ -174,7 +183,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                                       ? Column(
                                           children: [
                                             text(
-                                                text: 'روابط مريفة',
+                                                text: 'روابط مزيفة',
                                                 color: Colors.black,
                                                 fontsize: 20.sp,
                                                 fontWeight: FontWeight.bold),
@@ -194,22 +203,45 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                     .result!.falseLinks!.length,
                                                 controller: ScrollController(),
                                                 function: (context, index) {
-                                                  return Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: container(
-                                                        color: AppColor.purple,
-                                                        hight: h(60),
-                                                        width: w(200),
-                                                        borderRadius: 10,
-                                                        child: text(
-                                                            text: newsDetailsModel
-                                                                    .result!
-                                                                    .falseLinks![
-                                                                index],
-                                                            color:
-                                                                Colors.white)),
+                                                  return GestureDetector(
+                                                    onTap: () async {
+                                                      await launchInWebViewOrVC(
+                                                          newsDetailsModel
+                                                                  .result!
+                                                                  .trueLinks![
+                                                              index]);
+                                                    },
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: container(
+                                                          color:
+                                                              AppColor.purple,
+                                                          hight: h(60),
+                                                          width: w(200),
+                                                          borderRadius: 10,
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child: Text(
+                                                              newsDetailsModel
+                                                                      .result!
+                                                                      .trueLinks![
+                                                                  index],
+                                                              maxLines: 1,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize:
+                                                                      12.sp),
+                                                            ),
+                                                          )),
+                                                    ),
                                                   );
                                                 }),
                                           ],
@@ -235,7 +267,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                             .result!
                                                             .falseLinks!
                                                             .length *
-                                                        h(150)
+                                                        h(180)
                                                     : h(30),
                                                 direction: 'vertical',
                                                 itemcount: newsDetailsModel
@@ -260,22 +292,37 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                           hight: h(60),
                                                           width: w(200),
                                                           borderRadius: 10,
-                                                          child: text(
-                                                              text: newsDetailsModel
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child: Text(
+                                                              newsDetailsModel
                                                                       .result!
                                                                       .trueLinks![
                                                                   index],
-                                                              color: Colors
-                                                                  .white)),
+                                                              maxLines: 1,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize:
+                                                                      12.sp),
+                                                            ),
+                                                          )),
                                                     ),
                                                   );
                                                 }),
                                           ],
                                         )
                                       : const SizedBox(),
-
-                                  //  SizedBox(height: h(30),),
-
+                                  newsDetailsModel.result!.trueLinks!.length > 1
+                                      ? SizedBox(
+                                          height: h(30),
+                                        )
+                                      : const SizedBox(),
                                   newsDetailsModel.result!.isVotable!
                                       ? Row(
                                           mainAxisAlignment:
@@ -367,7 +414,6 @@ class _NewsDetailsState extends State<NewsDetails> {
                                       : const SizedBox(
                                           height: 1,
                                         ),
-
                                   SizedBox(
                                     height: h(30),
                                   ),
@@ -377,16 +423,22 @@ class _NewsDetailsState extends State<NewsDetails> {
                                         MainAxisAlignment.spaceEvenly,
                                     children: [
                                       GestureDetector(onTap: () {
-                                        if (comment!=null){
-                                        context.read<NewsDetailsBloc>().add(
-                                            AddCommentEvent(
-                                                widget.news!.id.toString(),
-                                                comment.toString()));
-                                          }    }, child: BlocBuilder<NewsDetailsBloc,
+                                        if (comment != null) {
+                                          context.read<NewsDetailsBloc>().add(
+                                              AddCommentEvent(
+                                                  widget.news!.id.toString(),
+                                                  comment.toString()));
+                                        }
+                                      }, child: BlocBuilder<NewsDetailsBloc,
                                           NewsDetailsState>(
                                         builder: (context, state) {
-                                          if (state is LoadingComment){
-                                            return  Center(child: CircularProgressIndicator(backgroundColor: Colors.grey,color: Colors.grey[50],));
+                                          if (state is LoadingComment) {
+                                            return Center(
+                                                child:
+                                                    CircularProgressIndicator(
+                                              backgroundColor: Colors.grey,
+                                              color: Colors.grey[50],
+                                            ));
                                           }
                                           return container(
                                               hight: h(50),
@@ -398,7 +450,6 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                   color: Colors.white));
                                         },
                                       )),
-
                                       container(
                                         color: Colors.grey[200],
                                         hight: h(100),
@@ -420,41 +471,67 @@ class _NewsDetailsState extends State<NewsDetails> {
                                       ),
                                     ],
                                   ),
-                                  SizedBox(height: h(20),),
-                                  Row(mainAxisAlignment: MainAxisAlignment.end,
+                                  SizedBox(
+                                    height: h(20),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
-                                      SizedBox(width: w(150),child: text(text: 'التعليقات',fontsize: 24.sp),)
+                                      SizedBox(
+                                        width: w(150),
+                                        child: text(
+                                            text: 'التعليقات', fontsize: 24.sp),
+                                      )
                                     ],
                                   ),
                                   comments.isNotEmpty
-                                      ? customlistview(
+                                      ? 
+        
+                                             customlistview(
+                                                scroll: false,
+                                                direction: 'vertical',
+                                                padding: 10,
+                                                hight: comments.length * h(100),
+                                                controller: ScrollController(),
+                                                itemcount:comments.length,
+                                                function: (context, index) {
+                                                  return Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: Column(
+                                                      children: [
+                                                        Container(
+                                                            alignment: Alignment
+                                                                .topRight,
+                                                            decoration: BoxDecoration(
+                                                                shape: BoxShape
+                                                                    .rectangle,
+                                                                color: Colors
+                                                                    .grey[200],
+                                                                borderRadius: BorderRadius
+                                                                    .all(Radius
+                                                                        .circular(
+                                                                            10))),
+                                                            // constraints: BoxConstraints(minHeight: h(50),maxWidth: w(250),maxHeight: h(120),minWidth:w(250) ),
 
-                                          scroll: false,
-                                          direction: 'vertical',
-                                          padding: 10,
-                                          hight: comments.length * h(150),
-                                          controller: ScrollController(),
-                                          itemcount: newsDetailsModel
-                                              .result!.comments!.length,
-                                          function: (context, index) {
-                                            return Padding(
-                                              padding: const EdgeInsets.all(8.0),
-                                              child: Column(
-                                                children: [
-                                                  Container(
-                                                    alignment: Alignment.topRight,
-                                                    decoration:
-                                                     BoxDecoration(shape: BoxShape.rectangle, color: Colors.grey[200],borderRadius:BorderRadius.all(Radius.circular(10)) ),
-                                                    // constraints: BoxConstraints(minHeight: h(50),maxWidth: w(250),maxHeight: h(120),minWidth:w(250) ),
-                                                   
-                                                    child: Padding(
-                                                      padding: const EdgeInsets.all(8.0),
-                                                      child: text(text: comments[index],color: Colors.black),
-                                                    )),
-                                                ],
-                                              ),
-                                            );
-                                          })
+                                                            child: Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(8.0),
+                                                              child: text(
+                                                                text: comments[
+                                                                    index],
+                                                                color: Colors
+                                                                    .black,
+                                                              ),
+                                                            )),
+                                                      ],
+                                                    ),
+                                                  );
+                                                
+                                          },
+                                        )
                                       : const SizedBox(),
                                 ],
                               ),
