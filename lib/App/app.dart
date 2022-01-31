@@ -62,7 +62,7 @@ late String selectedNotificationPayload;
 late AndroidNotificationChannel channel;
 
 /// Initialize the [FlutterLocalNotificationsPlugin] package.
-late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin ;
 final NavigationService navigationService = sl<NavigationService>();
 
 class MyApp extends StatefulWidget {
@@ -72,33 +72,7 @@ class MyApp extends StatefulWidget {
   _MyAppState createState() => _MyAppState();
 }
 
-@override
-void initState() {
 
-
-  
-      final newVersion = NewVersion(
-      iOSId: 'com.example.sidq',
-      androidId: 'com.example.sidq',
-    );
-
-    // You can let the plugin handle fetching the status and showing a dialog,
-    // or you can fetch the status and display your own dialog, or no dialog.
-    const simpleBehavior = true;
-
-    if (simpleBehavior) {
-    try{
-   
-        basicStatusCheck(newVersion);
-    }
-    catch (e){
-      log(e.toString());
-    }
-    }
-initializeNotifications();
-onMessageListen();
-
-}
   initializeNotifications() async {
     FirebaseMessaging.instance
         .getInitialMessage()
@@ -106,7 +80,7 @@ onMessageListen();
     // FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
 
     const AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('ic_launcher');
+        AndroidInitializationSettings('logo');
 
     /// Note: permissions aren't requested here just to demonstrate that can be
     /// done later
@@ -221,6 +195,34 @@ void basicStatusCheck(NewVersion newVersion) {
 }
 
 class _MyAppState extends State<MyApp> {
+  @override
+void initState() {
+    super.initState();
+log('here from app');
+  
+    
+initializeNotifications();
+onMessageListen();
+  final newVersion = NewVersion(
+      iOSId: 'com.example.sidq',
+      androidId: 'com.example.sidq',
+    );
+
+    // You can let the plugin handle fetching the status and showing a dialog,
+    // or you can fetch the status and display your own dialog, or no dialog.
+    const simpleBehavior = true;
+
+    if (simpleBehavior) {
+    try{
+   
+        basicStatusCheck(newVersion);
+    }
+    catch (e){
+      log(e.toString());
+    }
+    }
+
+}
   @override
   Widget build(BuildContext context) {
       sl<AppBloc>().add(GetTokensEvent());

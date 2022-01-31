@@ -73,7 +73,7 @@ dependencies:
   # flutter_local_notifications: ^5.0.0+4
   # google_maps_flutter:
   # cloud_firestore:
-  firebase_messaging: ^11.2.4
+  firebase_messaging: ^11.2.6
   firebase_core: ^1.10.6
   flutter_local_notifications: ^9.2.0
   image_cropper: ^1.4.1
