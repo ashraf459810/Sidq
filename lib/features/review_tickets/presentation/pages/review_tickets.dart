@@ -30,6 +30,7 @@ class _ReviewTicketsState extends State<ReviewTickets> {
     return BlocProvider(
       create: (context) => sl<ReviewTicketsBloc>()..add(GetTicketsEvent()),
       child: Scaffold(
+        backgroundColor: AppColor.purple,
         body: ListView(
           shrinkWrap: true,
           children: [
@@ -38,7 +39,7 @@ class _ReviewTicketsState extends State<ReviewTickets> {
               child: container(
                   width: w(300),
                   hight: h(50),
-                  color: Colors.white,
+           
                   borderRadius: 20,
                   child: text(
                       text: 'التحقيقات',
@@ -82,7 +83,7 @@ class _ReviewTicketsState extends State<ReviewTickets> {
                           child: Card(
                             child: container(
                       
-                                shadow: true,
+                                borderRadius: 10,
                                
                                 
                               

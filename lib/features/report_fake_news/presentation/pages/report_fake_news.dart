@@ -7,10 +7,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sidq/App/app.dart';
 import 'package:sidq/Widgets/container.dart';
 import 'package:sidq/Widgets/text.dart';
-import 'package:sidq/Widgets/text_form.dart';
 import 'package:sidq/core/consts.dart';
 import 'package:sidq/features/report_fake_news/data/model/ticket_request_model.dart';
 import 'package:sidq/features/report_fake_news/presentation/bloc/report_fake_news_bloc.dart';
+import 'package:sidq/features/report_fake_news/presentation/widgets/inform_container.dart';
 
 import '../../../../injection_container.dart';
 
@@ -55,12 +55,13 @@ class _ReportFakeNewsState extends State<ReportFakeNews> {
                 child: container(
                     width: w(300),
                     hight: h(50),
-                    color: Colors.white,
+                    
                     borderRadius: 20,
                     child: text(
                         text: widget.title!,
                         fontfamily: 'marai',
                         fontsize: 18.sp,
+                        
                         fontWeight: FontWeight.bold)),
               ),
               SizedBox(
@@ -71,7 +72,7 @@ class _ReportFakeNewsState extends State<ReportFakeNews> {
                 height: h(20),
               ),
               inputForm(
-                  h(80), w(100), 'الادعاء', claimsc, (val){claim =val;}, w(250), 3, 10),
+                  h(80), w(100), 'الادعاء', claimsc, (val){claim =val;}, w(250), 3, h(10)),
               SizedBox(
                 height: h(20),
               ),
@@ -83,7 +84,7 @@ class _ReportFakeNewsState extends State<ReportFakeNews> {
                 (val){  clamisLinks = val;},
                   w(250),
                   5,
-                  20),
+                  h(20)),
               Visibility(
                 visible: !widget.isReport,
                 child: Column(
@@ -92,12 +93,12 @@ class _ReportFakeNewsState extends State<ReportFakeNews> {
                       height: h(20),
                     ),
                     inputForm(h(80), w(100), 'الحقيقة', truthc, (val){truth = val;}, w(250),
-                        5, 20),
+                        5, h(20)),
                     SizedBox(
                       height: h(20),
                     ),
                     inputForm(h(80), w(100), 'روابط \nالحقيقة', truthLinksc,
-                        (val){truthLinks = val;}, w(250), 5, 20),
+                        (val){truthLinks = val;}, w(250), 5, h(25)),
                   ],
                 ),
               ),
@@ -182,48 +183,3 @@ class _ReportFakeNewsState extends State<ReportFakeNews> {
   }
 }
 
-Widget inputForm(
-    double hight,
-    double width,
-    String title,
-    TextEditingController controller,
-    Function textInputed,
-    double width2,
-    int? maxlines,
-    double? padding) {
-  return Column(
-    children: [
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          container(
-              hight: hight,
-              width: width2,
-              borderRadius: 20,
-              child: Center(
-                child: textform(
-                    maxlines: maxlines ?? 1,
-                    padding:
-                        EdgeInsets.only(bottom: padding ?? 0, right: w(10)),
-                    controller: controller,
-                    function: (val) {
-                      textInputed(val);
-                    },
-                    keyboard: 'name',
-                    validation: (val) {
-                      return val!;
-                    }),
-              )),
-          container(
-              width: width,
-              hight: hight,
-              borderRadius: 20,
-              child: text(
-                  text: title,
-                  fontfamily: 'marai',
-                  fontWeight: FontWeight.bold)),
-        ],
-      )
-    ],
-  );
-}

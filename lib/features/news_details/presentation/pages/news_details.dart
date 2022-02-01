@@ -286,16 +286,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                   customlistview(
                                                       padding: 10,
                                                       scroll: false,
-                                                      hight: newsDetailsModel
-                                                          !    .result!
-                                                              .trueLinks!
-                                                              .isNotEmpty
-                                                          ? newsDetailsModel
-                                                              !    .result!
-                                                                  .falseLinks!
-                                                                  .length *
-                                                              h(180)
-                                                          : h(30),
+                                               
                                                       direction: 'vertical',
                                                       itemcount:
                                                           newsDetailsModel
@@ -352,6 +343,14 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                 ],
                                               )
                                             : const SizedBox(),
+
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.end,
+                                              children: [
+                                                container(color: Colors.grey[50],
+                                                  width: w(90),child: text(text: 'التصويت',fontfamily: 'marai',fontsize: 24.sp)),
+                                              ],
+                                            ),
                                         newsDetailsModel
                                                    ! .result!.trueLinks!.length >
                                                 1
@@ -422,7 +421,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                                         .white,
                                                                     size: 35.sp,
                                                                   ),
-                                                                  text(
+                                                                  text(fontfamily: 'marai',
                                                                       text:
                                                                           'خبر صحيح',
                                                                       color: Colors
@@ -467,7 +466,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                                         .white,
                                                                     size: 35.sp,
                                                                   ),
-                                                                  text(
+                                                                  text(fontfamily: 'marai',
                                                                       text:
                                                                           'خبر خاطئ',
                                                                       color: Colors
@@ -496,7 +495,9 @@ class _NewsDetailsState extends State<NewsDetails> {
                                         ),
                                         text(
                                             text: 'اكتب تعليقا',
-                                            fontsize: 20.sp),
+                                        fontfamily: 'marai',fontsize: 24.sp)
+                                    ,
+                                    SizedBox(height: h(20),),
                                         Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceEvenly,
@@ -574,9 +575,10 @@ class _NewsDetailsState extends State<NewsDetails> {
                                           children: [
                                             SizedBox(
                                               width: w(150),
-                                              child: text(
+                                        
+                                              child: text(fontfamily: 'marai',fontsize: 24.sp,
                                                   text: 'التعليقات',
-                                                  fontsize: 24.sp),
+                                                ),
                                             )
                                           ],
                                         ),
@@ -624,6 +626,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                                               .all(
                                                                           8.0),
                                                                   child: text(
+                                                                    fontfamily: 'marai',
                                                                     text: comments[
                                                                         index],
                                                                     color: Colors

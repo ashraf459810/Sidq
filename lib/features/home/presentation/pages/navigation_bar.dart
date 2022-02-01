@@ -1,12 +1,12 @@
 import 'dart:developer';
 
-import 'package:cached_network_image/cached_network_image.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:new_version/new_version.dart';
-import 'package:shimmer/shimmer.dart';
+
 import 'package:sidq/App/app.dart';
 import 'package:sidq/Widgets/container.dart';
 import 'package:sidq/Widgets/custom_list_view.dart';
@@ -22,7 +22,7 @@ import 'package:sidq/features/home/data/models/search_params_model.dart';
 import 'package:sidq/features/home/presentation/bloc/home_page_bloc.dart';
 import 'package:sidq/features/home/presentation/widgets/loading_categories.dart';
 import 'package:sidq/features/home/presentation/widgets/news_sample.dart';
-import 'package:sidq/features/main_page/presentation/pages/main_page.dart';
+import 'package:sidq/features/index_page/presentation/pages/main_page.dart';
 
 import 'package:sidq/features/news_details/presentation/pages/news_details.dart';
 import 'package:sidq/features/report_fake_news/presentation/pages/report_fake_news.dart';
@@ -102,21 +102,21 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
       child: Scaffold(
         backgroundColor: AppColor.purple,
         bottomNavigationBar: SizedBox(
-          height: size.height * 0.12,
+          height: size.height * 0.10,
           child: Stack(
             children: [
               Positioned(
-                bottom: -6,
+                bottom:0,
                 left: 0,
                 child: SizedBox(
                   width: size.width,
                   height: h(80),
                   child: Stack(
                     children: [
-                      CustomPaint(
-                        size: Size(size.width, 80),
-                        painter: BNBCustomPainter(),
-                      ),
+                      // CustomPaint(
+                      //   size: Size(size.width, 80),
+                      //   painter: BNBCustomPainter(),
+                      // ),
             buildFAB(context,_fabKey),
                       SizedBox(
                         width: size.width,
@@ -130,13 +130,14 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
                                 nav(context, const ReportFakeNews(isReport: false,title: 'ارسل تحقيق',));
                               },
                               child: Container(
-                                  height: h(50),
+                             
+                                  height: h(80),
                                   width: w(50),
                                   decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       color: currentIndex == 0
                                           ? Colors.white
-                                          : Colors.grey[200]),
+                                          :    AppColor.yellow,),
                                   child: Center(
                                       child: text(
                                           fontfamily: 'marai',
@@ -153,13 +154,13 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
                                       nav(context, const ReportFakeNews(isReport: true,title: 'ارسل ابلاغ',));
                               },
                               child: Container(
-                                  height: h(50),
+                                  height: h(80),
                                   width: w(50),
                                   decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       color: currentIndex == 1
                                           ? Colors.white
-                                          : Colors.grey[200]),
+                                               :    AppColor.yellow),
                                   child: Center(
                                       child: text(
                                           fontfamily: 'marai',
@@ -178,13 +179,13 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
                                 setBottomBarIndex(2);
                               },
                               child: Container(
-                                  height: h(50),
+                                  height: h(80),
                                   width: w(50),
                                   decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       color: currentIndex == 2
                                           ? Colors.white
-                                          : Colors.grey[200]),
+                                                :    AppColor.yellow),
                                   child: Center(
                                       child: text(
                                           fontfamily: 'marai',
@@ -202,13 +203,13 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
                                 navWithReplaceAll(context, const MainPage());
                               },
                               child: Container(
-                                  height: h(50),
+                                  height: h(80),
                                   width: w(50),
                                   decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       color: currentIndex == 3
                                           ? Colors.white
-                                          : Colors.grey[200]),
+                                               :    AppColor.yellow),
                                   child: Center(
                                       child: text(
                                           fontfamily: 'marai',
@@ -321,7 +322,7 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
                                 child: Padding(
                                   padding: EdgeInsets.symmetric(horizontal: w(7)),
                                   child: container(
-                                      width: w(80),
+                                      width: w(60),
                                       hight: h(60),
                                       color: Colors.white,
                                       borderRadius: 20,
@@ -389,7 +390,7 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
                                         log('here from loading');
                                                       return Center(child: CircularProgressIndicator(backgroundColor: Colors.grey,color: Colors.grey[50],));
                                       }
-                                      return  SizedBox(height: h(100),);
+                                      return  SizedBox(height: h(10),);
                                     },
                                   );
                                 }
@@ -487,45 +488,47 @@ const ReverseImageSearch(),
 }
 
   buildFAB( context, GlobalKey fabKey) {
-        return  Center(
-                        heightFactor: 0.6,
-                        child: FloatingActionButton(
-                            backgroundColor: Colors.white,
-                            child: const Icon(
-                              Icons.search,
-                              color: Colors.black,
-                              size: 40,
-                            ),
-                            elevation: 0.1,
-                            onPressed: () {  onFabTap(context);}),
-                      );
+        return  GestureDetector(onTap: (){
+           onFabTap(context);
+        },
+          child: Center(
+                          heightFactor: 0.9,
+                          child:
+                          Icon(
+                                Icons.search,
+                                color: AppColor.yellow,
+                                size: 50,
+                              ),
+                            
+                        ),
+        );
   }}
 
-class BNBCustomPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    Paint paint = Paint()
-      ..color = AppColor.grey ?? Colors.white
-      ..style = PaintingStyle.fill;
+// class BNBCustomPainter extends CustomPainter {
+//   @override
+//   void paint(Canvas canvas, Size size) {
+//     Paint paint = Paint()
+//       ..color = AppColor.grey ?? Colors.white
+//       ..style = PaintingStyle.fill;
 
-    Path path = Path();
-    path.moveTo(0, 20); // Start
-    path.quadraticBezierTo(size.width * 0.20, 0, size.width * 0.40, 0);
-    path.quadraticBezierTo(size.width * 0.40, 0, size.width * 0.40, 20);
-    path.arcToPoint(Offset(size.width * 0.60, 10),
-        radius: const Radius.circular(20.0), clockwise: false);
-    path.quadraticBezierTo(size.width * 0.60, 0, size.width * 0.60, 0);
-    path.quadraticBezierTo(size.width * 0.80, 0, size.width, 20);
-    path.lineTo(size.width, size.height);
-    path.lineTo(0, size.height);
-    path.lineTo(0, 20);
-    canvas.drawShadow(path, Colors.black, 5, true);
-    canvas.drawPath(path, paint);
-  }
+//     Path path = Path();
+//     path.moveTo(0, 20); // Start
+//     path.quadraticBezierTo(size.width * 0.20, 0, size.width * 0.40, 0);
+//     path.quadraticBezierTo(size.width * 0.40, 0, size.width * 0.40, 20);
+//     path.arcToPoint(Offset(size.width * 0.60, 10),
+//         radius: const Radius.circular(20.0), clockwise: false);
+//     path.quadraticBezierTo(size.width * 0.60, 0, size.width * 0.60, 0);
+//     path.quadraticBezierTo(size.width * 0.80, 0, size.width, 20);
+//     path.lineTo(size.width, size.height);
+//     path.lineTo(0, size.height);
+//     path.lineTo(0, 20);
+//     canvas.drawShadow(path, Colors.black, 5, true);
+//     canvas.drawPath(path, paint);
+//   }
 
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) {
-    return false;
-  }
-}
+//   @override
+//   bool shouldRepaint(CustomPainter oldDelegate) {
+//     return false;
+//   }
+// }
 
