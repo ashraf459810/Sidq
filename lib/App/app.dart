@@ -218,7 +218,7 @@ onMessageListen();
         basicStatusCheck(newVersion);
     }
     catch (e){
-      log(e.toString());
+      log('error');
     }
     }
 
