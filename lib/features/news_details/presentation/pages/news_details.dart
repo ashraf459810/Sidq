@@ -14,7 +14,6 @@ import 'package:sidq/Widgets/custom_list_view.dart';
 import 'package:sidq/Widgets/text.dart';
 import 'package:sidq/Widgets/text_form.dart';
 import 'package:sidq/core/consts.dart';
-import 'package:sidq/features/home/data/models/news_model.dart';
 import 'package:sidq/features/news_details/data/models/news_details.dart';
 import 'package:sidq/features/news_details/presentation/bloc/news_details_bloc.dart';
 import 'package:sidq/features/news_details/presentation/widgets/loading_news_details.dart';
@@ -24,7 +23,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../../injection_container.dart';
 
 class SecondPageRoute extends CupertinoPageRoute {
-  final News news;
+  final String news;
   SecondPageRoute(this.news)
       : super(
             builder: (BuildContext context) => NewsDetails(
@@ -44,7 +43,7 @@ class SecondPageRoute extends CupertinoPageRoute {
 }
 
 class NewsDetails extends StatefulWidget {
-  final News? news;
+  final String? news;
   const NewsDetails({Key? key, this.news}) : super(key: key);
 
   @override
@@ -61,7 +60,7 @@ class _NewsDetailsState extends State<NewsDetails> {
   ScrollController scrollController2 = ScrollController();
   int trueVotesNumber = 0;
   int falseVotesNumber = 0;
-  var newsDetailsModel = NewsDetailsModel();
+    NewsDetailsModel? newsDetailsModel;
   List<String> comments = [];
   @override
   void initState() {
@@ -72,7 +71,7 @@ class _NewsDetailsState extends State<NewsDetails> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => sl<NewsDetailsBloc>()..add(GetNewsDetailsEvent(widget.news!.id!)),
+      create: (context) => sl<NewsDetailsBloc>()..add(GetNewsDetailsEvent(widget.news!)),
       child: Scaffold(
           body: BlocConsumer<NewsDetailsBloc , NewsDetailsState>(listener: (context , state ){
 
@@ -112,7 +111,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                 }
             
 
-                return SafeArea(
+                return newsDetailsModel!=null? SafeArea(
                   top: true,
                   child: CustomScrollView(
                     shrinkWrap: true,
@@ -128,7 +127,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                             centerTitle: true,
                             // title: Text(newsDetailsModel.result!.title!),
                             background: Image.network(
-                              newsDetailsModel.result!.fileLink!,
+                              newsDetailsModel!.result!.fileLink!,
                               fit: BoxFit.fill,
                             )),
 
@@ -145,7 +144,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                               // SizedBox(height: h(50),),
 
                               text(
-                                  text: newsDetailsModel.result!.title!,
+                                  text: newsDetailsModel!.result!.title!,
                                   fontsize: 16.sp,
                                   color: Colors.black,
                                   fontfamily: 'marai',
@@ -155,7 +154,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                               ),
                               text(
                                   text: newsDetailsModel
-                                      .result!.briefDescription!,
+                                      !.result!.briefDescription!,
                                   fontsize: 14.sp,
                                   color: Colors.black,
                                   fontfamily: 'marai'),
@@ -187,14 +186,14 @@ class _NewsDetailsState extends State<NewsDetails> {
                                             },
                                             shrinkWrap: true,
                                             data: newsDetailsModel
-                                                .result!.description!,
+                                               ! .result!.description!,
                                           ),
                                         ),
                                         SizedBox(
                                           height: h(10),
                                         ),
                                         newsDetailsModel
-                                                .result!.falseLinks!.isNotEmpty
+                                             !   .result!.falseLinks!.isNotEmpty
                                             ? Column(
                                                 children: [
                                                   text(
@@ -207,11 +206,11 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                       padding: 10,
                                                       scroll: false,
                                                       hight: newsDetailsModel
-                                                              .result!
+                                                          !    .result!
                                                               .falseLinks!
                                                               .isNotEmpty
                                                           ? newsDetailsModel
-                                                                  .result!
+                                                                  !.result!
                                                                   .falseLinks!
                                                                   .length *
                                                               h(100)
@@ -219,7 +218,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                       direction: 'vertical',
                                                       itemcount:
                                                           newsDetailsModel
-                                                              .result!
+                                                             ! .result!
                                                               .falseLinks!
                                                               .length,
                                                       controller:
@@ -230,7 +229,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                           onTap: () async {
                                                             await launchInWebViewOrVC(
                                                                 newsDetailsModel
-                                                                        .result!
+                                                                      !  .result!
                                                                         .trueLinks![
                                                                     index]);
                                                           },
@@ -252,7 +251,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                                           8.0),
                                                                   child: Text(
                                                                     newsDetailsModel
-                                                                        .result!
+                                                                        !.result!
                                                                         .trueLinks![index],
                                                                     maxLines: 1,
                                                                     overflow:
@@ -275,7 +274,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                                           height: h(10),
                                         ),
                                         newsDetailsModel
-                                                .result!.trueLinks!.isNotEmpty
+                                                !.result!.trueLinks!.isNotEmpty
                                             ? Column(
                                                 children: [
                                                   text(
@@ -288,11 +287,11 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                       padding: 10,
                                                       scroll: false,
                                                       hight: newsDetailsModel
-                                                              .result!
+                                                          !    .result!
                                                               .trueLinks!
                                                               .isNotEmpty
                                                           ? newsDetailsModel
-                                                                  .result!
+                                                              !    .result!
                                                                   .falseLinks!
                                                                   .length *
                                                               h(180)
@@ -300,7 +299,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                       direction: 'vertical',
                                                       itemcount:
                                                           newsDetailsModel
-                                                              .result!
+                                                             ! .result!
                                                               .trueLinks!
                                                               .length,
                                                       controller:
@@ -316,7 +315,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                             onTap: () async {
                                                               await launchInWebViewOrVC(
                                                                   newsDetailsModel
-                                                                          .result!
+                                                                     !     .result!
                                                                           .trueLinks![
                                                                       index]);
                                                             },
@@ -334,7 +333,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                                           8.0),
                                                                   child: Text(
                                                                     newsDetailsModel
-                                                                        .result!
+                                                                     !   .result!
                                                                         .trueLinks![index],
                                                                     maxLines: 1,
                                                                     overflow:
@@ -354,13 +353,13 @@ class _NewsDetailsState extends State<NewsDetails> {
                                               )
                                             : const SizedBox(),
                                         newsDetailsModel
-                                                    .result!.trueLinks!.length >
+                                                   ! .result!.trueLinks!.length >
                                                 1
                                             ? SizedBox(
                                                 height: h(30),
                                               )
                                             : const SizedBox(),
-                                        newsDetailsModel.result!.isVotable!
+                                        newsDetailsModel!.result!.isVotable!
                                             ? Builder(
                                               builder: (context) {
                                                 return BlocBuilder(
@@ -401,7 +400,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                               newsDetailsBloc.add(
                                                                   AddVoteEvent(
                                                                       newsDetailsModel
-                                                                          .result!
+                                                                          !.result!
                                                                           .id!,
                                                                       true));
                                                             },
@@ -446,7 +445,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                               newsDetailsBloc.add(
                                                                   AddVoteEvent(
                                                                       newsDetailsModel
-                                                                          .result!
+                                                                      !    .result!
                                                                           .id!,
                                                                       false));
                                                             },
@@ -507,7 +506,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                   if (comment != null) {
                                                     newsDetailsBloc.add(
                                                         AddCommentEvent(
-                                                            widget.news!.id
+                                                            widget.news!
                                                                 .toString(),
                                                             comment
                                                                 .toString()));
@@ -650,7 +649,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                       ]))
                     ],
                   ),
-                );
+                ):const SizedBox();
               })),
     );
   }

@@ -21,6 +21,7 @@ import 'package:sidq/features/home/data/models/news_model.dart';
 import 'package:sidq/features/home/data/models/search_params_model.dart';
 import 'package:sidq/features/home/presentation/bloc/home_page_bloc.dart';
 import 'package:sidq/features/home/presentation/widgets/loading_categories.dart';
+import 'package:sidq/features/home/presentation/widgets/news_sample.dart';
 import 'package:sidq/features/main_page/presentation/pages/main_page.dart';
 
 import 'package:sidq/features/news_details/presentation/pages/news_details.dart';
@@ -374,7 +375,7 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
                                           EdgeInsets.symmetric(vertical: h(8)),
                                       child: GestureDetector(
                                         onTap: (){
-                                          Navigator.of(context).push( SecondPageRoute(list[index]));
+                                          Navigator.of(context).push( SecondPageRoute(list[index].id!));
                                         },
                                         child: newsSample(
                                             list[index].fileLink!,
@@ -404,55 +405,7 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
     );
   }
 
-  Widget newsSample(String image, String desc, String title) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        container(
-            color: Colors.white,
-            hight: h(120),
-            width: w(220),
-            borderRadius: 10,
-            child: Column(
-              children: [
-                Flexible(child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: text(text: title, fontsize: 13.sp, fontWeight: FontWeight.bold),
-                )),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: text(text: desc, fontsize: 11.sp),
-                ),
-              ],
-            )),
-        ClipRRect(
-          borderRadius: const BorderRadius.all(Radius.circular(10)),
-
-          // ignore: unnecessary_null_comparison
-          child: image!=null? CachedNetworkImage(         height: h(120),
-            width: w(120),
-            fit: BoxFit.fitHeight,
-        imageUrl: image,
-        placeholder: (context, url) => Shimmer(child: Container(height: h(120),), gradient:const LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              colors: [
-                Colors.grey,
-                Colors.black,
-              ],
-            )
-          ),
-
-        errorWidget: (context, url, error) => const Icon(Icons.error),
-     ):const SizedBox(),
-          
-          
-          
-    
-        )
-      ],
-    );
-  }
+  
     onFabTap(BuildContext context) {
     
     // Hide the FAB on transition start

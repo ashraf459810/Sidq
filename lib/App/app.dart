@@ -18,6 +18,9 @@ import 'package:sidq/core/consts.dart';
 import 'package:sidq/core/navigatuin_service/navigation.dart';
 
 import 'package:sidq/features/main_page/presentation/pages/main_page.dart';
+import 'package:sidq/features/news_details/presentation/bloc/news_details_bloc.dart';
+import 'package:sidq/features/news_details/presentation/pages/news_details.dart';
+import 'package:sidq/features/review_tickets/presentation/pages/review_tickets.dart';
 
 import '../injection_container.dart';
 import 'app_localizations.dart';
@@ -71,122 +74,6 @@ class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
 }
-
-
-  initializeNotifications() async {
-    FirebaseMessaging.instance
-        .getInitialMessage()
-        .then((RemoteMessage? message) async {});
-    // FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
-
-    const AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('logo');
-
-    /// Note: permissions aren't requested here just to demonstrate that can be
-    /// done later
-    final IOSInitializationSettings initializationSettingsIOS =
-        IOSInitializationSettings(
-            requestAlertPermission: false,
-            requestBadgePermission: false,
-            requestSoundPermission: false,
-            onDidReceiveLocalNotification: (
-              int? id,
-              String? title,
-              String? body,
-              String? payload,
-            ) async {
-              didReceiveLocalNotificationSubject.add(
-                ReceivedNotification(
-                  id: id,
-                  title: title,
-                  body: body,
-                  payload: payload,
-                ),
-              );
-            });
-    final InitializationSettings initializationSettings =
-        InitializationSettings(
-      android: initializationSettingsAndroid,
-      iOS: initializationSettingsIOS,
-    );
-    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-    FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-      alert: true,
-      badge: true,
-      sound: true,
-    );
-
-    await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onSelectNotification: (pay) async {});
-    if (!kIsWeb) {
-      channel = const AndroidNotificationChannel(
-        'high_importance_channel', // id
-        'High Importance Notifications', // title
-        description:
-            'This channel is used for important notifications.', // description
-        importance: Importance.high,
-      );
-
-      // flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-
-      /// Create an Android Notification Channel.
-      ///
-      /// We use this channel in the `AndroidManifest.xml` file to override the
-      /// default FCM channel to enable heads up notifications.
-      await flutterLocalNotificationsPlugin
-          .resolvePlatformSpecificImplementation<
-              AndroidFlutterLocalNotificationsPlugin>()
-          ?.createNotificationChannel(channel);
-
-      /// Update the iOS foreground notification presentation options to allow
-      /// heads up notifications.
-      await FirebaseMessaging.instance
-          .setForegroundNotificationPresentationOptions(
-        alert: true,
-        badge: true,
-        sound: true,
-      );
-
-      String? token = await FirebaseMessaging.instance.getToken();
-      log(token!);
-      await SharedPreferences.getInstance()
-          .then((value) => value.setString(Con.fcmToken, token));
-    }
-  }
-
-  onMessageListen() {
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      var payload = message.data.toString();
-
-      RemoteNotification? notification = message.notification;
-      AndroidNotification? android = message.notification?.android;
-      if (notification != null && android != null && !kIsWeb) {
-        flutterLocalNotificationsPlugin.show(
-            notification.hashCode,
-            notification.title,
-            notification.body,
-            NotificationDetails(
-              android: AndroidNotificationDetails(
-                channel.id,
-                channel.name,
-
-                channelDescription: channel.description,
-
-                //      one that already exists in example app.
-                icon: 'launch_background',
-              ),
-            ),
-            payload: payload);
-      }
-
-      print(message.toString());
-      print(payload);
-
-    });
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {});
-  }
- 
-
 
 
 
@@ -286,11 +173,209 @@ super.initState();
   }
 
 
+
 void basicStatusCheck(NewVersion newVersion) {
   
     newVersion.showAlertIfNecessary(context: context);
 }
 
+  initializeNotifications() async {
+    FirebaseMessaging.instance
+        .getInitialMessage()
+        .then((RemoteMessage? message) async {
+            if (message!.data['type'] == 'NewNewsPublished') {
+       var id = message.data['id'];
+        log(id);
+
+        sl<NavigationService>()
+            .navigatorKey
+            .currentState
+            !.push(MaterialPageRoute(
+                builder: (context) => NewsDetails(
+                      news: id,
+                    )));
+      }
+            if (message.data['type'] == 'TicketAnswered') {
+       var id = message.data['id'];
+        log(id);
+
+        sl<NavigationService>()
+            .navigatorKey
+            .currentState
+            !.push(MaterialPageRoute(
+                builder: (context) => const ReviewTickets(
+                   
+                    )));
+      }
+        });
+    // FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+
+    const AndroidInitializationSettings initializationSettingsAndroid =
+        AndroidInitializationSettings('logo');
+
+    /// Note: permissions aren't requested here just to demonstrate that can be
+    /// done later
+    final IOSInitializationSettings initializationSettingsIOS =
+        IOSInitializationSettings(
+            requestAlertPermission: false,
+            requestBadgePermission: false,
+            requestSoundPermission: false,
+            onDidReceiveLocalNotification: (
+              int? id,
+              String? title,
+              String? body,
+              String? payload,
+            ) async {
+              didReceiveLocalNotificationSubject.add(
+                ReceivedNotification(
+                  id: id,
+                  title: title,
+                  body: body,
+                  payload: payload,
+                ),
+              );
+            });
+    final InitializationSettings initializationSettings =
+        InitializationSettings(
+      android: initializationSettingsAndroid,
+      iOS: initializationSettingsIOS,
+    );
+    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+    FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
+
+    await flutterLocalNotificationsPlugin.initialize(initializationSettings,
+        onSelectNotification: onSelectNotification);
+    if (!kIsWeb) {
+      channel = const AndroidNotificationChannel(
+        'high_importance_channel', // id
+        'High Importance Notifications', // title
+        description:
+            'This channel is used for important notifications.', // description
+        importance: Importance.high,
+      );
+
+      // flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
+      /// Create an Android Notification Channel.
+      ///
+      /// We use this channel in the `AndroidManifest.xml` file to override the
+      /// default FCM channel to enable heads up notifications.
+      await flutterLocalNotificationsPlugin
+          .resolvePlatformSpecificImplementation<
+              AndroidFlutterLocalNotificationsPlugin>()
+          ?.createNotificationChannel(channel);
+
+      /// Update the iOS foreground notification presentation options to allow
+      /// heads up notifications.
+      await FirebaseMessaging.instance
+          .setForegroundNotificationPresentationOptions(
+        alert: true,
+        badge: true,
+        sound: true,
+      );
+
+      String? token = await FirebaseMessaging.instance.getToken();
+      log(token!);
+      await SharedPreferences.getInstance()
+          .then((value) => value.setString(Con.fcmToken, token));
+    }
+  }
+
+  onMessageListen() {
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      var payload = message.data.toString();
+
+      RemoteNotification? notification = message.notification;
+      AndroidNotification? android = message.notification?.android;
+      if (notification != null && android != null && !kIsWeb) {
+        flutterLocalNotificationsPlugin.show(
+            notification.hashCode,
+            notification.title,
+            notification.body,
+            NotificationDetails(
+              android: AndroidNotificationDetails(
+                channel.id,
+                channel.name,
+
+                channelDescription: channel.description,
+
+                //      one that already exists in example app.
+                icon: 'launch_background',
+              ),
+            ),
+            payload: payload);
+      }
+
+      print(message.toString());
+      print(payload);
+
+    });
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      if (message.data['type'] == 'NewNewsPublished') {
+       var id = message.data['id'];
+        log(id);
+
+        sl<NavigationService>()
+            .navigatorKey
+            .currentState
+            !.push(MaterialPageRoute(
+                builder: (context) => NewsDetails(
+                      news: id,
+                    )));
+      }
+            if (message.data['type'] == 'TicketAnswered') {
+       var id = message.data['id'];
+        log(id);
+
+        sl<NavigationService>()
+            .navigatorKey
+            .currentState
+            !.push(MaterialPageRoute(
+                builder: (context) => const ReviewTickets(
+                   
+                    )));
+      }
+    });
+  }
+ 
+
+
+
+
+
+  void onSelectNotification(String? payload) {
+    if (payload!.contains('NewNewsPublished')){
+
+     var id = payload.split(',').first.substring(5);
+      sl<NavigationService>()
+            .navigatorKey
+            .currentState
+            !.push(MaterialPageRoute(
+                builder: (context) => NewsDetails(
+                      news: id,
+                    )));
+
+
+    }
+    if (payload.contains('TicketAnswered')){
+
+     var id = payload.split(',').first.substring(5);
+      sl<NavigationService>()
+            .navigatorKey
+            .currentState
+            !.push(MaterialPageRoute(
+                builder: (context) => const ReviewTickets (
+                     
+                    )));
+
+
+    }
+
+  }
 }
 
 double h(double h) {

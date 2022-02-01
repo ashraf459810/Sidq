@@ -43,10 +43,10 @@ class NetworkFunctionsImp implements NetworkFunctions {
     }
     if (response.statusCode == 500) {
       var res = json.decode(response.body);
-      log(res["message"]);
+     
       log("500 here");
       throw ServerException(
-        res["message"],
+        res['error']["message"],
       );
     } else {
       throw ServerException();

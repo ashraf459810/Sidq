@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sidq/core/consts.dart';
 
 Widget container({
   BoxConstraints ?boxConstraints,
@@ -30,7 +31,7 @@ Widget container({
               )
             : const BoxShadow(color: Colors.transparent)
       ],
-      color: color ?? Colors.white,
+      color: color?? AppColor.yellow,
     ),
   );
 }

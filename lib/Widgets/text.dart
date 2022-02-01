@@ -6,6 +6,7 @@ Widget text(
   
     {required String text,
     Color? color,
+    int ?maxLines,
     double ?fontsize,
     FontWeight? fontWeight,
     String ?fontfamily,
@@ -19,7 +20,7 @@ Widget text(
        				overflow: TextOverflow.fade,
       
       textAlign: textAlign ?? TextAlign.start,
-  
+  maxLines: maxLines??10,
       style: TextStyle(
         overflow: TextOverflow.fade,
         
