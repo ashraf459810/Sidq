@@ -189,21 +189,12 @@ class MyApp extends StatefulWidget {
 
 
 
-void basicStatusCheck(NewVersion newVersion) {
-  
-    newVersion.showAlertIfNecessary(context: sl<NavigationService>().navigatorKey.currentState!.context);
-}
+
 
 class _MyAppState extends State<MyApp> {
   @override
 void initState() {
-    super.initState();
-log('here from app');
-  
-    
-initializeNotifications();
-onMessageListen();
-  final newVersion = NewVersion(
+    final newVersion = NewVersion(
       iOSId: 'com.example.sidq',
       androidId: 'com.example.sidq',
     );
@@ -213,7 +204,7 @@ onMessageListen();
     const simpleBehavior = true;
 
     if (simpleBehavior) {
-    try{
+    try{ 
    
         basicStatusCheck(newVersion);
     }
@@ -221,7 +212,14 @@ onMessageListen();
       log('error');
     }
     }
+    
+log('here from app');
+  
+    
+initializeNotifications();
+onMessageListen();
 
+super.initState();
 }
   @override
   Widget build(BuildContext context) {
@@ -288,7 +286,10 @@ onMessageListen();
   }
 
 
-
+void basicStatusCheck(NewVersion newVersion) {
+  
+    newVersion.showAlertIfNecessary(context: context);
+}
 
 }
 
