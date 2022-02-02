@@ -20,3 +20,10 @@ class GetNewsEvent extends NavigationBarBlocEvent {
 
   const GetNewsEvent(this.searchParamsModel, this.resetList);
 }
+
+
+class SearchNewsEvent extends NavigationBarBlocEvent{
+  final SearchParamsModel query;
+
+  const SearchNewsEvent(this.query);
+}

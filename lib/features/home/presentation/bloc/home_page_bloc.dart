@@ -71,6 +71,13 @@ class NavigationBarBloc
              
         });
       }
+      if (event is SearchNewsEvent){
+        
+        emit(LoadingNews());
+        var response = await getNewsUseCase.getMixedNewsUseCase(event.query);
+        response.fold((l) => emit(Error(l.error!)), (r) => emit(SearchNewsState(r)));
+        
+      }
     });
   }
 

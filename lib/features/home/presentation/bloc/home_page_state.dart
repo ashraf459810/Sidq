@@ -30,3 +30,8 @@ class Error extends NavigationBarBlocState {
 
   const Error(this.error);
 }
+class SearchNewsState extends NavigationBarBlocState {
+  final NewsModel newsmodel;
+
+  const SearchNewsState(this.newsmodel);
+}

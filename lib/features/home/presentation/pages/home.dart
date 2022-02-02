@@ -180,18 +180,23 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
                     borderRadius: 20,
                     child: SizedBox(
                       width: w(250),
-                      child: textform(
-                          hint: 'بحث',
-                          hintsize: w(20),
-                          hintColor: AppColor.purple,
-                          controller: searchc,
-                          function: (val) {
-                            serach = val;
-                          },
-                          keyboard: 'name',
-                          validation: (val) {
-                            return val!;
-                          }),
+                      child: Builder(
+                        builder: (context) {
+                          return textform(
+                              hint: 'بحث',
+                              hintsize: w(20),
+                              hintColor: AppColor.purple,
+                              controller: searchc,
+                              function: (val) {
+                                serach = val;
+                                context.read<NavigationBarBloc>().add(SearchNewsEvent(SearchParamsModel(searchQuery: val,pageNumber: 0,pageLength: 100,orderDescending: true)));
+                              },
+                              keyboard: 'name',
+                              validation: (val) {
+                                return val!;
+                              });
+                        }
+                      ),
                     )),
               ),
               SizedBox(
@@ -201,6 +206,9 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
                 height: h(60),
                 child: BlocBuilder<NavigationBarBloc, NavigationBarBlocState>(
                   builder: (context, state) {
+                    if (state is SearchNewsState){
+                      list = state.newsmodel.result!;
+                    }
                     if (state is GetNewsState) {
                       list = state.newsmodel.result!;
                     }
