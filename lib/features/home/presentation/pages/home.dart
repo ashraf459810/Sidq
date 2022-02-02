@@ -169,7 +169,7 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
           child: ListView(shrinkWrap: true,
             children: [
               SizedBox(
-                height: h(50),
+                height: h(30),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: w(20)),
@@ -318,7 +318,7 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
                                 if (index <list.length) {
                                   return Padding(
                                       padding:
-                                          EdgeInsets.symmetric(vertical: h(8)),
+                                          EdgeInsets.symmetric(vertical: h(10)),
                                       child: GestureDetector(
                                         onTap: (){
                                           Navigator.of(context).push( SecondPageRoute(list[index].id!));

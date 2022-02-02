@@ -20,24 +20,34 @@ Widget newsSample(String image, String desc, String title,String date) {
                 borderRadius: 10,
                 child: Column(
                   children: [
-                    Container(
-                      alignment: Alignment.centerRight,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: text(text: title, fontsize: 13.sp, fontWeight: FontWeight.bold,maxLines: 1,fontfamily: 'marai'),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                 
+                        height: h(40),
+                        width: w(200),
+                        child: Row(mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Flexible(child: text(text: title, fontsize: 12.sp, fontWeight: FontWeight.bold,fontfamily: 'marai')),
+                          ],
+                        ),
                       ),
                     ),
-                    Container(
-                      // color: Colors.grey,
-                      alignment: Alignment.centerRight,
+                    SizedBox(
+                      height: h(65),
+                      width: w(250),
+                      // color: Colors.red,
                       child: Padding(
-                        padding:  EdgeInsets.only(right: w(8),left: w(8),),
-                        child: Container(
-                          // color: Colors.red,
-                          child: text(maxLines: 5,
-                          fontfamily: 'marai',
-                          fontWeight: FontWeight.bold,
-                            text: desc, fontsize: 11.sp,textAlign: TextAlign.right),
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Flexible(
+                              child: text(maxLines: 4,
+                              fontfamily: 'marai',
+                              // fontWeight: FontWeight.bold,
+                                text: desc, fontsize: 10.sp,),
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -72,14 +82,14 @@ Widget newsSample(String image, String desc, String title,String date) {
           ],
         ),
               Positioned(
-                bottom: h(1),
+                bottom: h(-7),
                 right: w(150),
 
                 child: Container(
                         alignment: Alignment.centerRight,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: text(text: date,color: AppColor.purple,fontWeight: FontWeight.bold,fontsize: 10.sp),
+                      child: text(text: date.substring(0,10),color: AppColor.purple,fontWeight: FontWeight.bold,fontsize: 10.sp),
                     )),
               )
       ],

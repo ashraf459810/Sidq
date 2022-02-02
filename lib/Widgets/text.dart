@@ -14,15 +14,17 @@ Widget text(
     TextAlign? textAlign}) {
   return Directionality(textDirection: TextDirection.rtl,
     child: Text(
+ 
          
       
       text,
        				overflow: TextOverflow.fade,
-      
+           
       textAlign: textAlign ?? TextAlign.start,
   maxLines: maxLines??10,
       style: TextStyle(
         overflow: TextOverflow.fade,
+        
         
           decoration: textDecoration ?? TextDecoration.none,
           fontFamily: fontfamily ?? "font",
