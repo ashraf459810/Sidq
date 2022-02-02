@@ -14,17 +14,22 @@ Widget newsSample(String image, String desc, String title,String date) {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             container(
+        
                 color: Colors.white,
                 hight: h(145),
                 width: w(220),
+                
                 borderRadius: 10,
                 child: Column(
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(
+                      child: Container(
+                        constraints: BoxConstraints(minHeight: h(22),maxHeight: h(40)),
+                      // color: Colors.red,
+                          alignment: Alignment.topCenter,
                  
-                        height: h(40),
+                  
                         width: w(200),
                         child: Row(mainAxisAlignment: MainAxisAlignment.end,
                           children: [
@@ -33,16 +38,18 @@ Widget newsSample(String image, String desc, String title,String date) {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: h(65),
+                    Container(
+                      alignment: Alignment.topCenter,
+                    // color: Colors.green,
+                      height: h(61),
                       width: w(250),
                       // color: Colors.red,
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding:  EdgeInsets.symmetric(horizontal: w(10)),
                         child: Row(mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Flexible(
-                              child: text(maxLines: 4,
+                              child: text(maxLines: 5,
                               fontfamily: 'marai',
                               // fontWeight: FontWeight.bold,
                                 text: desc, fontsize: 10.sp,),

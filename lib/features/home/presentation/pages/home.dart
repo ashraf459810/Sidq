@@ -34,7 +34,8 @@ import 'package:sidq/features/reverse_serach/presentation/pages/reverse_image_se
 import '../../../../injection_container.dart';
 
 class HomeBar extends StatefulWidget {
-  const HomeBar({GlobalKey? key}) : super(key: key);
+  final String? categoryId;
+  const HomeBar({GlobalKey? key, this.categoryId}) : super(key: key);
 
   @override
   _HomeBarState createState() => _HomeBarState();
@@ -43,7 +44,7 @@ class HomeBar extends StatefulWidget {
 class _HomeBarState extends State<HomeBar> with RouteAware {
    final GlobalKey _fabKey = GlobalKey();
   bool fabVisible = true;
-
+int chosenIndex= -1;
   List<Result> categoryModel = [];
   String? categoryId;
   List<News> list = [];
@@ -69,6 +70,13 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
 
  @override
   void initState() {
+   if ( widget.categoryId!.contains('3d0a5e84-9c54-46c1-8522-39daf705ce13')){
+     chosenIndex = 0;
+   }
+   if ( widget.categoryId!.contains('b520bade-3deb-4081-bb90-4b5094b8d522')){
+
+     chosenIndex=1;
+   }
     super.initState();
 
     // Instantiate NewVersion manager object (Using GCP Console app as example)
@@ -96,6 +104,7 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
   
   @override
   Widget build(BuildContext context) {
+    
     final Size size = MediaQuery.of(context).size;
     return BlocProvider(
       create: (context) =>
@@ -211,6 +220,7 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
                     }
                     if (state is GetNewsState) {
                       list = state.newsmodel.result!;
+                      print(list.length.toString()+"here from list");
                     }
                     
                     if (state is LoadingCategory) {
@@ -219,8 +229,8 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
                     }
                     if (state is GetCategoriesState) {
                       categoryModel = state.categoryModel.result;
-                      SearchParamsModel searchParamsModel = SearchParamsModel(
-                        
+         SearchParamsModel searchParamsModel = SearchParamsModel(
+                        categoryId: widget.categoryId,
                           searchQuery: '',
                           orderDescending: true,
                           pageNumber: page,
@@ -248,6 +258,7 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
                             itemcount: categoryModel.length,
                             function: (BuildContext context, index) {
                               return GestureDetector(onTap: (){
+                                chosenIndex = index;
                                 page = 0;
                                 categoryId = categoryModel[index].id;
                                              SearchParamsModel searchParamsModel =
@@ -267,7 +278,7 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
                                   child: container(
                                       width: w(60),
                                       hight: h(60),
-                                      // color: Colors.white,
+                                      color:  chosenIndex==index? Colors.yellow[200]: AppColor.yellow,
                                       borderRadius: 20,
                                       child: text(
                                           color: AppColor.purple,
