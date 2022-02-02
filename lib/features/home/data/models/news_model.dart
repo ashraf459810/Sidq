@@ -56,6 +56,7 @@ class News {
         this.fileId,
         this.fileLink,
         this.id,
+        this.date
     });
 
     String?title;
@@ -67,9 +68,11 @@ class News {
     String? categoryName;
     String? fileId;
     String ?fileLink;
+    String ? date;
     String? id;
 
     factory News.fromJson(Map<String, dynamic> json) => News(
+      date: json['date'],
         title: json["title"],
         briefDescription: json["briefDescription"],
         isTrue: json["isTrue"],

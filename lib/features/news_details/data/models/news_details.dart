@@ -62,6 +62,7 @@ class Result {
         this.fileId,
         this.fileLink,
         this.id,
+        this.date
     });
 
     String ? description;
@@ -80,8 +81,10 @@ class Result {
     String ?fileId;
     String ?fileLink;
     String? id;
+    String ? date;
 
     factory Result.fromJson(Map<String, dynamic> json) => Result(
+      date: json['date'],
         description: json["description"],
         trueLinks: List<dynamic>.from(json["trueLinks"].map((x) => x)),
         falseLinks: List<String>.from(json["falseLinks"].map((x) => x)),

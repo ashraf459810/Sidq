@@ -14,6 +14,7 @@ import 'package:sidq/Widgets/text.dart';
 import 'package:sidq/core/consts.dart';
 import 'package:sidq/features/reverse_serach/presentation/bloc/reverse_serach_bloc.dart';
 import 'package:sidq/features/reverse_serach/presentation/widgets/reverse_search_result.dart';
+import 'package:sidq/features/review_tickets/presentation/pages/review_tickets.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../injection_container.dart';
@@ -69,6 +70,8 @@ launchInWebViewOrVC('https://www.google.com');
                         )),
               ),
             ),
+            
+
             SizedBox(
               height: h(50),
             ),
@@ -133,7 +136,30 @@ launchInWebViewOrVC('https://www.google.com');
                   },
                 ),
               );
-            })
+            }),
+            SizedBox(height: h(50),),
+
+             GestureDetector(
+               onTap: (){
+                 nav(context,const ReviewTickets() );
+               },
+               child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: w(30)),
+                  child: container(
+                      borderRadius: 20,
+             
+                      hight: h(50),
+                      width: w(100),
+                      child: text(
+                          text: "الردود",
+                  
+                                fontsize: 18.sp,
+                                fontfamily: 'marai',
+                                color: AppColor.purple,
+                                fontWeight: FontWeight.bold
+                          )),
+                ),
+             ),
           ],
         ),
       ),

@@ -326,7 +326,7 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
                                         child: newsSample(
                                             list[index].fileLink!,
                                             list[index].briefDescription!,
-                                            list[index].title!),
+                                            list[index].title!,list[index].date!),
                                       ));
                                 } else {
                                   return BlocBuilder<NavigationBarBloc, NavigationBarBlocState>(
