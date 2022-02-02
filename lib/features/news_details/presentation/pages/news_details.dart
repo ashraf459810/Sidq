@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:ffi';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -346,13 +347,14 @@ class _NewsDetailsState extends State<NewsDetails> {
                                               )
                                             : const SizedBox(),
 
-                                            Row(
+                                   newsDetailsModel!.result!.isVotable!?            Row(
                                               mainAxisAlignment: MainAxisAlignment.end,
                                               children: [
                                                 container(color: Colors.grey[50],
                                                   width: w(90),child: text(text: 'التصويت',fontfamily: 'marai',fontsize: 24.sp)),
                                               ],
-                                            ),
+                                            ):const SizedBox(),
+                                            SizedBox(height: h(10),),
                                         newsDetailsModel
                                                    ! .result!.trueLinks!.length >
                                                 1
