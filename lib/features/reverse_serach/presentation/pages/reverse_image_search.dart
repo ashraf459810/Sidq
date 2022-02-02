@@ -114,7 +114,7 @@ launchInWebViewOrVC('https://www.google.com');
                   },
                   builder: (context, state) {
                     if (state is Loading) {
-                      return Center(child: CircularProgressIndicator(backgroundColor: Colors.grey,color: Colors.grey[50],));
+                      return Center(child: CircularProgressIndicator(backgroundColor: AppColor.yellow,color: AppColor.purple,));
                     }
                     return Padding(
                       padding: EdgeInsets.symmetric(horizontal: w(30)),

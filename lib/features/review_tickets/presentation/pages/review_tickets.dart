@@ -51,7 +51,7 @@ class _ReviewTicketsState extends State<ReviewTickets> {
               builder: (context, state) {
                 if (state is Loading){
                   return  SizedBox(height: h(300),
-                    child: Center(child: CircularProgressIndicator(backgroundColor: Colors.grey,color: Colors.grey[50],)));
+                    child: Center(child: CircularProgressIndicator(backgroundColor: AppColor.yellow,color: AppColor.purple,)));
                 }
                 if (state is Error){
                      Fluttertoast.showToast(

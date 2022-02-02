@@ -526,10 +526,8 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                           return Center(
                                                               child:
                                                                   CircularProgressIndicator(
-                                                            backgroundColor:
-                                                                Colors.grey,
-                                                            color: Colors.grey[50],
-                                                          ));
+                                                        backgroundColor: AppColor.yellow,color: AppColor.purple,)
+                                                          );
                                                         }
                                                     
                                                         return container(

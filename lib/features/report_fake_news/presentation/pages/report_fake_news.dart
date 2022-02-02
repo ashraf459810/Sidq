@@ -6,8 +6,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sidq/App/app.dart';
 import 'package:sidq/Widgets/container.dart';
+import 'package:sidq/Widgets/nav.dart';
 import 'package:sidq/Widgets/text.dart';
 import 'package:sidq/core/consts.dart';
+import 'package:sidq/features/home/presentation/pages/home.dart';
 import 'package:sidq/features/report_fake_news/data/model/ticket_request_model.dart';
 import 'package:sidq/features/report_fake_news/presentation/bloc/report_fake_news_bloc.dart';
 import 'package:sidq/features/report_fake_news/presentation/widgets/inform_container.dart';
@@ -132,12 +134,13 @@ class _ReportFakeNewsState extends State<ReportFakeNews> {
         textColor: Colors.white,
         fontSize: 16.sp
     );
+    navWithReplacement(context,const HomeBar());
                
                     }
                   },
                   builder: (context, state) {
                     if (state is Loading){
-                      return   Center(child: CircularProgressIndicator(backgroundColor: Colors.grey,color: Colors.grey[50],));
+                      return   Center(child: CircularProgressIndicator(backgroundColor: AppColor.yellow,color: AppColor.purple,));
                     }
                     return GestureDetector(onTap: (){
                       log(name!);

@@ -102,10 +102,15 @@ class MainPage extends StatelessWidget {
               height: h(10),
             ),
             Center(
-              child: text(
-                  text: "www.sidqyem.com",
-                  color: Colors.white,
-                  fontfamily: 'marai'),
+              child: GestureDetector(
+                onTap: (){
+                  launchInWebViewOrVC("https://www.sidqyem.com/");
+                },
+                child: text(
+                    text: "www.sidqyem.com",
+                    color: Colors.white,
+                    fontfamily: 'marai'),
+              ),
             )
           ],
         ),

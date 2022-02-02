@@ -103,7 +103,7 @@ onPageFinished: (val){
                         initialUrl:
                        widget.site! + widget.imageLink!)),
                                      isLoading ?  Center( child: SizedBox(height: h(400),
-                    child: Center(child: CircularProgressIndicator(backgroundColor: Colors.grey[600],color: Colors.white,))),):const SizedBox(),
+                    child: Center(child: CircularProgressIndicator(backgroundColor: AppColor.yellow,color: AppColor.purple,))),):const SizedBox(),
                                
               ],
             )

@@ -17,7 +17,7 @@ import 'package:sidq/App/bloc/app_bloc.dart';
 import 'package:sidq/core/consts.dart';
 import 'package:sidq/core/navigatuin_service/navigation.dart';
 
-import 'package:sidq/features/index_page/presentation/pages/main_page.dart';
+import 'package:sidq/features/index_page/presentation/pages/index_page.dart';
 import 'package:sidq/features/news_details/presentation/pages/news_details.dart';
 import 'package:sidq/features/review_tickets/presentation/pages/review_tickets.dart';
 

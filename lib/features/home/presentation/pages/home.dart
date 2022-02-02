@@ -21,8 +21,9 @@ import 'package:sidq/features/home/data/models/news_model.dart';
 import 'package:sidq/features/home/data/models/search_params_model.dart';
 import 'package:sidq/features/home/presentation/bloc/home_page_bloc.dart';
 import 'package:sidq/features/home/presentation/widgets/loading_categories.dart';
+import 'package:sidq/features/home/presentation/widgets/navigation_sample.dart';
 import 'package:sidq/features/home/presentation/widgets/news_sample.dart';
-import 'package:sidq/features/index_page/presentation/pages/main_page.dart';
+import 'package:sidq/features/index_page/presentation/pages/index_page.dart';
 
 import 'package:sidq/features/news_details/presentation/pages/news_details.dart';
 import 'package:sidq/features/report_fake_news/presentation/pages/report_fake_news.dart';
@@ -129,47 +130,14 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
                                 setBottomBarIndex(0);
                                 nav(context, const ReportFakeNews(isReport: false,title: 'ارسل تحقيقا',));
                               },
-                              child: Container(
-                             
-                                  height: h(80),
-                                  width: w(50),
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: currentIndex == 0
-                                          ? Colors.white
-                                          :    AppColor.yellow,),
-                                  child: Center(
-                                      child: text(
-                                          fontfamily: 'marai',
-                                          text: "تحقيق",
-                                          color: currentIndex == 0
-                                              ? AppColor.purple
-                                              : Colors.grey,
-                                          fontWeight: FontWeight.bold,
-                                          textAlign: TextAlign.center))),
+                              child:navigationSample('فيديو', 'MAIN 4.png')
                             ),
                             GestureDetector(
                               onTap: () {
                                 setBottomBarIndex(1);
                                       nav(context, const ReportFakeNews(isReport: true,title: 'الابلاغ عن خبر زائف',));
                               },
-                              child: Container(
-                                  height: h(80),
-                                  width: w(50),
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: currentIndex == 1
-                                          ? Colors.white
-                                               :    AppColor.yellow),
-                                  child: Center(
-                                      child: text(
-                                          fontfamily: 'marai',
-                                          text: "ابلاغ",
-                                          color: currentIndex == 1
-                                              ? AppColor.purple
-                                              : Colors.grey,
-                                          fontWeight: FontWeight.bold,
-                                          textAlign: TextAlign.center))),
+                              child: navigationSample('وعي', 'main 3.png')
                             ),
                             Container(
                               width: size.width * 0.20,
@@ -178,48 +146,14 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
                               onTap: () {
                                 setBottomBarIndex(2);
                               },
-                              child: Container(
-                                  height: h(80),
-                                  width: w(50),
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: currentIndex == 2
-                                          ? Colors.white
-                                                :    AppColor.yellow),
-                                  child: Center(
-                                      child: text(
-                                          fontfamily: 'marai',
-                                          text: 'الاخبار',
-                                          color: currentIndex == 2
-                                              ? AppColor.purple
-                                              : Colors.grey,
-                                       
-                                          fontWeight: FontWeight.bold,
-                                          textAlign: TextAlign.center))),
+                              child:  navigationSample('تحقيقات', 'main 1.png',10.sp)
                             ),
                             GestureDetector(
                               onTap: () {
                                 setBottomBarIndex(3);
                                 navWithReplaceAll(context, const MainPage());
                               },
-                              child: Container(
-                                  height: h(80),
-                                  width: w(50),
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: currentIndex == 3
-                                          ? Colors.white
-                                               :    AppColor.yellow),
-                                  child: Center(
-                                      child: text(
-                                          fontfamily: 'marai',
-                                          text: "الرئيسية",
-                                          color: currentIndex == 3
-                                              ? AppColor.purple
-                                              : Colors.grey,
-                                          fontsize: 11.sp,
-                                          fontWeight: FontWeight.bold,
-                                          textAlign: TextAlign.center))),
+                              child: navigationSample('الرئيسية', 'icon home.png',10.sp)
                             ),
                           ],
                         ),
@@ -232,7 +166,7 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
           ),
         ),
         body: SingleChildScrollView(
-          child: Column(
+          child: ListView(shrinkWrap: true,
             children: [
               SizedBox(
                 height: h(50),
@@ -391,7 +325,7 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
                                     builder: (context, state) {
                                       if (state is LoadingNews){
                                         log('here from loading');
-                                                      return Center(child: CircularProgressIndicator(backgroundColor: Colors.grey,color: Colors.grey[50],));
+                                                      return Center(child: CircularProgressIndicator(backgroundColor: AppColor.yellow,color: AppColor.purple,));
                                       }
                                       return  SizedBox(height: h(10),);
                                     },
@@ -495,12 +429,12 @@ const ReverseImageSearch(),
            onFabTap(context);
         },
           child: Center(
-                          heightFactor: 0.9,
+                          heightFactor: 1.2,
                           child:
                           Icon(
                                 Icons.search,
                                 color: AppColor.yellow,
-                                size: 50,
+                                size: 60.sp,
                               ),
                             
                         ),
