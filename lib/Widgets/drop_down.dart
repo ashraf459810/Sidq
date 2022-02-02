@@ -31,7 +31,7 @@ class _DropDownState extends State<DropDown> {
               child: Text(
                 widget.hint!,
                 textAlign: TextAlign.center,
-                style: TextStyle(color: AppColor.hintcolor, fontSize: 12.sp),
+                style: TextStyle(color: Colors.grey[200], fontSize: 12.sp),
               ),
             )
           : Padding(

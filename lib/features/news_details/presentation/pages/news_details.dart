@@ -200,6 +200,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                       text: 'روابط مزيفة',
                                                       color: Colors.black,
                                                       fontsize: 20.sp,
+                                                      fontfamily: 'marai',
                                                       fontWeight:
                                                           FontWeight.bold),
                                                   customlistview(
@@ -281,6 +282,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                       text: 'روابط حقيقية',
                                                       color: Colors.black,
                                                       fontsize: 20.sp,
+                                                      fontfamily: 'marai',
                                                       fontWeight:
                                                           FontWeight.bold),
                                                   customlistview(
@@ -538,6 +540,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                                 Colors.green[900],
                                                             child: text(
                                                                 text: 'ارسال',
+                                                                fontfamily: 'marai',
                                                                 color:
                                                                     Colors.white));
                                                       },

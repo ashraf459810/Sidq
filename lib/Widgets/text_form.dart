@@ -36,7 +36,7 @@ Widget textform(
         border: InputBorder.none,
         hintText: hint,
         isDense: true,
-        hintStyle: TextStyle(
+        hintStyle: TextStyle(fontWeight: FontWeight.bold,
           color: hintColor ?? Colors.black,
           fontSize: hintsize ?? 12.sp,
         )),

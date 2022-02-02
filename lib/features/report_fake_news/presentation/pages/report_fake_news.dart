@@ -163,12 +163,13 @@ class _ReportFakeNewsState extends State<ReportFakeNews> {
                           borderRadius: 20,
                           hight: h(50),
                           width: w(200),
-                          color: Colors.green[900],
+                          // color: Colors.green[900],
                           child: Center(
                               child: text(
                                   text: "ارسال",
-                                  color: Colors.white,
+                                  color: AppColor.purple,
                                   fontfamily: 'marai',
+                                  fontsize: 18.sp,
                                   fontWeight: FontWeight.bold,
                                   textAlign: TextAlign.center))),
                     );

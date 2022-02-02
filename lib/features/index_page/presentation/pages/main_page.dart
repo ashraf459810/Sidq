@@ -5,11 +5,11 @@ import 'package:sidq/Widgets/container.dart';
 import 'package:sidq/Widgets/nav.dart';
 import 'package:sidq/Widgets/text.dart';
 import 'package:sidq/core/consts.dart';
-import 'package:sidq/features/home/presentation/pages/navigation_bar.dart';
+import 'package:sidq/features/home/presentation/pages/home.dart';
 
 import 'package:sidq/features/report_fake_news/presentation/pages/report_fake_news.dart';
 import 'package:sidq/features/reverse_serach/presentation/pages/reverse_image_search.dart';
-import 'package:sidq/features/review_tickets/presentation/pages/review_tickets.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -19,11 +19,11 @@ class MainPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColor.purple,
       body: Center(
-        child: ListView(
-          shrinkWrap: true,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
-              height: h(50),
+              height: h(60),
             ),
             SizedBox(
                 height: h(150),
@@ -32,74 +32,70 @@ class MainPage extends StatelessWidget {
             SizedBox(
               height: h(50),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                item('البحث \nالعكسي', () {
-                  nav(context, const ReverseImageSearch());
-                }),
-                item('تصفح \nالتحقيقات', () {
-                  nav(context,  ReviewTickets());
-                })
-              ],
+                item('التحقيقات', () {
+              nav(context, const HomeBar());
+            },'main 1.png'),
+   
+                  SizedBox(
+              height: h(20),
             ),
+        
+                     item('البحث  العكسي', () {
+              nav(context, const ReverseImageSearch());
+           },'main2.png'),
             SizedBox(
               height: h(25),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                item('وعي', () {
-                  nav(context, const HomeBar());
-                }),
-                item('فديو', () {
-                  nav(context, const HomeBar());
-                })
-              ],
+            item(' وعي وتعليم', () {
+              nav(context, const HomeBar());
+            },'main 3.png'),
+                   SizedBox(
+              height: h(20),
             ),
+            item('فديوهات', () {
+              nav(context, const HomeBar());
+            },'MAIN 4.png'),
             SizedBox(
               height: h(25),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                item('ارسل  \nتحقيقا', () {
-                  nav(
-                      context,
-                      const ReportFakeNews(
-                        title: 'ارسل تحقيقا',
-                        isReport: false,
-                      ));
-                }),
-                item('ابلغ عن  \nخبر زائف', () {
-                  nav(
-                      context,
-                      const ReportFakeNews(
-                        title: 'الابلاغ عن خبر زائف',
-                        isReport: true,
-                      ));
-                })
-              ],
+            item('ارسل  تحقيقا', () {
+              nav(
+                  context,
+                  const ReportFakeNews(
+                    title: 'ارسل تحقيقا',
+                    isReport: false,
+                  ));
+            },'main 5.png'),
+                   SizedBox(
+              height: h(20),
             ),
+            item('ابلغ عن  اشاعة', () {
+              nav(
+                  context,
+                  const ReportFakeNews(
+                    title: 'الابلاغ عن خبر زائف',
+                    isReport: true,
+                  ));
+            },'main 6.png'),
             SizedBox(
-              height: h(70),
+              height: h(60),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                socialMediaIcon('assets/images/facebook.png'),
+                socialMediaIcon('assets/images/facebook.png','https://www.facebook.com/SidqYem/'),
                 SizedBox(
-                  width: w(20),
+                  width: w(5),
                 ),
-                socialMediaIcon('assets/images/twitter.png'),
+                socialMediaIcon('assets/images/twitter.png','https://twitter.com/sidqyem'),
                 SizedBox(
-                  width: w(20),
+                  width: w(5),
                 ),
-                socialMediaIcon('assets/images/telegram.png'),
+                socialMediaIcon('assets/images/telegram.png','https://t.me/SidqYem'),
                 SizedBox(
-                  width: w(20),
+                  width: w(5),
                 ),
-                socialMediaIcon('assets/images/instagram.png'),
+                socialMediaIcon('assets/images/instagram.png','https://www.instagram.com/sidqyem'),
               ],
             ),
             SizedBox(
@@ -118,35 +114,66 @@ class MainPage extends StatelessWidget {
   }
 }
 
-Widget item(String title, Function navigat) {
+Widget item(String title, Function navigat,String image) {
   return InkWell(
     onTap: () {
       navigat();
     },
     child: container(
-        hight: h(90),
-        width: w(100),
-        color: Colors.white,
+        hight: h(50),
+        width: w(250),
+        
         borderRadius: 20,
         child: Center(
-          child: text(
-              text: title,
-              fontfamily: 'marai',
-              fontWeight: FontWeight.bold,
-              textAlign: TextAlign.center,
-              fontsize: 18.sp),
+          child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              SizedBox(width: w(150),
+                child: text(
+                  color: AppColor.purple,
+                    text: title,
+                    fontfamily: 'marai',
+                    fontWeight: FontWeight.bold,
+                    textAlign: TextAlign.center,
+                    fontsize: 20.sp),
+              ),
+                   Image.asset('assets/images/'+image,height: h(35),width: w(30),fit: BoxFit.contain,)
+            ],
+          ),
         )),
   );
 }
 
-Widget socialMediaIcon(String image) {
-  return Center(
-    child: Image.asset(
-      image,
-      fit: BoxFit.contain,
-      height: h(20),
-      width: w(20),
-      color: Colors.white,
+Widget socialMediaIcon(String image, String url) {
+  return GestureDetector(onTap: (){
+    launchInWebViewOrVC(url);
+  },
+    child: Center(
+      child: Container(
+        
+        height: h(30),
+        width: w(30),
+        decoration: BoxDecoration(shape: BoxShape.circle,color: AppColor.yellow),
+        child: Center(
+          child: Image.asset(
+            image,
+            fit: BoxFit.contain,
+            height: h(20),
+            width: w(20),
+            color: AppColor.purple,
+          ),
+        ),
+      ),
     ),
   );
 }
+  Future<void> launchInWebViewOrVC(String url) async {
+    if (!await launch(
+      url,
+      forceSafariVC: true,
+      forceWebView: true,
+      enableJavaScript:  url.contains('instagram') || url.contains('twitter')   ?true : false,
+      headers: <String, String>{'my_header_key': 'my_header_value'},
+    )) {
+      throw 'Could not launch $url';
+    }
+  }

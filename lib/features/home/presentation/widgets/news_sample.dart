@@ -12,7 +12,7 @@ Widget newsSample(String image, String desc, String title) {
       children: [
         container(
             color: Colors.white,
-            hight: h(120),
+            hight: h(140),
             width: w(220),
             borderRadius: 10,
             child: Column(
@@ -21,14 +21,15 @@ Widget newsSample(String image, String desc, String title) {
                   alignment: Alignment.centerRight,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: text(text: title, fontsize: 13.sp, fontWeight: FontWeight.bold,maxLines: 1),
+                    child: text(text: title, fontsize: 13.sp, fontWeight: FontWeight.bold,maxLines: 1,fontfamily: 'marai'),
                   ),
                 ),
                 Container(alignment: Alignment.centerRight,
                   child: Padding(
-                    padding:  EdgeInsets.only(right: w(10),left: w(10),bottom: h(8)),
-                    child: text(maxLines: 3,
-                      text: desc, fontsize: 9.sp,textAlign: TextAlign.right),
+                    padding:  EdgeInsets.only(right: w(8),left: w(8),bottom: h(8)),
+                    child: text(maxLines: 4,
+                    fontfamily: 'marai',
+                      text: desc, fontsize: 11.sp,textAlign: TextAlign.right),
                   ),
                 ),
               ],
@@ -37,7 +38,7 @@ Widget newsSample(String image, String desc, String title) {
           borderRadius: const BorderRadius.all(Radius.circular(10)),
 
           // ignore: unnecessary_null_comparison
-          child: image!=null? CachedNetworkImage(         height: h(120),
+          child: image!=null? CachedNetworkImage(         height: h(140),
             width: w(120),
             fit: BoxFit.fitHeight,
         imageUrl: image,

@@ -1,5 +1,5 @@
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:sidq/App/app.dart';
 import 'package:sidq/Widgets/container.dart';
 import 'package:sidq/Widgets/text.dart';
@@ -20,6 +20,7 @@ Widget inputForm(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           container(
+            color: Colors.white,
               hight: hight,
               width: width2,
               borderRadius: 20,

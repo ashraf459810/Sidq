@@ -127,7 +127,7 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
                             GestureDetector(
                               onTap: () {
                                 setBottomBarIndex(0);
-                                nav(context, const ReportFakeNews(isReport: false,title: 'ارسل تحقيق',));
+                                nav(context, const ReportFakeNews(isReport: false,title: 'ارسل تحقيقا',));
                               },
                               child: Container(
                              
@@ -151,7 +151,7 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
                             GestureDetector(
                               onTap: () {
                                 setBottomBarIndex(1);
-                                      nav(context, const ReportFakeNews(isReport: true,title: 'ارسل ابلاغ',));
+                                      nav(context, const ReportFakeNews(isReport: true,title: 'الابلاغ عن خبر زائف',));
                               },
                               child: Container(
                                   height: h(80),
@@ -242,13 +242,14 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
                 child: container(
                     width: w(320),
                     hight: h(50),
-                    color: Colors.white,
+                    // color: Colors.white,
                     borderRadius: 20,
                     child: SizedBox(
                       width: w(250),
                       child: textform(
                           hint: 'بحث',
                           hintsize: w(20),
+                          hintColor: AppColor.purple,
                           controller: searchc,
                           function: (val) {
                             serach = val;
@@ -324,9 +325,11 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
                                   child: container(
                                       width: w(60),
                                       hight: h(60),
-                                      color: Colors.white,
+                                      // color: Colors.white,
                                       borderRadius: 20,
                                       child: text(
+                                          color: AppColor.purple,
+                                          fontWeight: FontWeight.bold,
                                           text: categoryModel[index].name ?? '',
                                           fontfamily: 'marai')),
                                 ),

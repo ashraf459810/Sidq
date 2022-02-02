@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -55,13 +56,17 @@ launchInWebViewOrVC('https://www.google.com');
                 padding: EdgeInsets.symmetric(horizontal: w(30)),
                 child: container(
                     borderRadius: 20,
-                    color: Colors.green[900],
+
                     hight: h(50),
                     width: w(100),
                     child: text(
                         text: "بحث نصي",
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold)),
+                
+                              fontsize: 18.sp,
+                              fontfamily: 'marai',
+                              color: AppColor.purple,
+                              fontWeight: FontWeight.bold
+                        )),
               ),
             ),
             SizedBox(
@@ -115,12 +120,14 @@ launchInWebViewOrVC('https://www.google.com');
                       padding: EdgeInsets.symmetric(horizontal: w(30)),
                       child: container(
                           borderRadius: 20,
-                          color: Colors.green[900],
+                          // color: Colors.green[900],
                           hight: h(50),
                           width: w(100),
                           child: text(
                               text: "بحث صورة",
-                              color: Colors.white,
+                              fontsize: 18.sp,
+                              fontfamily: 'marai',
+                              color: AppColor.purple,
                               fontWeight: FontWeight.bold)),
                     );
                   },
