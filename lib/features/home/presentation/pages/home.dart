@@ -322,7 +322,7 @@ int chosenIndex= -1;
                 ),
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.7,
+                height: h(570),
                 child: BlocBuilder<NavigationBarBloc, NavigationBarBlocState>(
                   builder: (context, state) {
            
