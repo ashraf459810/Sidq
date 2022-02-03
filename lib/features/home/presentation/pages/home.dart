@@ -115,13 +115,13 @@ int chosenIndex= -1;
        sl<NavigationBarBloc>() .. add(widget.categoryId ==null? const GetCategoriesEvent(0, 1000): GetNewsEvent(SearchParamsModel(categoryId: widget.categoryId,pageNumber: 0,pageLength: 1000,searchQuery: '',orderDescending: true), false)),
       child: Scaffold(
         appBar: AppBar(
-       
-      
+             
+            
         iconTheme:const IconThemeData(color: Colors.white,size: 40),
         elevation: 0,
         backgroundColor: AppColor.purple,
         actions: [    Padding(
-                padding: EdgeInsets.symmetric(horizontal: w(20),vertical: h(10)),
+                padding: EdgeInsets.symmetric(horizontal: w(20),vertical: h(5)),
                 child: container(
                     width: w(280),
                     hight: h(30),
@@ -132,6 +132,7 @@ int chosenIndex= -1;
                       child: Builder(
                         builder: (context) {
                           return textform(
+                          padding: EdgeInsets.only(right: w(10)),
                               hint: 'بحث',
                               hintsize: w(20),
                               hintColor: AppColor.purple,
@@ -153,22 +154,22 @@ int chosenIndex= -1;
               return Padding(
                 padding: EdgeInsets.only(right: w(12)),
                 child: GestureDetector( onTap: (){
-
+        
                       Scaffold.of(context).openEndDrawer();
-
+        
                 },
                   child: Icon(Icons.menu,color: AppColor.yellow,),),
               );
             }
           ),
         ],
-      ),
+            ),
         endDrawer:  const  HomeDrawer(),
 
         backgroundColor: AppColor.purple,
         bottomNavigationBar: 
         SizedBox(
-          height: size.height * 0.10,
+          height: h(75),
           child: Stack(
             children: [
               Positioned(
@@ -234,8 +235,9 @@ int chosenIndex= -1;
        
         body: SingleChildScrollView(
           child: ListView(shrinkWrap: true,
+          
             children: [
-        
+    SizedBox(height: h(10),),
               SizedBox(
                 height: h(60),
                 child: BlocBuilder<NavigationBarBloc, NavigationBarBlocState>(
@@ -245,7 +247,7 @@ int chosenIndex= -1;
                     }
                     if (state is GetNewsState) {
                       list = state.newsmodel.result!;
-                      print(list.length.toString()+"here from list");
+                
                     }
                     
                     if (state is LoadingCategory) {
@@ -319,67 +321,65 @@ int chosenIndex= -1;
                   },
                 ),
               ),
-              SingleChildScrollView(
-                child: SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.653,
-                  child: BlocBuilder<NavigationBarBloc, NavigationBarBlocState>(
-                    builder: (context, state) {
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.7,
+                child: BlocBuilder<NavigationBarBloc, NavigationBarBlocState>(
+                  builder: (context, state) {
            
         
-                      return NotificationListener<ScrollNotification>(
-                          onNotification: (notification) {
-                            if (notification is ScrollEndNotification &&
-                                scrollController.position.extentAfter == 0) {
-                              page++;
-                              
-                              SearchParamsModel searchParamsModel =
-                                  SearchParamsModel(
-                                    categoryId: widget.categoryId==null? categoryId: categoryId,
-                                      searchQuery: '',
-                                      orderDescending: true,
-                                      pageNumber: page,
-                                      pageLength: pageSize);
-                              context
-                                  .read<NavigationBarBloc>()
-                                  .add(GetNewsEvent(searchParamsModel,false));
-                            }
+                    return NotificationListener<ScrollNotification>(
+                        onNotification: (notification) {
+                          if (notification is ScrollEndNotification &&
+                              scrollController.position.extentAfter == 0) {
+                            page++;
+                            
+                            SearchParamsModel searchParamsModel =
+                                SearchParamsModel(
+                                  categoryId: widget.categoryId==null? categoryId: categoryId,
+                                    searchQuery: '',
+                                    orderDescending: true,
+                                    pageNumber: page,
+                                    pageLength: pageSize);
+                            context
+                                .read<NavigationBarBloc>()
+                                .add(GetNewsEvent(searchParamsModel,false));
+                          }
         
-                            return false;
-                          },
-                          child: customlistview(
-                              padding: 10,
-                              direction: 'vertical',
-                              scroll: true,
-                              controller: scrollController,
-                              itemcount: list.length + 1,
-                              function: (context, index) {
-                                if (index <list.length) {
-                                  return Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: h(10)),
-                                      child: GestureDetector(
-                                        onTap: (){
-                                          Navigator.of(context).push( SecondPageRoute(list[index].id!));
-                                        },
-                                        child: newsSample(
-                                            list[index].fileLink!,
-                                            list[index].briefDescription!,
-                                            list[index].title!,list[index].date!),
-                                      ));
-                                } else {
-                                  return BlocBuilder<NavigationBarBloc, NavigationBarBlocState>(
-                                    builder: (context, state) {
-                                      if (state is LoadingNews){
-                                        log('here from loading');
-                                                      return Center(child: CircularProgressIndicator(backgroundColor: AppColor.yellow,color: AppColor.purple,));
-                                      }
-                                      return  SizedBox(height: h(10),);
-                                    },
-                                  );
-                                }
-                              }));
-                    },
-                  ),
+                          return false;
+                        },
+                        child: customlistview(
+                            padding: 10,
+                            direction: 'vertical',
+                            scroll: true,
+                            controller: scrollController,
+                            itemcount: list.length + 1,
+                            function: (context, index) {
+                              if (index <list.length) {
+                                return Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(vertical: h(10)),
+                                    child: GestureDetector(
+                                      onTap: (){
+                                        Navigator.of(context).push( SecondPageRoute(list[index].id!));
+                                      },
+                                      child: newsSample(
+                                          list[index].fileLink!,
+                                          list[index].briefDescription!,
+                                          list[index].title!,list[index].date!),
+                                    ));
+                              } else {
+                                return BlocBuilder<NavigationBarBloc, NavigationBarBlocState>(
+                                  builder: (context, state) {
+                                    if (state is LoadingNews){
+                                      log('here from loading');
+                                                    return Center(child: CircularProgressIndicator(backgroundColor: AppColor.yellow,color: AppColor.purple,));
+                                    }
+                                    return  SizedBox(height: h(25),);
+                                  },
+                                );
+                              }
+                            }));
+                  },
                 ),
               )
             ],

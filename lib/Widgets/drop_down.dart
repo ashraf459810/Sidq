@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sidq/App/app.dart';
-import 'package:sidq/Core/consts.dart';
+
 
 class DropDown extends StatefulWidget {
   final String? chosenvalue;

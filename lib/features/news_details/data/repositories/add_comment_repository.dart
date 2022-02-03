@@ -20,10 +20,10 @@ class AddCommentRepositoryImp implements AddCommentRepository{
 
         return Right(response);
       } on ServerException {
-        return const Left(ServerFailure("Error"));
+        return const Left(ServerFailure("تعذر الاتصال"));
       }
     } else {
-      return const Left(NetWorkFailure('please check your connection'));
+      return const Left(NetWorkFailure('تحقق من الاتصال بالانترنت'));
     }
   }
 }

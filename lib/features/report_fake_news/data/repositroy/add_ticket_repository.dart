@@ -21,11 +21,11 @@ class AddTicketRepositoryImp implements AddTicketRepository {
         final news = await addTicketRemoteData.addTicket(ticketRequestBody);
 
         return Right(news);
-      } on ServerException {
-        return const Left(ServerFailure("Error"));
+       } on ServerException {
+        return const Left(ServerFailure("تعذر الاتصال"));
       }
     } else {
-      return const Left(NetWorkFailure('please check your connection'));
+      return const Left(NetWorkFailure('تحقق من الاتصال بالانترنت'));
     }
   }
 }

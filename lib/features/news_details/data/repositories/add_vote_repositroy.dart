@@ -20,10 +20,10 @@ class AddVoteRepositoryImp implements AddVoteRepository {
 
         return Right(news);
       } on ServerException {
-        return const Left(ServerFailure("Error"));
+        return const Left(ServerFailure("تعذر الاتصال"));
       }
     } else {
-      return const Left(NetWorkFailure('pleaase check your connection'));
+      return const Left(NetWorkFailure('تحقق من الاتصال بالانترنت'));
     }
   }
 

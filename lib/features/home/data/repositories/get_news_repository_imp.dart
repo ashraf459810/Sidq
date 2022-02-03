@@ -29,7 +29,7 @@ class GetNewsRepositoryImp implements GetNewsRepository {
         return const Left(ServerFailure("Error"));
       }
     } else {
-      return const Left(NetWorkFailure('please check your connection'));
+      return const Left(NetWorkFailure('الرجاء التاكد من الاتصال بالانترنت'));
     }
   }
 }

@@ -34,7 +34,7 @@ class NetworkFunctionsImp implements NetworkFunctions {
         'Accept-Language':'ar-sy'
       },
     );
-    print(response);
+    log(response.toString());
     log(baseurl + url);
     log(response.statusCode.toString());
     if (response.statusCode == 200) {
@@ -71,7 +71,7 @@ class NetworkFunctionsImp implements NetworkFunctions {
         body: body);
 
     log(baseurl + url);
-    print(response.body);
+    log(response.body);
     log(response.statusCode.toString());
 
     if (response.statusCode == 200) {

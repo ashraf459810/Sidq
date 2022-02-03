@@ -309,8 +309,6 @@ void basicStatusCheck(NewVersion newVersion) {
             payload: payload);
       }
 
-      print(message.toString());
-      print(payload);
 
     });
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
@@ -362,6 +360,7 @@ void basicStatusCheck(NewVersion newVersion) {
     }
     if (payload.contains('TicketAnswered')){
 
+     // ignore: unused_local_variable
      var id = payload.split(',').first.substring(5);
       sl<NavigationService>()
             .navigatorKey

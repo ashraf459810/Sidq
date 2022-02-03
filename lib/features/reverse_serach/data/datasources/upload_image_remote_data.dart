@@ -1,4 +1,4 @@
-import 'dart:convert';
+
 import 'dart:developer';
 import 'dart:io';
 
@@ -7,7 +7,7 @@ import 'package:sidq/core/network/network_info.dart';
 
 import 'package:sidq/core/remote_data_function/http_methods.dart';
 import 'package:http/http.dart' as http;
-import 'package:sidq/features/reverse_serach/data/model.dart/UploadImageResponse.dart';
+import 'package:sidq/features/reverse_serach/data/model.dart/upload_image_response.dart';
 
 abstract class UploadImageRemoteData {
   Future<dynamic> uploadImage(File image);
