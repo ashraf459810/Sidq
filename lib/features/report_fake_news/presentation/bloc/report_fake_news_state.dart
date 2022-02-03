@@ -24,3 +24,8 @@ class Loading extends ReportFakeNewsState{
 
 }
 
+class UploadPicState extends ReportFakeNewsState {
+  final String id;
+
+  const UploadPicState(this.id);
+}

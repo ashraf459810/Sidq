@@ -74,10 +74,11 @@ class _ReverseSearchResultState extends State<ReverseSearchResult> {
                             hight: h(50),
                             width: w(70),
                             borderRadius: 10,
-                            color: AppColor.purple,
+                            color: Colors.grey,
                             child: text(
                                 text: sites[index],
                                 fontsize: 12.sp,
+                                fontWeight: FontWeight.bold,
                                 color: Colors.white)),
                       ),
                     ),

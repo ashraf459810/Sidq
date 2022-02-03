@@ -17,7 +17,7 @@ class ReverseSerachBloc extends Bloc<ReverseSerachEvent, ReverseSerachState> {
             await uploadImageUseCase.uploadImageUseCase(event.imageLink);
 
         result.fold((l) => emit(Error(l.error.toString())),
-            (r) => emit(UploadImageState(r)));
+            (r) => emit(UploadImageState(r.result!.link!)));
       }
     });
   }

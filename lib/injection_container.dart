@@ -64,7 +64,7 @@ Future<void> init() async {
 
     sl.registerFactory(
     () => ReportFakeNewsBloc(
-      sl(),
+      sl(),sl()
  
     ),
   );

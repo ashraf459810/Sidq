@@ -256,7 +256,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                                   child: Text(
                                                                     newsDetailsModel
                                                                         !.result!
-                                                                        .trueLinks![index],
+                                                                        .falseLinks![index],
                                                                     maxLines: 1,
                                                                     overflow:
                                                                         TextOverflow

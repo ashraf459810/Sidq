@@ -13,3 +13,9 @@ class AddTicketEvent  extends ReportFakeNewsEvent {
  const AddTicketEvent(this.ticketRequestBody);
 }
 
+
+class UploadPicEvent extends ReportFakeNewsEvent{
+  final File image;
+
+  const UploadPicEvent(this.image);
+}

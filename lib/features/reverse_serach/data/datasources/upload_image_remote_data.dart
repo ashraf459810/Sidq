@@ -7,9 +7,10 @@ import 'package:sidq/core/network/network_info.dart';
 
 import 'package:sidq/core/remote_data_function/http_methods.dart';
 import 'package:http/http.dart' as http;
+import 'package:sidq/features/reverse_serach/data/model.dart/UploadImageResponse.dart';
 
 abstract class UploadImageRemoteData {
-  Future<String> uploadImage(File image);
+  Future<dynamic> uploadImage(File image);
 }
 
 class UploadImageRemoteDataImp implements UploadImageRemoteData {
@@ -19,7 +20,7 @@ class UploadImageRemoteDataImp implements UploadImageRemoteData {
   UploadImageRemoteDataImp(this.networkFunctions, this.networkInf);
 
   @override
-  Future<String> uploadImage(File image) async {
+  Future<dynamic> uploadImage(File image) async {
     final String url = networkInf.baseUrl + '/Common/File/Upload';
     final uri = Uri.parse(url);
 
@@ -35,9 +36,9 @@ class UploadImageRemoteDataImp implements UploadImageRemoteData {
       var jsonn = await http.Response.fromStream(response);
 
       final uploadImage = jsonn.body;
-      var res = json.decode(uploadImage);
+     
 
-      return res['result']['link'];
+      return uploadImageResponseFromJson(uploadImage);
     }
     if (response.statusCode == 500) {
       throw ServerException('error while downloading photo');

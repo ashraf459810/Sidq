@@ -16,6 +16,7 @@ class TicketRequestBody {
         this.falseLinks,
         this.truthLinks,
         this.name,
+        this.fileId
     });
 
     int? type;
@@ -24,8 +25,10 @@ class TicketRequestBody {
     String ?falseLinks;
     String ?truthLinks;
     String ?name;
+    String? fileId;
 
     factory TicketRequestBody.fromJson(Map<String, dynamic> json) => TicketRequestBody(
+      fileId: json['fileId'],
         type: json["type"],
         text: json["text"],
         truth: json["truth"],
@@ -35,6 +38,7 @@ class TicketRequestBody {
     );
 
     Map<String, dynamic> toJson() => {
+      'fileId' : fileId,
         "type": type,
         "text": text,
         "truth": truth,

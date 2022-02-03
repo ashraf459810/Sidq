@@ -20,6 +20,7 @@ import 'package:sidq/features/home/data/models/category_model.dart';
 import 'package:sidq/features/home/data/models/news_model.dart';
 import 'package:sidq/features/home/data/models/search_params_model.dart';
 import 'package:sidq/features/home/presentation/bloc/home_page_bloc.dart';
+import 'package:sidq/features/home/presentation/widgets/drawer.dart';
 import 'package:sidq/features/home/presentation/widgets/loading_categories.dart';
 import 'package:sidq/features/home/presentation/widgets/navigation_sample.dart';
 import 'package:sidq/features/home/presentation/widgets/news_sample.dart';
@@ -30,6 +31,7 @@ import 'package:sidq/features/report_fake_news/presentation/pages/report_fake_ne
 
 
 import 'package:sidq/features/reverse_serach/presentation/pages/reverse_image_search.dart';
+import 'package:sidq/features/review_tickets/presentation/pages/review_tickets.dart';
 
 import '../../../../injection_container.dart';
 
@@ -70,13 +72,14 @@ int chosenIndex= -1;
 
  @override
   void initState() {
+    if (widget.categoryId !=null){
    if ( widget.categoryId!.contains('3d0a5e84-9c54-46c1-8522-39daf705ce13')){
      chosenIndex = 0;
    }
    if ( widget.categoryId!.contains('b520bade-3deb-4081-bb90-4b5094b8d522')){
 
      chosenIndex=1;
-   }
+   }}
     super.initState();
 
     // Instantiate NewVersion manager object (Using GCP Console app as example)
@@ -106,12 +109,65 @@ int chosenIndex= -1;
   Widget build(BuildContext context) {
     
     final Size size = MediaQuery.of(context).size;
-    return BlocProvider(
+    return 
+    BlocProvider(
       create: (context) =>
-          sl<NavigationBarBloc>()..add(const GetCategoriesEvent(0, 100)),
+       sl<NavigationBarBloc>() .. add(widget.categoryId ==null? const GetCategoriesEvent(0, 1000): GetNewsEvent(SearchParamsModel(categoryId: widget.categoryId,pageNumber: 0,pageLength: 1000,searchQuery: '',orderDescending: true), false)),
       child: Scaffold(
+        appBar: AppBar(
+       
+      
+        iconTheme:const IconThemeData(color: Colors.white,size: 40),
+        elevation: 0,
         backgroundColor: AppColor.purple,
-        bottomNavigationBar: SizedBox(
+        actions: [    Padding(
+                padding: EdgeInsets.symmetric(horizontal: w(20),vertical: h(10)),
+                child: container(
+                    width: w(280),
+                    hight: h(30),
+                    // color: Colors.white,
+                    borderRadius: 20,
+                    child: SizedBox(
+                      width: w(250),
+                      child: Builder(
+                        builder: (context) {
+                          return textform(
+                              hint: 'بحث',
+                              hintsize: w(20),
+                              hintColor: AppColor.purple,
+                              controller: searchc,
+                              function: (val) {
+                                serach = val;
+                                context.read<NavigationBarBloc>().add(SearchNewsEvent(SearchParamsModel(searchQuery: val,pageNumber: 0,pageLength: 100,orderDescending: true)));
+                              },
+                              keyboard: 'name',
+                              validation: (val) {
+                                return val!;
+                              });
+                        }
+                      ),
+                    )),
+              ),
+          Builder(
+            builder: (context) {
+              return Padding(
+                padding: EdgeInsets.only(right: w(12)),
+                child: GestureDetector( onTap: (){
+
+                      Scaffold.of(context).openEndDrawer();
+
+                },
+                  child: Icon(Icons.menu,color: AppColor.yellow,),),
+              );
+            }
+          ),
+        ],
+      ),
+        endDrawer:  const  HomeDrawer(),
+
+        backgroundColor: AppColor.purple,
+        bottomNavigationBar: 
+        SizedBox(
           height: size.height * 0.10,
           child: Stack(
             children: [
@@ -137,14 +193,14 @@ int chosenIndex= -1;
                             GestureDetector(
                               onTap: () {
                                 setBottomBarIndex(0);
-                                nav(context, const ReportFakeNews(isReport: false,title: 'ارسل تحقيقا',));
+                                nav(context, const ReviewTickets());
                               },
-                              child:navigationSample('فيديو', 'MAIN 4.png')
+                              child:navigationSample('ابلاغاتي', 'profile.png')
                             ),
                             GestureDetector(
                               onTap: () {
                                 setBottomBarIndex(1);
-                                      nav(context, const ReportFakeNews(isReport: true,title: 'الابلاغ عن خبر زائف',));
+                             nav(context, const ReportFakeNews(isReport: true,title: 'الابلاغ عن خبر زائف',));
                               },
                               child: navigationSample('وعي', 'main 3.png')
                             ),
@@ -174,43 +230,12 @@ int chosenIndex= -1;
             ],
           ),
         ),
+       
+       
         body: SingleChildScrollView(
           child: ListView(shrinkWrap: true,
             children: [
-              SizedBox(
-                height: h(30),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: w(20)),
-                child: container(
-                    width: w(320),
-                    hight: h(50),
-                    // color: Colors.white,
-                    borderRadius: 20,
-                    child: SizedBox(
-                      width: w(250),
-                      child: Builder(
-                        builder: (context) {
-                          return textform(
-                              hint: 'بحث',
-                              hintsize: w(20),
-                              hintColor: AppColor.purple,
-                              controller: searchc,
-                              function: (val) {
-                                serach = val;
-                                context.read<NavigationBarBloc>().add(SearchNewsEvent(SearchParamsModel(searchQuery: val,pageNumber: 0,pageLength: 100,orderDescending: true)));
-                              },
-                              keyboard: 'name',
-                              validation: (val) {
-                                return val!;
-                              });
-                        }
-                      ),
-                    )),
-              ),
-              SizedBox(
-                height: h(20),
-              ),
+        
               SizedBox(
                 height: h(60),
                 child: BlocBuilder<NavigationBarBloc, NavigationBarBlocState>(
@@ -250,44 +275,46 @@ int chosenIndex= -1;
                           fontSize: 16.0);
                     }
                     return
-                     categoryModel.isNotEmpty
-                        ? customlistview(
-                            padding: 10,
-                            scroll: true,
-                            // controller: scrollController,
-                            itemcount: categoryModel.length,
-                            function: (BuildContext context, index) {
-                              return GestureDetector(onTap: (){
-                                chosenIndex = index;
-                                page = 0;
-                                categoryId = categoryModel[index].id;
-                                             SearchParamsModel searchParamsModel =
-                                  SearchParamsModel(
-                                    categoryId: categoryId,
-                                      searchQuery: '',
-                                      orderDescending: true,
-                                      pageNumber: page,
-                                      pageLength: pageSize);
-                              context.read<NavigationBarBloc>()
-                                  .add(GetNewsEvent(searchParamsModel,true));
-                            
+                (     categoryModel.isNotEmpty && widget.categoryId==null)
+                        ? Center(
+                          child: customlistview(
+                              padding: 10,
+                              scroll: true,
+                              // controller: scrollController,
+                              itemcount: categoryModel.length,
+                              function: (BuildContext context, index) {
+                                return GestureDetector(onTap: (){
+                                  chosenIndex = index;
+                                  page = 0;
+                                  categoryId = categoryModel[index].id;
+                                               SearchParamsModel searchParamsModel =
+                                    SearchParamsModel(
+                                      categoryId: categoryId,
+                                        searchQuery: '',
+                                        orderDescending: true,
+                                        pageNumber: page,
+                                        pageLength: pageSize);
+                                context.read<NavigationBarBloc>()
+                                    .add(GetNewsEvent(searchParamsModel,true));
+                              
         
-                              },
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: w(7)),
-                                  child: container(
-                                      width: w(60),
-                                      hight: h(60),
-                                      color:  chosenIndex==index? Colors.yellow[200]: AppColor.yellow,
-                                      borderRadius: 20,
-                                      child: text(
-                                          color: AppColor.purple,
-                                          fontWeight: FontWeight.bold,
-                                          text: categoryModel[index].name ?? '',
-                                          fontfamily: 'marai')),
-                                ),
-                              );
-                            })
+                                },
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(horizontal: w(7)),
+                                    child: container(
+                                        width: w(60),
+                                        hight: h(60),
+                                        color:  chosenIndex==index? Colors.yellow[200]: AppColor.yellow,
+                                        borderRadius: 20,
+                                        child: text(
+                                            color: AppColor.purple,
+                                            fontWeight: FontWeight.bold,
+                                            text: categoryModel[index].name ?? '',
+                                            fontfamily: 'marai')),
+                                  ),
+                                );
+                              }),
+                        )
                         : const SizedBox();
                   },
                 ),
@@ -307,7 +334,7 @@ int chosenIndex= -1;
                               
                               SearchParamsModel searchParamsModel =
                                   SearchParamsModel(
-                                    categoryId: categoryId,
+                                    categoryId: widget.categoryId==null? categoryId: categoryId,
                                       searchQuery: '',
                                       orderDescending: true,
                                       pageNumber: page,

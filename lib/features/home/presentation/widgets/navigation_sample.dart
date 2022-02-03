@@ -16,7 +16,7 @@ return Container(
                                   child: Center(
                                       child: ListView(shrinkWrap: true ,
                                         children: [
-                                          Image.asset('assets/images/'+icon,height: h(22),width: w(20),fit: BoxFit.contain,),
+                                          Image.asset('assets/images/'+icon,height: h(22),width: w(20),fit: BoxFit.contain,color: AppColor.purple,),
                                           
                                           text(
                                               fontfamily: 'marai',
