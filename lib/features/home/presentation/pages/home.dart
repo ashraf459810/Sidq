@@ -49,7 +49,7 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
 int chosenIndex= -1;
   List<Result> categoryModel = [];
   String? categoryId;
-  List<News> list = [];
+  List<News> newslist = [];
   String? serach;
   TextEditingController searchc = TextEditingController();
   int currentIndex = 2;
@@ -243,10 +243,10 @@ int chosenIndex= -1;
                 child: BlocBuilder<NavigationBarBloc, NavigationBarBlocState>(
                   builder: (context, state) {
                     if (state is SearchNewsState){
-                      list = state.newsmodel.result!;
+                      newslist = state.newsmodel.result!;
                     }
                     if (state is GetNewsState) {
-                      list = state.newsmodel.result!;
+                      newslist = state.newsmodel.result!;
                 
                     }
                     
@@ -322,7 +322,7 @@ int chosenIndex= -1;
                 ),
               ),
               SizedBox(
-                height: h(570),
+                height: h(600),
                 child: BlocBuilder<NavigationBarBloc, NavigationBarBlocState>(
                   builder: (context, state) {
            
@@ -352,20 +352,20 @@ int chosenIndex= -1;
                             direction: 'vertical',
                             scroll: true,
                             controller: scrollController,
-                            itemcount: list.length + 1,
+                            itemcount: newslist.length + 1,
                             function: (context, index) {
-                              if (index <list.length) {
+                              if (index <newslist.length) {
                                 return Padding(
                                     padding:
                                         EdgeInsets.symmetric(vertical: h(10)),
                                     child: GestureDetector(
                                       onTap: (){
-                                        Navigator.of(context).push( SecondPageRoute(list[index].id!));
+                                        Navigator.of(context).push( SecondPageRoute(newslist[index].id!));
                                       },
                                       child: newsSample(
-                                          list[index].fileLink!,
-                                          list[index].briefDescription!,
-                                          list[index].title!,list[index].date!),
+                                          newslist[index].fileLink!,
+                                          newslist[index].briefDescription!,
+                                          newslist[index].title!,newslist[index].date!),
                                     ));
                               } else {
                                 return BlocBuilder<NavigationBarBloc, NavigationBarBlocState>(
@@ -389,7 +389,7 @@ int chosenIndex= -1;
     );
   }
 
-  
+  //////animation
     onFabTap(BuildContext context) {
     
     // Hide the FAB on transition start
@@ -487,31 +487,5 @@ const ReverseImageSearch(),
         );
   }}
 
-// class BNBCustomPainter extends CustomPainter {
-//   @override
-//   void paint(Canvas canvas, Size size) {
-//     Paint paint = Paint()
-//       ..color = AppColor.grey ?? Colors.white
-//       ..style = PaintingStyle.fill;
 
-//     Path path = Path();
-//     path.moveTo(0, 20); // Start
-//     path.quadraticBezierTo(size.width * 0.20, 0, size.width * 0.40, 0);
-//     path.quadraticBezierTo(size.width * 0.40, 0, size.width * 0.40, 20);
-//     path.arcToPoint(Offset(size.width * 0.60, 10),
-//         radius: const Radius.circular(20.0), clockwise: false);
-//     path.quadraticBezierTo(size.width * 0.60, 0, size.width * 0.60, 0);
-//     path.quadraticBezierTo(size.width * 0.80, 0, size.width, 20);
-//     path.lineTo(size.width, size.height);
-//     path.lineTo(0, size.height);
-//     path.lineTo(0, 20);
-//     canvas.drawShadow(path, Colors.black, 5, true);
-//     canvas.drawPath(path, paint);
-//   }
-
-//   @override
-//   bool shouldRepaint(CustomPainter oldDelegate) {
-//     return false;
-//   }
-// }
 

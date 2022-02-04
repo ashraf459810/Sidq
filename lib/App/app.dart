@@ -182,7 +182,8 @@ void basicStatusCheck(NewVersion newVersion) {
     FirebaseMessaging.instance
         .getInitialMessage()
         .then((RemoteMessage? message) async {
-            if (message!.data['type'] == 'NewNewsPublished') {
+          if (message !=null){
+            if (message.data['type'] == 'NewNewsPublished') {
        var id = message.data['id'];
         log(id);
 
@@ -206,7 +207,7 @@ void basicStatusCheck(NewVersion newVersion) {
                    
                     )));
       }
-        });
+        }});
     // FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
 
     const AndroidInitializationSettings initializationSettingsAndroid =
