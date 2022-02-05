@@ -67,7 +67,7 @@ bottomBar(BuildContext context , Size size , ){
                             // ),
                             GestureDetector(
                               onTap: () {
-                                   navWithReplacement(context,  HomeBar());
+                                   navWithReplacement(context, const HomeBar());
                               },
                               child:  navigationSample('تحقيقات', 'main 1.png',10.sp)
                             ),
