@@ -46,6 +46,7 @@ class NewsDetailsModel {
 
 class Result {
     Result({
+      this.views,
         this.description,
         this.trueLinks,
         this.falseLinks,
@@ -63,6 +64,7 @@ class Result {
         this.fileLink,
         this.id,
         this.date
+      
     });
 
     String ? description;
@@ -82,8 +84,10 @@ class Result {
     String ?fileLink;
     String? id;
     String ? date;
+    int ? views;
 
     factory Result.fromJson(Map<String, dynamic> json) => Result(
+      views: json['viewsCount'],
       date: json['date'],
         description: json["description"],
         trueLinks: List<dynamic>.from(json["trueLinks"].map((x) => x)),

@@ -46,6 +46,7 @@ class NewsModel {
 
 class News {
     News({
+      this.views,
         this.title,
         this.briefDescription,
         this.isTrue,
@@ -57,8 +58,9 @@ class News {
         this.fileLink,
         this.id,
         this.date
+      
     });
-
+    int ? views;
     String?title;
     String ?briefDescription;
     bool ?isTrue;
@@ -71,7 +73,9 @@ class News {
     String ? date;
     String? id;
 
+
     factory News.fromJson(Map<String, dynamic> json) => News(
+      views :json['viewsCount'],
       date: json['date'],
         title: json["title"],
         briefDescription: json["briefDescription"],

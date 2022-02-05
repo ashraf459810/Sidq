@@ -28,12 +28,13 @@ sendComment (NewsDetailsBloc newsDetailsBloc){
                                                             width: w(80),
                                                             borderRadius: 10,
                                                             color:
-                                                                Colors.green[900],
+                                                                AppColor.yellow,
                                                             child: text(
+                                                              fontWeight: FontWeight.bold,
                                                                 text: 'ارسال',
                                                                 fontfamily: 'marai',
                                                                 color:
-                                                                    Colors.white));
+                                                                    AppColor.purple));
                                                       },
                                                     );
 }

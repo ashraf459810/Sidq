@@ -11,7 +11,6 @@ import 'package:sidq/App/app.dart';
 import 'package:sidq/Widgets/container.dart';
 import 'package:sidq/Widgets/custom_list_view.dart';
 import 'package:sidq/Widgets/nav.dart';
-
 import 'package:sidq/Widgets/text.dart';
 import 'package:sidq/Widgets/text_form.dart';
 import 'package:sidq/core/consts.dart';
@@ -25,14 +24,9 @@ import 'package:sidq/features/home/presentation/widgets/loading_categories.dart'
 import 'package:sidq/features/home/presentation/widgets/navigation_sample.dart';
 import 'package:sidq/features/home/presentation/widgets/news_sample.dart';
 import 'package:sidq/features/index_page/presentation/pages/index_page.dart';
-
 import 'package:sidq/features/news_details/presentation/pages/news_details.dart';
-import 'package:sidq/features/report_fake_news/presentation/pages/report_fake_news.dart';
-
-
 import 'package:sidq/features/reverse_serach/presentation/pages/reverse_image_search.dart';
 import 'package:sidq/features/review_tickets/presentation/pages/review_tickets.dart';
-
 import '../../../../injection_container.dart';
 
 class HomeBar extends StatefulWidget {
@@ -201,7 +195,7 @@ int chosenIndex= -1;
                             GestureDetector(
                               onTap: () {
                                 setBottomBarIndex(1);
-                             nav(context, const ReportFakeNews(isReport: true,title: 'الابلاغ عن خبر زائف',));
+                             nav(context, const HomeBar(categoryId: '3d0a5e84-9c54-46c1-8522-39daf705ce13',));
                               },
                               child: navigationSample('وعي', 'main 3.png')
                             ),
@@ -211,6 +205,8 @@ int chosenIndex= -1;
                             GestureDetector(
                               onTap: () {
                                 setBottomBarIndex(2);
+
+                                           nav(context, const HomeBar());
                               },
                               child:  navigationSample('تحقيقات', 'main 1.png',10.sp)
                             ),
@@ -239,7 +235,7 @@ int chosenIndex= -1;
             children: [
     SizedBox(height: h(10),),
               SizedBox(
-                height: h(60),
+                // height: h(60),
                 child: BlocBuilder<NavigationBarBloc, NavigationBarBlocState>(
                   builder: (context, state) {
                     if (state is SearchNewsState){
@@ -277,45 +273,48 @@ int chosenIndex= -1;
                           fontSize: 16.0);
                     }
                     return
-                (     categoryModel.isNotEmpty && widget.categoryId==null)
+                (categoryModel.isNotEmpty && widget.categoryId==null)
                         ? Center(
-                          child: customlistview(
-                              padding: 10,
-                              scroll: true,
-                              // controller: scrollController,
-                              itemcount: categoryModel.length,
-                              function: (BuildContext context, index) {
-                                return GestureDetector(onTap: (){
-                                  chosenIndex = index;
-                                  page = 0;
-                                  categoryId = categoryModel[index].id;
-                                               SearchParamsModel searchParamsModel =
-                                    SearchParamsModel(
-                                      categoryId: categoryId,
-                                        searchQuery: '',
-                                        orderDescending: true,
-                                        pageNumber: page,
-                                        pageLength: pageSize);
-                                context.read<NavigationBarBloc>()
-                                    .add(GetNewsEvent(searchParamsModel,true));
-                              
+                          child: SizedBox(
+                            height: h(60),
+                            child: customlistview(
+                                padding: 10,
+                                scroll: true,
+                                // controller: scrollController,
+                                itemcount: categoryModel.length,
+                                function: (BuildContext context, index) {
+                                  return GestureDetector(onTap: (){
+                                    chosenIndex = index;
+                                    page = 0;
+                                    categoryId = categoryModel[index].id;
+                                                 SearchParamsModel searchParamsModel =
+                                      SearchParamsModel(
+                                        categoryId: categoryId,
+                                          searchQuery: '',
+                                          orderDescending: true,
+                                          pageNumber: page,
+                                          pageLength: pageSize);
+                                  context.read<NavigationBarBloc>()
+                                      .add(GetNewsEvent(searchParamsModel,true));
+                                
         
-                                },
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: w(7)),
-                                    child: container(
-                                        width: w(60),
-                                        hight: h(60),
-                                        color:  chosenIndex==index? Colors.yellow[200]: AppColor.yellow,
-                                        borderRadius: 20,
-                                        child: text(
-                                            color: AppColor.purple,
-                                            fontWeight: FontWeight.bold,
-                                            text: categoryModel[index].name ?? '',
-                                            fontfamily: 'marai')),
-                                  ),
-                                );
-                              }),
+                                  },
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(horizontal: w(7)),
+                                      child: container(
+                                          width: w(60),
+                                          hight: h(60),
+                                          color:  chosenIndex==index? Colors.yellow[200]: AppColor.yellow,
+                                          borderRadius: 20,
+                                          child: text(
+                                              color: AppColor.purple,
+                                              fontWeight: FontWeight.bold,
+                                              text: categoryModel[index].name ?? '',
+                                              fontfamily: 'marai')),
+                                    ),
+                                  );
+                                }),
+                          ),
                         )
                         : const SizedBox();
                   },
@@ -365,8 +364,9 @@ int chosenIndex= -1;
                                       child: newsSample(
                                           newslist[index].fileLink!,
                                           newslist[index].briefDescription!,
-                                          newslist[index].title!,newslist[index].date!),
-                                    ));
+                                          newslist[index].title!,newslist[index].date!,
+                                          newslist[index].views!
+                                    )));
                               } else {
                                 return BlocBuilder<NavigationBarBloc, NavigationBarBlocState>(
                                   builder: (context, state) {

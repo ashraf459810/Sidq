@@ -1,13 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sidq/App/app.dart';
 import 'package:sidq/Widgets/container.dart';
 import 'package:sidq/Widgets/text.dart';
 import 'package:sidq/core/consts.dart';
 
-Widget newsSample(String image, String desc, String title,String date) {
+Widget newsSample(String image, String desc, String title,String date,int views) {
     return Stack(
       children: [
         Row(
@@ -16,7 +17,7 @@ Widget newsSample(String image, String desc, String title,String date) {
             container(
         
                 color: Colors.white,
-                hight: h(145),
+                hight: h(125),
                 width: w(220),
                 
                 borderRadius: 10,
@@ -49,7 +50,7 @@ Widget newsSample(String image, String desc, String title,String date) {
                         child: Row(mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Flexible(
-                              child: text(maxLines: 5,
+                              child: text(maxLines: 3,
                               fontfamily: 'marai',
                               // fontWeight: FontWeight.bold,
                                 text: desc, fontsize: 10.sp,),
@@ -65,7 +66,7 @@ Widget newsSample(String image, String desc, String title,String date) {
               borderRadius: const BorderRadius.all(Radius.circular(10)),
 
               // ignore: unnecessary_null_comparison
-              child: image!=null? CachedNetworkImage(         height: h(145),
+              child: image!=null? CachedNetworkImage(         height: h(125),
                 width: w(120),
                 fit: BoxFit.fitHeight,
             imageUrl: image,
@@ -89,7 +90,7 @@ Widget newsSample(String image, String desc, String title,String date) {
           ],
         ),
               Positioned(
-                bottom: h(-7),
+                bottom: h(-2),
                 right: w(150),
 
                 child: Container(
@@ -97,6 +98,24 @@ Widget newsSample(String image, String desc, String title,String date) {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: text(text: date.substring(0,10),color: AppColor.purple,fontWeight: FontWeight.bold,fontsize: 10.sp),
+                    )),
+              ),
+                Positioned(
+                bottom: h(-2),
+                right: w(300),
+
+                child: Container(
+                        alignment: Alignment.centerRight,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          SvgPicture.asset('assets/images/views.svg',height: h(8),width: w(8),color: AppColor.purple,),
+                          SizedBox(width: w(5),),
+                          text(text: views.toString(),color: AppColor.purple,fontWeight: FontWeight.bold,fontsize: 9.sp),
+                          
+                        ],
+                      ),
                     )),
               )
       ],

@@ -33,7 +33,7 @@ class MainPage extends StatelessWidget {
               height: h(50),
             ),
                 item('التحقيقات', () {
-              nav(context, const HomeBar());
+              nav(context,  HomeBar());
             },'main 1.png'),
    
                   SizedBox(
@@ -41,19 +41,19 @@ class MainPage extends StatelessWidget {
             ),
         
                      item('البحث  العكسي', () {
-              nav(context, const ReverseImageSearch());
+              nav(context,  const ReverseImageSearch());
            },'main2.png'),
             SizedBox(
               height: h(25),
             ),
             item(' وعي وتعليم', () {
-              nav(context, const HomeBar(categoryId:'3d0a5e84-9c54-46c1-8522-39daf705ce13' ,));
+              nav(context,  HomeBar(categoryId:'3d0a5e84-9c54-46c1-8522-39daf705ce13' ,));
             },'main 3.png'),
                    SizedBox(
               height: h(20),
             ),
             item('فديوهات', () {
-              nav(context, const HomeBar(categoryId: 'b520bade-3deb-4081-bb90-4b5094b8d522',));
+              nav(context,  HomeBar(categoryId: 'b520bade-3deb-4081-bb90-4b5094b8d522',));
             },'MAIN 4.png'),
             SizedBox(
               height: h(25),

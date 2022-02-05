@@ -72,98 +72,100 @@ class _ReviewTicketsState extends State<ReviewTickets> {
 
                   height: h(700),
                   width: w(300),
-                  child: customlistview(
-                      direction: 'vertical',
-                      padding: 10,
-                      itemcount: tickets.length,
-                      scroll: true,
-                      function: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Card(
-                            child: container(
-                      
-                                borderRadius: 10,
-                               
-                                
-                              
-                                
-                                // boxConstraints: BoxConstraints(
-                                
-                                //   minHeight: h(200),maxHeight: h(300),minWidth: w(300),maxWidth: w(300)),
-                                child: SizedBox(
-                                  width: w(320),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: customlistview(
+                        direction: 'vertical',
+                        padding: 10,
+                        itemcount: tickets.length,
+                        scroll: true,
+                        function: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Card(
+                              child: container(
+                        
+                                  borderRadius: 10,
                                  
-                                  child: Padding(
-                                    padding:  EdgeInsets.only(left: w(10),right: w(20),bottom: h(10)),
-                                    child: Column(
-                                    
-                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                  
+                                
+                                  
+                                  // boxConstraints: BoxConstraints(
+                                  
+                                  //   minHeight: h(200),maxHeight: h(300),minWidth: w(300),maxWidth: w(300)),
+                                  child: SizedBox(
+                                    width: w(320),
+                                   
+                                    child: Padding(
+                                      padding:  EdgeInsets.only(left: w(10),right: w(20),bottom: h(10)),
+                                      child: Column(
+                                      
+                                        crossAxisAlignment: CrossAxisAlignment.end,
            
-                                      children: [
-                                        SizedBox(
-                                          height: h(20),
-                                        ),
-                                        Row(mainAxisAlignment: MainAxisAlignment.end,
-                                          children: [
-                                           
-                                            
-                                            text(
-                                                text: tickets[index].answer !=null ? 'تم التحقق' : 'قيد التحقق',
-                                                fontfamily: 'marai',
-                                                color: AppColor.purple,
-                                                fontsize: 15.sp
-                                                ),
-                                                text(text: ' : '),
-                                                 text(text: 'الحالة',
-                                                 fontWeight: FontWeight.bold,
-                                                   fontfamily: 'marai',
-                                                color: AppColor.purple,
-                                                fontsize: 15.sp
-
-                                                 ),
-                                          ],
-                                        ),
-                                                       SizedBox(
-                                          height: h(10),
-                                          
-                                        ),
-                              
-                                        SizedBox(
-                                          child: Row(mainAxisAlignment: MainAxisAlignment.end,
+                                        children: [
+                                          SizedBox(
+                                            height: h(20),
+                                          ),
+                                          Row(mainAxisAlignment: MainAxisAlignment.end,
                                             children: [
+                                             
+                                              
                                               text(
-                                                  text:  tickets[index].text!,
-                                                  fontfamily: 'marai',
-                                                   color: AppColor.purple,
-                                                   fontWeight: FontWeight.bold,
-                                                  fontsize: 15.sp),
-                                                     text(text: ' : ',
-                                                     
-                                                     
-                                                     ),
-
-                                                                 text(
-                                                  text: 'النص',
+                                                  text: tickets[index].answer !=null ? 'تم التحقق' : 'قيد التحقق',
                                                   fontfamily: 'marai',
                                                   color: AppColor.purple,
-                                                  fontWeight: FontWeight.bold,
                                                   fontsize: 15.sp
                                                   ),
-                                               
+                                                  text(text: ' : '),
+                                                   text(text: 'الحالة',
+                                                   fontWeight: FontWeight.bold,
+                                                     fontfamily: 'marai',
+                                                  color: AppColor.purple,
+                                                  fontsize: 15.sp
+
+                                                   ),
                                             ],
                                           ),
-                                        ),
-                                        SizedBox(
-                                          height: w(10),
-                                        ),
+                                                         SizedBox(
+                                            height: h(10),
+                                            
+                                          ),
+                                
+                                          SizedBox(
+                                            child: Row(mainAxisAlignment: MainAxisAlignment.end,
+                                              children: [
+                                                text(
+                                                    text:  tickets[index].text!,
+                                                    fontfamily: 'marai',
+                                                     color: AppColor.purple,
+                                                     fontWeight: FontWeight.bold,
+                                                    fontsize: 15.sp),
+                                                       text(text: ' : ',
+                                                       
+                                                       
+                                                       ),
+
+                                                                   text(
+                                                    text: 'النص',
+                                                    fontfamily: 'marai',
+                                                    color: AppColor.purple,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontsize: 15.sp
+                                                    ),
+                                                 
+                                              ],
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: w(10),
+                                          ),
                 Row(mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
+                    children: [
 
-                    SizedBox(
+                      SizedBox(
 
-                      width: MediaQuery.of(context).size.width-140,
-                      child: ExpandableText(
+                        width: MediaQuery.of(context).size.width-140,
+                        child: ExpandableText(
    tickets[index].answer!=null ?   "${tickets[index].answer}":'قيد الانتظار',
         expandText: 'اظهار المزيد',
         collapseText: 'اخفاء',
@@ -171,28 +173,29 @@ class _ReviewTicketsState extends State<ReviewTickets> {
         
         linkColor: AppColor.purple,
     ),
-                    ),
-                       text(text: ' : ',
-                                                     
-                                                     
-                                                     ),
-                                       text(
-                                                  text: '   الرد',
-                                                  fontfamily: 'marai',
-                                                  color: AppColor.purple,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontsize: 15.sp
-                                                  ),
-                  ],
+                      ),
+                         text(text: ' : ',
+                                                       
+                                                       
+                                                       ),
+                                         text(
+                                                    text: '   الرد',
+                                                    fontfamily: 'marai',
+                                                    color: AppColor.purple,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontsize: 15.sp
+                                                    ),
+                    ],
                 ),
 
-                                      ],
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                )),
-                          ),
-                        );
-                      }),
+                                  )),
+                            ),
+                          );
+                        }),
+                  ),
                 ):SizedBox(height: h(300),
                   child: Icon(Icons.sentiment_dissatisfied_outlined,color: Colors.grey[500],size: 50,));
               },

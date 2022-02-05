@@ -27,3 +27,4 @@ class SearchNewsEvent extends NavigationBarBlocEvent{
 
   const SearchNewsEvent(this.query);
 }
+

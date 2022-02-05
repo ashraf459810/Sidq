@@ -138,9 +138,19 @@ class _NewsDetailsState extends State<NewsDetails> {
                       ),
                       SliverList(
                           delegate: SliverChildListDelegate([
+                            SizedBox(height: h(10),),
+
+                                  Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: [
+                                    text(text:'المشاهدات''    '  '${newsDetailsModel!.result!.views!}' ,fontWeight: FontWeight.bold,fontfamily: 'marai'),
+                                      text(text: newsDetailsModel!.result!.isTrue! ? 'خبر صحيح':'اشاعة' ,fontWeight: FontWeight.bold,fontfamily: 'marai'),
+
+
+                                  ]
+                                  ,),
                         // SizedBox(height: h(50),),
                         Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(12.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
@@ -152,6 +162,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                                   color: Colors.black,
                                   fontfamily: 'marai',
                                   fontWeight: FontWeight.bold),
+// SizedBox(height: h(30),),
                               SizedBox(
                                 height: h(15),
                               ),
@@ -161,9 +172,9 @@ class _NewsDetailsState extends State<NewsDetails> {
                                   fontsize: 14.sp,
                                   color: Colors.black,
                                   fontfamily: 'marai'),
-                              SizedBox(
-                                height: h(20),
-                              ),
+                              // SizedBox(
+                              //   height: h(20),
+                              // ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Column(

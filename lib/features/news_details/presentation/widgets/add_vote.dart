@@ -51,8 +51,8 @@ addVote(NewsDetailsBloc newsDetailsBloc , int trueVotesNumber, int falseVotesNum
                                                               width: w(150),
                                                               color: voteTrue
                                                                   ? Colors
-                                                                      .green[900]
-                                                                  : AppColor.purple,
+                                                                      .grey[400]
+                                                                  : AppColor.yellow,
                                                               child: Row(
                                                                 mainAxisAlignment:
                                                                     MainAxisAlignment
@@ -60,21 +60,23 @@ addVote(NewsDetailsBloc newsDetailsBloc , int trueVotesNumber, int falseVotesNum
                                                                 children: [
                                                                   Icon(
                                                                     Icons.check,
-                                                                    color: Colors
-                                                                        .white,
+                                                                    color: AppColor.purple
+                                                                        ,
                                                                     size: 35.sp,
                                                                   ),
                                                                   text(fontfamily: 'marai',
+                                                                  fontWeight: FontWeight.bold,
                                                                       text:
                                                                           'خبر صحيح',
-                                                                      color: Colors
-                                                                          .white),
+                                                                      color: 
+                                                                          AppColor.purple),
                                                                   // SizedBox(width: w(10),),
                                                                   text(
+                                                                    fontWeight: FontWeight.bold,
                                                                       text: trueVotesNumber
                                                                           .toString(),
-                                                                      color: Colors
-                                                                          .white),
+                                                                      color: AppColor.purple
+                                                                          ),
                                                                 ],
                                                               ),
                                                             ),
@@ -96,8 +98,8 @@ addVote(NewsDetailsBloc newsDetailsBloc , int trueVotesNumber, int falseVotesNum
                                                               width: w(150),
                                                               color: voteFalse
                                                                   ? Colors
-                                                                      .green[900]
-                                                                  : AppColor.purple,
+                                                                      .grey[400]
+                                                                  : AppColor.yellow,
                                                               child: Row(
                                                                 mainAxisAlignment:
                                                                     MainAxisAlignment
@@ -105,21 +107,23 @@ addVote(NewsDetailsBloc newsDetailsBloc , int trueVotesNumber, int falseVotesNum
                                                                 children: [
                                                                   Icon(
                                                                     Icons.clear,
-                                                                    color: Colors
-                                                                        .white,
+                                                                    color: AppColor.purple
+                                                                         ,
                                                                     size: 35.sp,
                                                                   ),
                                                                   text(fontfamily: 'marai',
+                                                                  fontWeight: FontWeight.bold,
                                                                       text:
                                                                           'خبر خاطئ',
-                                                                      color: Colors
-                                                                          .white),
+                                                                      color: AppColor.purple
+                                                                          ),
                                                                   // SizedBox(width: w(10),),
                                                                   text(
+                                                                    fontWeight: FontWeight.bold,
                                                                       text: falseVotesNumber
                                                                           .toString(),
-                                                                      color: Colors
-                                                                          .white),
+                                                                      color: AppColor
+                                                                          .purple),
                                                                 ],
                                                               ),
                                                             ),
