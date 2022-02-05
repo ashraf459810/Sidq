@@ -15,7 +15,7 @@ class ReviewTicketsBloc extends Bloc<ReviewTicketsEvent, ReviewTicketsState> {
     on<ReviewTicketsEvent>((event, emit) async {
  if (event is GetTicketsEvent){
    emit (Loading());
-   var response = await getTicketsUseCase.getTickets();
+   var response = await getTicketsUseCase.getTickets(event.type);
    response.fold((l) => emit(Error(l.error!)), (r) => emit(GetTicketsState(r)));
  }
     });

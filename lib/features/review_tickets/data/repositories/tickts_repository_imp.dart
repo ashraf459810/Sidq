@@ -13,10 +13,10 @@ class GetTicketsRepositroyImp implements GetTicketsRepository {
   GetTicketsRepositroyImp(this.getTicketsRemoteData, this.networkInf);
 
   @override
-  Future<Either<Failure, TicketsResponseModel>> getTickets() async {
+  Future<Either<Failure, TicketsResponseModel>> getTickets(int ? type) async {
        if (await networkInf.isConnected!) {
       try {
-        final result = await getTicketsRemoteData.getTickers();
+        final result = await getTicketsRemoteData.getTickers(type);
 
         return Right(result);
        } on ServerException {

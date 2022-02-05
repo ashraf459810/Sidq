@@ -4,7 +4,7 @@ import 'package:sidq/features/home/data/models/search_params_model.dart';
 import 'package:sidq/features/review_tickets/data/models/tickets_response_model.dart';
 
 abstract class GetTicketsRemoteData {
-   Future <dynamic> getTickers();
+   Future <dynamic> getTickers(int ?type);
 }
 
 
@@ -16,8 +16,8 @@ class GetTicketsRemoteDataImp implements GetTicketsRemoteData {
   GetTicketsRemoteDataImp(this.networkFunctions, this.networkInf);
 
   @override
-  Future getTickers() async {
-    var response = await networkFunctions.postMethod(body: searchParamsModelToJson( SearchParamsModel(pageLength: 1000,pageNumber: 0,orderDescending: true,)),
+  Future getTickers(int? type) async {
+    var response = await networkFunctions.postMethod(body: searchParamsModelToJson( SearchParamsModel(pageLength: 1000,pageNumber: 0,orderDescending: true,type: type)),
       url: '/Client/Ticket/FilterDatatable', baseurl: networkInf.baseUrl);
     return ticketsResponseModelFromJson(response);
   }

@@ -9,4 +9,8 @@ abstract class ReviewTicketsEvent extends Equatable {
 
 
 
-class GetTicketsEvent extends ReviewTicketsEvent {}
+class GetTicketsEvent extends ReviewTicketsEvent {
+  final int type;
+
+  const GetTicketsEvent(this.type);
+}

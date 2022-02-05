@@ -4,7 +4,7 @@ import 'package:sidq/features/review_tickets/data/models/tickets_response_model.
 import 'package:sidq/features/review_tickets/domain/repositories/get_tickets_repository.dart';
 
 abstract class GetTicketsUseCase {
-  Future<Either<Failure,TicketsResponseModel>> getTickets();
+  Future<Either<Failure,TicketsResponseModel>> getTickets(int ? type);
 }
 
 class GetTicketsUseCaseImp implements GetTicketsUseCase {
@@ -13,8 +13,8 @@ class GetTicketsUseCaseImp implements GetTicketsUseCase {
   GetTicketsUseCaseImp(this.getTicketsRepository);
 
   @override
-  Future<Either<Failure, TicketsResponseModel>> getTickets() async {
-   return await getTicketsRepository.getTickets();
+  Future<Either<Failure, TicketsResponseModel>> getTickets(int ? type) async {
+   return await getTicketsRepository.getTickets(type);
   }
   
 }

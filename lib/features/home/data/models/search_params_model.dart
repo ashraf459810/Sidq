@@ -12,6 +12,7 @@ String searchParamsModelToJson(SearchParamsModel data) =>
 
 class SearchParamsModel {
   SearchParamsModel({
+    this.type,
     this.searchQuery,
     this.pageNumber,
     this.pageLength,
@@ -20,7 +21,7 @@ class SearchParamsModel {
     this.isVotable,
     this.categoryId,
   });
-
+ int ? type;
   String? searchQuery;
   int? pageNumber;
   int? pageLength;
@@ -32,6 +33,7 @@ class SearchParamsModel {
 
   factory SearchParamsModel.fromJson(Map<String, dynamic> json) =>
       SearchParamsModel(
+        
         searchQuery: json["searchQuery"],
         pageNumber: json["pageNumber"],
         pageLength: json["pageLength"],
@@ -42,6 +44,7 @@ class SearchParamsModel {
       );
 
   Map<String, dynamic> toJson() => {
+    'type': type,
         "searchQuery": searchQuery,
         "pageNumber": pageNumber,
         "pageLength": pageLength,
