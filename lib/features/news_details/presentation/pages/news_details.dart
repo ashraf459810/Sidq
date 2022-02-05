@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:share_plus/share_plus.dart';
 
 import 'package:sidq/App/app.dart';
 import 'package:sidq/Widgets/container.dart';
@@ -122,6 +123,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                         parent: AlwaysScrollableScrollPhysics()),
                     controller: scrollController,
                     slivers: <Widget>[
+         
                       SliverAppBar(
                         backgroundColor: Colors.white,
                         shadowColor: Colors.white,
@@ -154,6 +156,15 @@ class _NewsDetailsState extends State<NewsDetails> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
+                                      GestureDetector(onTap: () async {
+  final box = context.findRenderObject() as RenderBox?;
+
+      
+      await Share.share(newsDetailsModel!.result!.shareableLink,
+          // subject: subject,
+          sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
+                                      },
+                                        child:const Icon(Icons.share)),
                               // SizedBox(height: h(50),),
 
                               text(

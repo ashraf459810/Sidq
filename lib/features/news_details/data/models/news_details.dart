@@ -46,6 +46,7 @@ class NewsDetailsModel {
 
 class Result {
     Result({
+      required this.shareableLink,
       this.views,
         this.description,
         this.trueLinks,
@@ -66,7 +67,7 @@ class Result {
         this.date
       
     });
-
+String shareableLink;
     String ? description;
     List<dynamic> ?trueLinks;
     List<String> ? falseLinks;
@@ -87,6 +88,7 @@ class Result {
     int ? views;
 
     factory Result.fromJson(Map<String, dynamic> json) => Result(
+      shareableLink: json['shareableLink'],
       views: json['viewsCount'],
       date: json['date'],
         description: json["description"],

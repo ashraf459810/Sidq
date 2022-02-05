@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sidq/App/app.dart';
@@ -53,7 +55,7 @@ class MainPage extends StatelessWidget {
               height: h(20),
             ),
             item('فديوهات', () {
-              nav(context, const HomeBar(categoryId: 'b520bade-3deb-4081-bb90-4b5094b8d522',));
+              nav(context, const  HomeBar(categoryId: 'b520bade-3deb-4081-bb90-4b5094b8d522',));
             },'MAIN 4.png'),
             SizedBox(
               height: h(25),
@@ -83,19 +85,82 @@ class MainPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                socialMediaIcon('assets/images/facebook.png','https://www.facebook.com/SidqYem/'),
+                GestureDetector(onTap: () async {
+                                String fbProtocolUrl;
+if (Platform.isIOS) {
+  fbProtocolUrl = 'fb://profile/103579731015629';
+} else {
+  fbProtocolUrl = 'fb://page/103579731015629';
+}
+
+String fallbackUrl = 'https://www.facebook.com/SidqYem';
+
+try {
+  bool launched = await launch(fbProtocolUrl, forceSafariVC: false);
+
+  if (!launched) {
+    
+    await launch(fallbackUrl, forceSafariVC: false);
+  }
+} catch (e) {
+  await launch(fallbackUrl, forceSafariVC: false);
+}
+                }, child: socialMediaIcon('assets/images/facebook.png','https://www.facebook.com/SidqYem/')),
                 SizedBox(
                   width: w(5),
                 ),
-                socialMediaIcon('assets/images/twitter.png','https://twitter.com/sidqyem'),
+                GestureDetector(onTap: () async{
+                  var url = 'https://twitter.com/sidqyem';
+
+if (await canLaunch(url)) {
+  await launch(
+    url,
+    universalLinksOnly: true,
+  );
+} else {
+ launchInWebViewOrVC(url);
+}
+
+                  
+                },
+                  child: socialMediaIcon('assets/images/twitter.png','https://twitter.com/sidqyem')),
                 SizedBox(
                   width: w(5),
                 ),
-                socialMediaIcon('assets/images/telegram.png','https://t.me/SidqYem'),
+                GestureDetector(
+                  onTap: ()async{
+
+                                      var url = 'https://t.me/SidqYem';
+
+if (await canLaunch(url)) {
+  await launch(
+    url,
+    universalLinksOnly: true,
+  );
+} else {
+ launchInWebViewOrVC(url);
+}
+                    
+                  },
+                  child: socialMediaIcon('assets/images/telegram.png','https://t.me/SidqYem')),
                 SizedBox(
                   width: w(5),
                 ),
-                socialMediaIcon('assets/images/instagram.png','https://www.instagram.com/sidqyem'),
+                GestureDetector(onTap: () async{
+                  
+                  
+                  var url = 'https://www.instagram.com/sidqyem/';
+
+if (await canLaunch(url)) {
+  await launch(
+    url,
+    universalLinksOnly: true,
+  );
+} else {
+ launchInWebViewOrVC(url);
+}
+},
+                  child: socialMediaIcon('assets/images/instagram.png','https://www.instagram.com/sidqyem')),
               ],
             ),
             SizedBox(
@@ -149,36 +214,22 @@ Widget item(String title, Function navigat,String image) {
 }
 
 Widget socialMediaIcon(String image, String url) {
-  return GestureDetector(onTap: (){
-    launchInWebViewOrVC(url);
-  },
-    child: Center(
-      child: Container(
-        
-        height: h(30),
-        width: w(30),
-        decoration: BoxDecoration(shape: BoxShape.circle,color: AppColor.yellow),
-        child: Center(
-          child: Image.asset(
-            image,
-            fit: BoxFit.contain,
-            height: h(20),
-            width: w(20),
-            color: AppColor.purple,
-          ),
+  return Center(
+    child: Container(
+      
+      height: h(30),
+      width: w(30),
+      decoration: BoxDecoration(shape: BoxShape.circle,color: AppColor.yellow),
+      child: Center(
+        child: Image.asset(
+          image,
+          fit: BoxFit.contain,
+          height: h(20),
+          width: w(20),
+          color: AppColor.purple,
         ),
       ),
     ),
   );
 }
-  Future<void> launchInWebViewOrVC(String url) async {
-    if (!await launch(
-      url,
-      forceSafariVC: true,
-      forceWebView: true,
-      enableJavaScript:  url.contains('instagram') || url.contains('twitter')   ?true : false,
-      headers: <String, String>{'my_header_key': 'my_header_value'},
-    )) {
-      throw 'Could not launch $url';
-    }
-  }
+ 
