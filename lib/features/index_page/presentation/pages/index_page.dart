@@ -122,7 +122,7 @@ if (await canLaunch(url)) {
 }
 
                   
-                },
+   },
                   child: socialMediaIcon('assets/images/twitter.png','https://twitter.com/sidqyem')),
                 SizedBox(
                   width: w(5),
@@ -130,7 +130,7 @@ if (await canLaunch(url)) {
                 GestureDetector(
                   onTap: ()async{
 
-                                      var url = 'https://t.me/SidqYem';
+ var url = 'https://t.me/SidqYem';
 
 if (await canLaunch(url)) {
   await launch(

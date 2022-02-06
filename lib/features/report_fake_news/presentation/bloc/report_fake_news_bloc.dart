@@ -27,6 +27,7 @@ response.fold((l) => emit(Error(l.error!)), (r) => emit(AddTicketState()));
 
       }
 if (event is UploadPicEvent){
+  emit(LoadingImage());
   var response = await uploadImageUseCase.uploadImageUseCase(event.image);
   response.fold((l) => emit(Error(l.error!)), (r) => emit(UploadPicState(r.result!.id!)));
 

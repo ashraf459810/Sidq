@@ -1,5 +1,3 @@
-import 'dart:developer';
-import 'dart:math';
 
 import 'package:expandable_text/expandable_text.dart';
 
@@ -41,10 +39,10 @@ class _ReviewTicketsState extends State<ReviewTickets> {
                   bottom:  TabBar(
                     onTap: (index){
                       if (index ==0){
-                        context.read<ReviewTicketsBloc>().add(GetTicketsEvent(4));
+                        context.read<ReviewTicketsBloc>().add(const GetTicketsEvent(4));
                       }
                       if (index ==1 ){
-                         context.read<ReviewTicketsBloc>().add(GetTicketsEvent(5));
+                         context.read<ReviewTicketsBloc>().add(const GetTicketsEvent(5));
                       }
                     },
                     indicatorColor: AppColor.yellow,

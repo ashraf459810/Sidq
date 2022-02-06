@@ -18,9 +18,9 @@ import 'package:sidq/core/consts.dart';
 import 'package:sidq/features/news_details/data/models/news_details.dart';
 import 'package:sidq/features/news_details/presentation/bloc/news_details_bloc.dart';
 import 'package:sidq/features/news_details/presentation/widgets/add_vote.dart';
-import 'package:sidq/features/news_details/presentation/widgets/comments.dart';
+
 import 'package:sidq/features/news_details/presentation/widgets/loading_news_details.dart';
-import 'package:sidq/features/news_details/presentation/widgets/send_comment.dart';
+
 
 import 'package:url_launcher/url_launcher.dart';
 
@@ -422,7 +422,39 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                 child: Builder(
                                                   builder: (context) {
                                                     return 
-                                                 sendComment(newsDetailsBloc);
+                                                BlocBuilder(
+                                                      bloc: newsDetailsBloc,
+                                                      builder: (context, state) {
+                                                          if (state
+                                                      is AddCommentState) {
+                                                    comments = state.comments;
+                                                    log('here from comments');
+                                                  }
+                                                        if (state
+                                                            is LoadingComment) {
+                                                              log('state is loading');
+                                                          return Center(
+                                                              child:
+                                                                  CircularProgressIndicator(
+                                                        backgroundColor: AppColor.yellow,color: AppColor.purple,)
+                                                          );
+                                                        }
+                                                        
+                                                    
+                                                        return container(
+                                                            hight: h(50),
+                                                            width: w(80),
+                                                            borderRadius: 10,
+                                                            color:
+                                                                AppColor.yellow,
+                                                            child: text(
+                                                              fontWeight: FontWeight.bold,
+                                                                text: 'ارسال',
+                                                                fontfamily: 'marai',
+                                                                color:
+                                                                    AppColor.purple));
+                                                      },
+                                                    );
                                                   }
                                                 )),
                                             container(
@@ -465,7 +497,66 @@ class _NewsDetailsState extends State<NewsDetails> {
                                         ),
                                         comments.isNotEmpty
                                             ?
-                                    commentsWidget(newsDetailsBloc,comments)
+
+                                             BlocBuilder(
+                                                bloc: newsDetailsBloc,
+                                                builder: (context, state) {
+                                                  if (state
+                                                      is AddCommentState) {
+                                                    comments = state.comments;
+                                                    log('here from comments');
+                                                  }
+
+                                                  return customlistview(
+                                                    scroll: false,
+                                                    direction: 'vertical',
+                                                    padding: 10,
+                                                    controller:
+                                                        ScrollController(),
+                                                    itemcount: comments.length,
+                                                    function: (context, index) {
+                                                      return Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: Column(
+                                                          children: [
+                                                            Container(
+                                                                alignment: Alignment
+                                                                    .topRight,
+                                                                decoration: BoxDecoration(
+                                                                    shape: BoxShape
+                                                                        .rectangle,
+                                                                    color: Colors
+                                                                            .grey[
+                                                                        200],
+                                                                    borderRadius: const BorderRadius
+                                                                            .all(
+                                                                        Radius.circular(
+                                                                            10))),
+                                                                // constraints: BoxConstraints(minHeight: h(50),maxWidth: w(250),maxHeight: h(120),minWidth:w(250) ),
+
+                                                                child: Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                              .all(
+                                                                          8.0),
+                                                                  child: text(
+                                                                    fontfamily: 'marai',
+                                                                    text: comments[
+                                                                        index],
+                                                                    color: Colors
+                                                                        .black,
+                                                                  ),
+                                                                )),
+                                                          ],
+                                                        ),
+                                                      );
+                                                    },
+                                                  );
+                                                },
+                                              )
+                                    // commentsWidget(newsDetailsBloc,comments)
                                             : const SizedBox(),
                                       ],
                                     ),

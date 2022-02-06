@@ -29,3 +29,5 @@ class UploadPicState extends ReportFakeNewsState {
 
   const UploadPicState(this.id);
 }
+
+class LoadingImage extends ReportFakeNewsState {}

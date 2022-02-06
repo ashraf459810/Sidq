@@ -6,6 +6,8 @@ import 'package:sidq/Widgets/nav.dart';
 import 'package:sidq/Widgets/text.dart';
 import 'package:sidq/core/consts.dart';
 import 'package:sidq/features/home/presentation/pages/home.dart';
+import 'package:sidq/features/index_page/presentation/widgets/about.dart';
+import 'package:sidq/features/index_page/presentation/widgets/privacy.dart';
 import 'package:sidq/features/report_fake_news/presentation/pages/report_fake_news.dart';
 
 
@@ -93,14 +95,20 @@ SizedBox(height: h(40),),
                      child: text(text: 'ابلغ عن اشاعة',color: AppColor.yellow,fontsize: 20.sp,fontWeight: FontWeight.bold,fontfamily: 'marai')),
                  )
                    ,  SizedBox(height: h(40),),
-                 SizedBox(
-                   width: w(200),
-                   child: text(text: 'عن صدق',color: AppColor.yellow,fontsize: 20.sp,fontWeight: FontWeight.bold,fontfamily: 'marai'))
+                 GestureDetector(onTap: (){nav(context, const About());},
+                   child: SizedBox(
+                     width: w(200),
+                     child: text(text: 'عن صدق',color: AppColor.yellow,fontsize: 20.sp,fontWeight: FontWeight.bold,fontfamily: 'marai')),
+                 )
                 
                      ,  SizedBox(height: h(40),),
-                 SizedBox(
-                   width: w(200),
-                   child: text(text: 'سياسة الخصوصية والمعلومات',color: AppColor.yellow,fontsize: 20.sp,fontWeight: FontWeight.bold,fontfamily: 'marai'))
+                 GestureDetector(onTap: (){
+                   nav(context, const Privacy());
+                 },
+                   child: SizedBox(
+                     width: w(200),
+                     child: text(text: 'سياسة الخصوصية والمعلومات',color: AppColor.yellow,fontsize: 20.sp,fontWeight: FontWeight.bold,fontfamily: 'marai')),
+                 )
                 
                 
                 
