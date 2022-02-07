@@ -46,17 +46,17 @@ int chosenIndex= -1;
   List<News> newslist = [];
   String? serach;
   TextEditingController searchc = TextEditingController();
-  int currentIndex = 2;
+  int currentIndex = 1;
   int page = 0;
-  int pageSize = 10;
+  int pageSize = 100;
   ScrollController scrollController = ScrollController();
 
   setBottomBarIndex(index) {
 
-    setState(() {
+    // setState(() {
       currentIndex = index;
       
-    });
+    // });
   }
   @override
   didChangeDependencies() {
@@ -68,12 +68,15 @@ int chosenIndex= -1;
   void initState() {
     if (widget.categoryId !=null){
    if ( widget.categoryId!.contains('3d0a5e84-9c54-46c1-8522-39daf705ce13')){
-     chosenIndex = 0;
+     currentIndex = 3;
    }
-   if ( widget.categoryId!.contains('b520bade-3deb-4081-bb90-4b5094b8d522')){
+   else if ( widget.categoryId!.contains('b520bade-3deb-4081-bb90-4b5094b8d522')){
 
-     chosenIndex=1;
-   }}
+     currentIndex=0;
+   
+   }
+   else {currentIndex =1;}
+   }
     super.initState();
 
     // Instantiate NewVersion manager object (Using GCP Console app as example)
@@ -187,15 +190,19 @@ int chosenIndex= -1;
                           children: [
                             GestureDetector(
                               onTap: () {
-                                setBottomBarIndex(0);
+                                setBottomBarIndex(4);
                                 nav(context, const ReviewTickets());
                               },
                               child:navigationSample('ابلاغاتي', 'profile.png')
                             ),
                             GestureDetector(
                               onTap: () {
-                                setBottomBarIndex(1);
-                             nav(context, const HomeBar(categoryId: '3d0a5e84-9c54-46c1-8522-39daf705ce13',));
+                             print(currentIndex);
+                         if (currentIndex ==3){} else { 
+                                                       setBottomBarIndex(3);
+                            nav(context, const HomeBar(categoryId: '3d0a5e84-9c54-46c1-8522-39daf705ce13',));
+}
+                            
                               },
                               child: navigationSample('وعي', 'main 3.png')
                             ),
@@ -204,15 +211,16 @@ int chosenIndex= -1;
                             ),
                             GestureDetector(
                               onTap: () {
-                                setBottomBarIndex(2);
+                              
 
-                                           nav(context, const HomeBar());
+                                   if (currentIndex ==1)   {}else  {  nav(context, const HomeBar());
+                                    setBottomBarIndex(1);}
                               },
                               child:  navigationSample('تحقيقات', 'main 1.png',10.sp)
                             ),
                             GestureDetector(
                               onTap: () {
-                                setBottomBarIndex(3);
+                                setBottomBarIndex(2);
                                 navWithReplaceAll(context, const MainPage());
                               },
                               child: navigationSample('الرئيسية', 'icon home.png',10.sp)
