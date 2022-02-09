@@ -59,6 +59,8 @@ class _NewsDetailsState extends State<NewsDetails> {
   bool voteTrue = false;
   bool voteFalse = false;
   TextEditingController commentc = TextEditingController();
+  String ? name;
+    TextEditingController namec = TextEditingController();
   String? comment;
   ScrollController scrollController = ScrollController();
   ScrollController scrollController2 = ScrollController();
@@ -401,14 +403,15 @@ class _NewsDetailsState extends State<NewsDetails> {
                                         ),
                                         text(
                                             text: 'اكتب تعليقا',
-                                        fontfamily: 'marai',fontsize: 24.sp)
+                                        fontfamily: 'marai',fontsize: 20.sp)
                                     ,
                                     SizedBox(height: h(20),),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            GestureDetector(
+
+                                            Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                children: [
+                                                     GestureDetector(
                                                 onTap: () {
                                                   if (comment != null) {
                                                     newsDetailsBloc.add(
@@ -457,14 +460,51 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                     );
                                                   }
                                                 )),
+                                        
+                                                  Center(
+                                                    child: container(
+                                                      color: Colors.grey[200],
+                                                      hight: h(50),
+                                                      width: w(200),
+                                                      borderRadius: 10,
+                                                      child: textform(
+                                                        maxlines: 1,
+                                                          padding: EdgeInsets.only(
+                                                              bottom: h(10),
+                                                              right: w(10)),
+                                                          hint: 'الاسم (اختياري)',
+                                                          
+                                                          hintsize: w(14),
+                                                          controller: namec,
+                                                          function: (val) {
+                                                            name = val;
+                                                          },
+                                                          keyboard: 'name',
+                                                          validation: (val) {
+                                                            return val!;
+                                                          }),
+                                                    ),
+                                                  ),
+                                                  
+                                                ],
+                                              ),
+                                            ),
+                                            SizedBox(height: h(20),),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                         
+                                        
                                             container(
                                               color: Colors.grey[200],
                                               hight: h(100),
-                                              width: w(240),
+                                              width: w(300),
                                               borderRadius: 10,
                                               child: textform(
+                                                maxlines: 6,
                                                   padding: EdgeInsets.only(
-                                                      bottom: h(40),
+                                                      bottom: h(10),
                                                       right: w(5)),
                                                   hint: '',
                                                   hintsize: w(20),
@@ -489,7 +529,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                                             SizedBox(
                                               width: w(150),
                                         
-                                              child: text(fontfamily: 'marai',fontsize: 24.sp,
+                                              child: text(fontfamily: 'marai',fontsize: 20.sp,
                                                   text: 'التعليقات',
                                                 ),
                                             )

@@ -53,7 +53,15 @@ SizedBox(height: h(40),),
                    onTap: (){navigation(const HomeBar());},
                    child: SizedBox(
                      width: w(200),
-                     child: text(text: 'التحقيقات',color: AppColor.yellow,fontsize: 20.sp,fontWeight: FontWeight.bold,fontfamily: 'marai')),
+                     child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                       children: [
+                         
+                         SizedBox(
+                           width: w(150),
+                           child: text(text: 'التحقيقات',color: AppColor.yellow,fontsize: 20.sp,fontWeight: FontWeight.bold,fontfamily: 'marai')),
+                         Image.asset('assets/images/main 1.png',height: h(30),width: w(30),color: AppColor.yellow,)
+                       ],
+                     )),
                  ),
 
 
@@ -64,7 +72,14 @@ SizedBox(height: h(40),),
                     GestureDetector(onTap: (){navigation( const HomeBar(categoryId: '3d0a5e84-9c54-46c1-8522-39daf705ce13',));},
                       child: SizedBox(
                                        width: w(200),
-                                       child: text(text: 'وعي وتعليم',color: AppColor.yellow,fontsize: 20.sp,fontWeight: FontWeight.bold,fontfamily: 'marai')),
+                                       child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                         children: [
+                                           SizedBox(
+                                             width: w(150),
+                                             child: text(text: 'وعي وتعليم',color: AppColor.yellow,fontsize: 20.sp,fontWeight: FontWeight.bold,fontfamily: 'marai')),
+                                                 Image.asset('assets/images/main 3.png',height: h(30),width: w(30),color: AppColor.yellow,)
+                                         ],
+                                       )),
                     ),
 
 
@@ -74,7 +89,14 @@ SizedBox(height: h(40),),
                     GestureDetector(onTap: (){navigation(const HomeBar(categoryId:'b520bade-3deb-4081-bb90-4b5094b8d522' ,));},
                       child: SizedBox(
                                        width: w(200),
-                                       child: text(text: 'فديوهات',color: AppColor.yellow,fontsize: 20.sp,fontWeight: FontWeight.bold,fontfamily: 'marai')),
+                                       child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                         children: [
+                                           SizedBox(
+                                             width: w(150),
+                                             child: text(text: 'فديوهات',color: AppColor.yellow,fontsize: 20.sp,fontWeight: FontWeight.bold,fontfamily: 'marai')),
+                                           Image.asset('assets/images/MAIN 4.png',height: h(30),width: w(30),color: AppColor.yellow,)
+                                         ],
+                                       )),
                     )
                ,  SizedBox(height: h(40),),
                  GestureDetector(onTap: (){
@@ -82,7 +104,15 @@ SizedBox(height: h(40),),
                  },
                    child: SizedBox(
                      width: w(200),
-                     child: text(text: 'ارسل تحقيقا',color: AppColor.yellow,fontsize: 20.sp,fontWeight: FontWeight.bold,fontfamily: 'marai')),
+                     child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                       children: [
+                         SizedBox
+                         (
+                           width: w(150),
+                           child: text(text: 'ارسل تحقيقا',color: AppColor.yellow,fontsize: 20.sp,fontWeight: FontWeight.bold,fontfamily: 'marai')),
+                           Image.asset('assets/images/main 5.png',height: h(30),width: w(30),color: AppColor.yellow,)
+                       ],
+                     )),
                  )
                ,  SizedBox(height: h(40),),
                  GestureDetector(onTap: (){
@@ -92,22 +122,63 @@ SizedBox(height: h(40),),
                  },
                    child: SizedBox(
                      width: w(200),
-                     child: text(text: 'ابلغ عن اشاعة',color: AppColor.yellow,fontsize: 20.sp,fontWeight: FontWeight.bold,fontfamily: 'marai')),
+                     child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                       children: [
+                         SizedBox(
+                           width: w(150),
+                           child: text(text: 'ابلغ عن اشاعة',color: AppColor.yellow,fontsize: 20.sp,fontWeight: FontWeight.bold,fontfamily: 'marai')),
+                             Image.asset('assets/images/main 6.png',height: h(30),width: w(30),color: AppColor.yellow,)
+                         
+                       ],
+                     )),
+                 )
+                            ,  SizedBox(height: h(40),),
+                 GestureDetector(onTap: (){
+
+
+                   navigation(const ReportFakeNews(isReport: false,title: 'ابلغ عن اشاعة',));
+                 },
+                   child: SizedBox(
+                     width: w(200),
+                     child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                       children: [
+                         SizedBox(
+                           width: w(150),
+                           child: text(text: 'إبلاغاتي',color: AppColor.yellow,fontsize: 20.sp,fontWeight: FontWeight.bold,fontfamily: 'marai')),
+                             Image.asset('assets/images/profile.png',height: h(30),width: w(30),color: AppColor.yellow,)
+                         
+                       ],
+                     )),
                  )
                    ,  SizedBox(height: h(40),),
                  GestureDetector(onTap: (){nav(context, const About());},
                    child: SizedBox(
                      width: w(200),
-                     child: text(text: 'عن صدق',color: AppColor.yellow,fontsize: 20.sp,fontWeight: FontWeight.bold,fontfamily: 'marai')),
+                     child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                       children: [
+                         SizedBox(
+                           width: w(150),
+                           child: text(text: 'عن صدق',color: AppColor.yellow,fontsize: 20.sp,fontWeight: FontWeight.bold,fontfamily: 'marai')),
+                         Icon(Icons.error,color: AppColor.yellow,size: 30.sp,)
+                       ],
+                     )),
                  )
                 
-                     ,  SizedBox(height: h(40),),
+                     ,  SizedBox(height: h(30),),
                  GestureDetector(onTap: (){
                    nav(context, const Privacy());
                  },
                    child: SizedBox(
                      width: w(200),
-                     child: text(text: 'سياسة الخصوصية والمعلومات',color: AppColor.yellow,fontsize: 20.sp,fontWeight: FontWeight.bold,fontfamily: 'marai')),
+                     child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                       children: [
+                         SizedBox(
+                           width: w(160
+                           ),
+                           child: text(text: 'سياسة الخصوصية والمعلومات',color: AppColor.yellow,fontsize: 19.sp,fontWeight: FontWeight.bold,fontfamily: 'marai')),
+                         Icon(Icons.error_outline_outlined,color: AppColor.yellow,size: 30.sp,)
+                       ],
+                     )),
                  )
                 
                 

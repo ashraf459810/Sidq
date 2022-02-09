@@ -54,13 +54,13 @@ class MainPage extends StatelessWidget {
                    SizedBox(
               height: h(20),
             ),
-            item('فديوهات', () {
+            item('فيديوهات', () {
               nav(context, const  HomeBar(categoryId: 'b520bade-3deb-4081-bb90-4b5094b8d522',));
             },'MAIN 4.png'),
             SizedBox(
               height: h(25),
             ),
-            item('ارسل  تحقيقا', () {
+            item('أرسل  تحقيقًا', () {
               nav(
                   context,
                   const ReportFakeNews(
@@ -71,7 +71,7 @@ class MainPage extends StatelessWidget {
                    SizedBox(
               height: h(20),
             ),
-            item('ابلغ عن  اشاعة', () {
+            item('أبلغ عن  إشاعة', () {
               nav(
                   context,
                   const ReportFakeNews(

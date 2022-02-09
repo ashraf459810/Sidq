@@ -109,18 +109,18 @@ int chosenIndex= -1;
     return 
     BlocProvider(
       create: (context) =>
-       sl<NavigationBarBloc>() .. add(widget.categoryId ==null? const GetCategoriesEvent(0, 1000): GetNewsEvent(SearchParamsModel(categoryId: widget.categoryId,pageNumber: 0,pageLength: 1000,searchQuery: '',orderDescending: true), false)),
+       sl<NavigationBarBloc>() .. add(widget.categoryId ==null ? const GetCategoriesEvent(0, 1000): GetNewsEvent(SearchParamsModel(categoryId: widget.categoryId,pageNumber: 0,pageLength: 1000,searchQuery: '',orderDescending: true), false)),
       child: Scaffold(
         appBar: AppBar(
-             
+               automaticallyImplyLeading: false,
             
         iconTheme:const IconThemeData(color: Colors.white,size: 40),
         elevation: 0,
         backgroundColor: AppColor.purple,
         actions: [    Padding(
-                padding: EdgeInsets.symmetric(horizontal: w(20),vertical: h(5)),
+                padding: EdgeInsets.symmetric(vertical: h(7)),
                 child: container(
-                    width: w(280),
+                    width: w(310),
                     hight: h(30),
                     // color: Colors.white,
                     borderRadius: 20,
@@ -129,7 +129,7 @@ int chosenIndex= -1;
                       child: Builder(
                         builder: (context) {
                           return textform(
-                          padding: EdgeInsets.only(right: w(10)),
+                          padding: EdgeInsets.only(right: w(-10)),
                               hint: 'بحث',
                               hintsize: w(20),
                               hintColor: AppColor.purple,
@@ -146,19 +146,18 @@ int chosenIndex= -1;
                       ),
                     )),
               ),
+              SizedBox(width: w(10),),
           Builder(
             builder: (context) {
-              return Padding(
-                padding: EdgeInsets.only(right: w(12)),
-                child: GestureDetector( onTap: (){
+              return GestureDetector( onTap: (){
         
-                      Scaffold.of(context).openEndDrawer();
+                    Scaffold.of(context).openEndDrawer();
         
-                },
-                  child: Icon(Icons.menu,color: AppColor.yellow,),),
-              );
+              },
+                child: Icon(Icons.menu,color: AppColor.yellow,),);
             }
           ),
+                       SizedBox(width: w(5),),
         ],
             ),
         endDrawer:  const  HomeDrawer(),
@@ -197,7 +196,7 @@ int chosenIndex= -1;
                             ),
                             GestureDetector(
                               onTap: () {
-                             print(currentIndex);
+                     
                          if (currentIndex ==3){} else { 
                                                        setBottomBarIndex(3);
                             nav(context, const HomeBar(categoryId: '3d0a5e84-9c54-46c1-8522-39daf705ce13',));
@@ -282,47 +281,53 @@ int chosenIndex= -1;
                     }
                     return
                 (categoryModel.isNotEmpty && widget.categoryId==null)
-                        ? Center(
-                          child: SizedBox(
-                            height: h(60),
-                            child: customlistview(
-                                padding: 10,
-                                scroll: true,
-                                // controller: scrollController,
-                                itemcount: categoryModel.length,
-                                function: (BuildContext context, index) {
-                                  return GestureDetector(onTap: (){
-                                    chosenIndex = index;
-                                    page = 0;
-                                    categoryId = categoryModel[index].id;
-                                                 SearchParamsModel searchParamsModel =
-                                      SearchParamsModel(
-                                        categoryId: categoryId,
-                                          searchQuery: '',
-                                          orderDescending: true,
-                                          pageNumber: page,
-                                          pageLength: pageSize);
-                                  context.read<NavigationBarBloc>()
-                                      .add(GetNewsEvent(searchParamsModel,true));
-                                
+                        ? Container(
+                          alignment: Alignment.centerRight,
+                          height: h(60),
+                          child: customlistview(
+                            reverse: true,
+                              padding: 10,
+                              scroll: true,
+                              // controller: scrollController,
+                              itemcount: categoryModel.length,
+                              function: (BuildContext context, index) {
+                                return GestureDetector(onTap: (){
+                                  if (chosenIndex ==index){
+                                    chosenIndex = -1;
+                                  }
+                                  else {
+                                  chosenIndex = index;}
+
+                                  page = 0;
+                                  categoryId = categoryModel[index].id;
+                                               SearchParamsModel searchParamsModel =
+                                    SearchParamsModel(
+                                      categoryId: categoryId,
+                                        searchQuery: '',
+                                        orderDescending: true,
+                                        pageNumber: page,
+                                        pageLength: pageSize);
+                                context.read<NavigationBarBloc>()
+                                    .add(GetNewsEvent(searchParamsModel,true));
+                              
         
-                                  },
-                                    child: Padding(
-                                      padding: EdgeInsets.symmetric(horizontal: w(7)),
-                                      child: container(
-                                          width: w(60),
-                                          hight: h(60),
-                                          color:  chosenIndex==index? Colors.yellow[200]: AppColor.yellow,
-                                          borderRadius: 20,
-                                          child: text(
-                                              color: AppColor.purple,
-                                              fontWeight: FontWeight.bold,
-                                              text: categoryModel[index].name ?? '',
-                                              fontfamily: 'marai')),
-                                    ),
-                                  );
-                                }),
-                          ),
+                                },
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(horizontal: w(9)),
+                                    child: container(
+                                        width: w(50),
+                                        hight: h(60),
+                                        color:  chosenIndex==index? Colors.yellow[200]: AppColor.yellow,
+                                        borderRadius: 20,
+                                        child: text(
+                                          fontsize: 13.sp,
+                                            color: AppColor.purple,
+                                            fontWeight: FontWeight.bold,
+                                            text: categoryModel[index].name ?? '',
+                                            fontfamily: 'marai')),
+                                  ),
+                                );
+                              }),
                         )
                         : const SizedBox();
                   },

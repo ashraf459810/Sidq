@@ -14,8 +14,9 @@ import 'package:sidq/Widgets/text.dart';
 import 'package:sidq/core/consts.dart';
 import 'package:sidq/features/reverse_serach/presentation/bloc/reverse_serach_bloc.dart';
 import 'package:sidq/features/reverse_serach/presentation/widgets/reverse_search_result.dart';
-import 'package:sidq/features/review_tickets/presentation/pages/review_tickets.dart';
+
 import 'package:url_launcher/url_launcher.dart';
+import 'package:video_player/video_player.dart';
 
 import '../../../../injection_container.dart';
 
@@ -27,6 +28,8 @@ class ReverseImageSearch extends StatefulWidget {
 }
 
 class _ReverseImageSearchState extends State<ReverseImageSearch> {
+    VideoPlayerController? _controller;
+    VideoPlayerController? _toBeDisposed;
   File? imageFile;
   @override
   Widget build(BuildContext context) {
@@ -48,28 +51,28 @@ class _ReverseImageSearchState extends State<ReverseImageSearch> {
             SizedBox(
               height: h(80),
             ),
-            GestureDetector(onTap: (){
+//             GestureDetector(onTap: (){
               
-launchInWebViewOrVC('https://www.google.com');
+// launchInWebViewOrVC('https://www.google.com');
 
-            },
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: w(30)),
-                child: container(
-                    borderRadius: 20,
+//             },
+//               child: Padding(
+//                 padding: EdgeInsets.symmetric(horizontal: w(30)),
+//                 child: container(
+//                     borderRadius: 20,
 
-                    hight: h(50),
-                    width: w(100),
-                    child: text(
-                        text: "بحث نصي",
+//                     hight: h(50),
+//                     width: w(100),
+//                     child: text(
+//                         text: "بحث فديو",
                 
-                              fontsize: 18.sp,
-                              fontfamily: 'marai',
-                              color: AppColor.purple,
-                              fontWeight: FontWeight.bold
-                        )),
-              ),
-            ),
+//                               fontsize: 18.sp,
+//                               fontfamily: 'marai',
+//                               color: AppColor.purple,
+//                               fontWeight: FontWeight.bold
+//                         )),
+//               ),
+//             ),
             
 
             SizedBox(
@@ -139,27 +142,7 @@ launchInWebViewOrVC('https://www.google.com');
             }),
             SizedBox(height: h(50),),
 
-             GestureDetector(
-               onTap: (){
-                 nav(context,const ReviewTickets() );
-               },
-               child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: w(30)),
-                  child: container(
-                      borderRadius: 20,
              
-                      hight: h(50),
-                      width: w(100),
-                      child: text(
-                          text: "الردود",
-                  
-                                fontsize: 18.sp,
-                                fontfamily: 'marai',
-                                color: AppColor.purple,
-                                fontWeight: FontWeight.bold
-                          )),
-                ),
-             ),
           ],
         ),
       ),
@@ -177,4 +160,5 @@ Future<void> launchInWebViewOrVC(String url) async {
     )) {
       throw 'Could not launch $url';
     }
+    
   }

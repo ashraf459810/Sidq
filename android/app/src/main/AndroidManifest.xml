@@ -2,7 +2,7 @@
     package="com.example.sidq">
    <application
         android:usesCleartextTraffic="true"
-        android:label="sidq"
+        android:label="صدق اليمنية"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

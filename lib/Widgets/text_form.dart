@@ -32,14 +32,14 @@ Widget textform(
                 : TextInputType.text,
     decoration: InputDecoration(
         hintTextDirection: TextDirection.rtl,
-        errorStyle: TextStyle(fontSize: 10.sp),
+        errorStyle: TextStyle(fontSize: 8.sp,fontFamily: 'marai'),
         contentPadding: padding ?? EdgeInsets.all(w(5)),
         border: InputBorder.none,
         hintText: hint,
         isDense: true,
-        hintStyle: TextStyle(fontWeight: FontWeight.bold,
-          color: hintColor ?? Colors.black,
-          fontSize: hintsize ?? 12.sp,
+        hintStyle: TextStyle(
+          color: hintColor ?? Colors.grey[400],fontFamily: 'marai',
+          fontSize: hintsize ?? 8.sp,
         )),
     controller: controller,
 
