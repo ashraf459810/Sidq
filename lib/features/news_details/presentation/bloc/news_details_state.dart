@@ -37,7 +37,7 @@ class LoadingVote extends NewsDetailsState{}
 
 
 class AddCommentState extends NewsDetailsState {
-  final List<String>comments;
+  final List<Comment>comments;
 
  const AddCommentState(this.comments);
 }

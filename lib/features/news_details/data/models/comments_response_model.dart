@@ -4,13 +4,15 @@
 
 import 'dart:convert';
 
+import 'package:sidq/features/news_details/data/models/news_details.dart';
+
 CommentsResponseModel commentsResponseModelFromJson(String str) => CommentsResponseModel.fromJson(json.decode(str));
 
 String commentsResponseModelToJson(CommentsResponseModel data) => json.encode(data.toJson());
 
 class CommentsResponseModel {
     CommentsResponseModel({
-        this.result,
+        this.comments,
         this.targetUrl,
         this.success,
         this.error,
@@ -18,15 +20,15 @@ class CommentsResponseModel {
         this.abp,
     });
 
-    List<String>? result;
+    List<Comment>? comments;
     dynamic targetUrl;
-    bool? success;
+    bool ?success;
     dynamic error;
     bool ?unAuthorizedRequest;
-    bool? abp;
+    bool ?abp;
 
     factory CommentsResponseModel.fromJson(Map<String, dynamic> json) => CommentsResponseModel(
-        result: List<String>.from(json["result"].map((x) => x)),
+       comments:  json['result'] !=null? List<Comment>.from(json["result"]!.map((x) => Comment.fromJson(x))):null,
         targetUrl: json["targetUrl"],
         success: json["success"],
         error: json["error"],
@@ -35,7 +37,7 @@ class CommentsResponseModel {
     );
 
     Map<String, dynamic> toJson() => {
-        "result": List<dynamic>.from(result!.map((x) => x)),
+        "result": List<dynamic>.from(comments!.map((x) => x.toJson())),
         "targetUrl": targetUrl,
         "success": success,
         "error": error,
@@ -43,3 +45,5 @@ class CommentsResponseModel {
         "__abp": abp,
     };
 }
+
+

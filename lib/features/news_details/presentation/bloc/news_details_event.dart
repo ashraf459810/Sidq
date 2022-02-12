@@ -24,7 +24,8 @@ const  AddVoteEvent(this.newsId, this.vote);
 class AddCommentEvent extends NewsDetailsEvent{
  final String newsId;
  final String comment;
+ final String ? name;
 
- const AddCommentEvent(this.newsId, this.comment);
+ const AddCommentEvent(this.newsId, this.comment, this.name);
   
 }

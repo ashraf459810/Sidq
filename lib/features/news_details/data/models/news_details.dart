@@ -46,68 +46,72 @@ class NewsDetailsModel {
 
 class Result {
     Result({
-      required this.shareableLink,
-      this.views,
+ 
         this.description,
         this.trueLinks,
         this.falseLinks,
         this.trueVotesCount,
         this.falseVotesCount,
         this.comments,
+        this.shareableLink,
         this.title,
         this.briefDescription,
         this.isTrue,
         this.isPublic,
         this.isVotable,
         this.categoryId,
-        this.categoryName,
+        // this.categoryName,
         this.fileId,
         this.fileLink,
+        this.date,
+        this.viewsCount,
         this.id,
-        this.date
-      
+             this.views,
     });
-String shareableLink;
-    String ? description;
-    List<dynamic> ?trueLinks;
-    List<String> ? falseLinks;
+int ?views;
+    String ?description;
+    List<String>? trueLinks;
+    List<String>? falseLinks;
     int ?trueVotesCount;
     int ?falseVotesCount;
-    List<String>? comments;
+    List<Comment> ?comments;
+    String ?shareableLink;
     String ?title;
     String? briefDescription;
     bool ?isTrue;
     bool ?isPublic;
     bool ?isVotable;
     String ?categoryId;
-    String ?categoryName;
     String ?fileId;
     String ?fileLink;
-    String? id;
-    String ? date;
-    int ? views;
+    DateTime? date;
+    dynamic  viewsCount;
+    String ?id;
 
     factory Result.fromJson(Map<String, dynamic> json) => Result(
-      shareableLink: json['shareableLink'],
       views: json['viewsCount'],
-      date: json['date'],
         description: json["description"],
-        trueLinks: List<dynamic>.from(json["trueLinks"].map((x) => x)),
-        falseLinks: List<String>.from(json["falseLinks"].map((x) => x)),
+        trueLinks: json['trueLinks'] !=null ?List<String>.from(json["trueLinks"].map((x) => x)):null,
+        falseLinks: json['falseLinks']!=null? List<String>.from(json["falseLinks"].map((x) => x)):null,
         trueVotesCount: json["trueVotesCount"],
         falseVotesCount: json["falseVotesCount"],
-        comments: List<String>.from(json["comments"].map((x) => x)),
+        comments:  json['comments'] !=null? List<Comment>.from(json["comments"]!.map((x) => Comment.fromJson(x))):null,
+        shareableLink: json["shareableLink"],
         title: json["title"],
         briefDescription: json["briefDescription"],
         isTrue: json["isTrue"],
         isPublic: json["isPublic"],
         isVotable: json["isVotable"],
         categoryId: json["categoryId"],
-        categoryName: json["categoryName"],
+        // categoryName: json["categoryName"],
         fileId: json["fileId"],
         fileLink: json["fileLink"],
+        // date: DateTime.parse(json["date"]),
+        viewsCount: json["viewsCount"],
         id: json["id"],
     );
+
+  
 
     Map<String, dynamic> toJson() => {
         "description": description,
@@ -115,16 +119,39 @@ String shareableLink;
         "falseLinks": List<dynamic>.from(falseLinks!.map((x) => x)),
         "trueVotesCount": trueVotesCount,
         "falseVotesCount": falseVotesCount,
-        "comments": List<dynamic>.from(comments!.map((x) => x)),
+        "comments": List<dynamic>.from(comments!.map((x) => x.toJson())),
+        "shareableLink": shareableLink,
         "title": title,
         "briefDescription": briefDescription,
         "isTrue": isTrue,
         "isPublic": isPublic,
         "isVotable": isVotable,
         "categoryId": categoryId,
-        "categoryName": categoryName,
+        // "categoryName": categoryName!,
         "fileId": fileId,
         "fileLink": fileLink,
+        // "date": date.toIso8601String(),
+        "viewsCount": viewsCount,
         "id": id,
+    };
+}
+
+class Comment {
+    Comment({
+        this.name,
+        this.text,
+    });
+
+    String?  name;
+    String? text;
+
+    factory Comment.fromJson(Map<String, dynamic> json) => Comment(
+        name: json["name"],
+        text: json["text"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "name": name,
+        "text": text,
     };
 }

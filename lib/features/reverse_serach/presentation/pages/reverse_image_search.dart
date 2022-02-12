@@ -111,6 +111,7 @@ class _ReverseImageSearchState extends State<ReverseImageSearch> {
                 child: BlocConsumer<ReverseSerachBloc, ReverseSerachState>(
                   listener: (context, state) {
                     if (state is UploadImageState) {
+                      
                       nav(
                           context,
                           ReverseSearchResult(

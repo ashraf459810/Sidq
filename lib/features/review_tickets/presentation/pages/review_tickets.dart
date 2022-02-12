@@ -1,22 +1,21 @@
 
-import 'package:expandable_text/expandable_text.dart';
+
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:sidq/App/app.dart';
 import 'package:sidq/Widgets/container.dart';
-import 'package:sidq/Widgets/custom_list_view.dart';
+
 import 'package:sidq/Widgets/nav.dart';
 import 'package:sidq/Widgets/text.dart';
 import 'package:sidq/core/consts.dart';
 import 'package:sidq/features/report_fake_news/presentation/pages/report_fake_news.dart';
 import 'package:sidq/features/review_tickets/data/models/tickets_response_model.dart';
-import 'package:sidq/features/review_tickets/presentation/bloc/review_tickets_bloc.dart';
+
 import 'package:sidq/features/review_tickets/presentation/widgets/tickets.dart';
 
-import '../../../../injection_container.dart';
 
 class ReviewTickets extends StatefulWidget {
   const ReviewTickets({Key? key}) : super(key: key);

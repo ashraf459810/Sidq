@@ -41,9 +41,9 @@ class NewsDetailsBloc extends Bloc<NewsDetailsEvent, NewsDetailsState> {
 
         if (event is AddCommentEvent){
           emit(LoadingComment());
-          var response = await addCommentUseCase.addCommentUseCase(event.newsId, event.comment);
+          var response = await addCommentUseCase.addCommentUseCase(event.newsId, event.comment,event.name??'');
 
-          response.fold((l) => emit(Error(l.error!)), (r) => emit(AddCommentState(r.result!)));
+          response.fold((l) => emit(Error(l.error!)), (r) => emit(AddCommentState(r.comments!)));
         }
 
         

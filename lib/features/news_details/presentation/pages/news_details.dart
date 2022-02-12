@@ -67,7 +67,7 @@ class _NewsDetailsState extends State<NewsDetails> {
   int trueVotesNumber = 0;
   int falseVotesNumber = 0;
     NewsDetailsModel? newsDetailsModel;
-  List<String> comments = [];
+  List<Comment> comments = [];
   @override
   void initState() {
     // newsDetailsBloc.add(GetNewsDetailsEvent(widget.news!.id!));
@@ -162,7 +162,7 @@ class _NewsDetailsState extends State<NewsDetails> {
   final box = context.findRenderObject() as RenderBox?;
 
       
-      await Share.share(newsDetailsModel!.result!.shareableLink,
+      await Share.share(newsDetailsModel!.result!.shareableLink!,
           // subject: subject,
           sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
                                       },
@@ -419,7 +419,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                             widget.news!
                                                                 .toString(),
                                                             comment
-                                                                .toString()));
+                                                                .toString(),name));
                                                   }
                                                 },
                                                 child: Builder(
@@ -561,6 +561,25 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                                 .all(8.0),
                                                         child: Column(
                                                           children: [
+                                                                  comments[
+                                                                            index].name !=null?  
+                                                                                   Padding(
+                                                                                     padding:  EdgeInsets.symmetric(horizontal: w(10)),
+                                                                                     child: Row(mainAxisAlignment: MainAxisAlignment.end,
+                                                                                       children: [
+                                                                                         text(
+                                                                                          fontfamily: 'marai',
+                                                                                          text: comments[
+                                                                                              index].name!,
+                                                                                          color: Colors
+                                                                                              .black,
+                                                                                              fontWeight: FontWeight.bold
+                                                                                  
+                                                                                         ),
+                                                                                       ],
+                                                                                     ),
+                                                                                   ):const SizedBox(),
+                                                                                   SizedBox(height: h(5),),
                                                             Container(
                                                                 alignment: Alignment
                                                                     .topRight,
@@ -584,7 +603,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                                   child: text(
                                                                     fontfamily: 'marai',
                                                                     text: comments[
-                                                                        index],
+                                                                        index].text!,
                                                                     color: Colors
                                                                         .black,
                                                                   ),

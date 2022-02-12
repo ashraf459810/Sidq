@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,6 +22,7 @@ import 'package:sidq/features/home/presentation/widgets/drawer.dart';
 import 'package:sidq/features/home/presentation/widgets/loading_categories.dart';
 import 'package:sidq/features/home/presentation/widgets/navigation_sample.dart';
 import 'package:sidq/features/home/presentation/widgets/news_sample.dart';
+import 'package:sidq/features/home/presentation/widgets/video_sample.dart';
 import 'package:sidq/features/index_page/presentation/pages/index_page.dart';
 import 'package:sidq/features/news_details/presentation/pages/news_details.dart';
 import 'package:sidq/features/reverse_serach/presentation/pages/reverse_image_search.dart';
@@ -38,9 +38,9 @@ class HomeBar extends StatefulWidget {
 }
 
 class _HomeBarState extends State<HomeBar> with RouteAware {
-   final GlobalKey _fabKey = GlobalKey();
+  final GlobalKey _fabKey = GlobalKey();
   bool fabVisible = true;
-int chosenIndex= -1;
+  int chosenIndex = -1;
   List<Result> categoryModel = [];
   String? categoryId;
   List<News> newslist = [];
@@ -49,34 +49,47 @@ int chosenIndex= -1;
   int currentIndex = 1;
   int page = 0;
   int pageSize = 100;
+  bool isVideoTaps = false;
   ScrollController scrollController = ScrollController();
+  bool isWa3i = false;
 
   setBottomBarIndex(index) {
-
     // setState(() {
-      currentIndex = index;
-      
+    currentIndex = index;
+
     // });
   }
+
   @override
   didChangeDependencies() {
     super.didChangeDependencies();
     routeObserver.subscribe(this, ModalRoute.of(context) as PageRoute);
   }
 
- @override
+  @override
   void initState() {
-    if (widget.categoryId !=null){
-   if ( widget.categoryId!.contains('3d0a5e84-9c54-46c1-8522-39daf705ce13')){
-     currentIndex = 3;
-   }
-   else if ( widget.categoryId!.contains('b520bade-3deb-4081-bb90-4b5094b8d522')){
+    if (
+    widget.categoryId!=null){
+      if(widget.categoryId!.contains(  '39daf705ce13')){
 
-     currentIndex=0;
-   
-   }
-   else {currentIndex =1;}
-   }
+        isWa3i = true;
+
+      }
+    }
+                                                      
+                                                          
+    if (widget.categoryId != null) {
+      if (widget.categoryId!.contains('3d0a5e84-9c54-46c1-8522-39daf705ce13')) {
+        currentIndex = 3;
+      } else if (widget.categoryId!
+          .contains('b520bade-3deb-4081-bb90-4b5094b8d522')) {
+        currentIndex = 0;
+
+        isVideoTaps = true;
+      } else {
+        currentIndex = 1;
+      }
+    }
     super.initState();
 
     // Instantiate NewVersion manager object (Using GCP Console app as example)
@@ -92,339 +105,528 @@ int chosenIndex= -1;
     if (simpleBehavior) {
       basicStatusCheck(newVersion);
     }
-     
-  
   }
 
   basicStatusCheck(NewVersion newVersion) {
     newVersion.showAlertIfNecessary(context: context);
   }
 
-
-  
   @override
   Widget build(BuildContext context) {
-    
     final Size size = MediaQuery.of(context).size;
-    return 
-    BlocProvider(
-      create: (context) =>
-       sl<NavigationBarBloc>() .. add(widget.categoryId ==null ? const GetCategoriesEvent(0, 1000): GetNewsEvent(SearchParamsModel(categoryId: widget.categoryId,pageNumber: 0,pageLength: 1000,searchQuery: '',orderDescending: true), false)),
-      child: Scaffold(
-        appBar: AppBar(
-               automaticallyImplyLeading: false,
-            
-        iconTheme:const IconThemeData(color: Colors.white,size: 40),
-        elevation: 0,
-        backgroundColor: AppColor.purple,
-        actions: [    Padding(
-                padding: EdgeInsets.symmetric(vertical: h(7)),
-                child: container(
-                    width: w(310),
-                    hight: h(30),
-                    // color: Colors.white,
-                    borderRadius: 20,
-                    child: SizedBox(
-                      width: w(250),
-                      child: Builder(
-                        builder: (context) {
-                          return textform(
-                          padding: EdgeInsets.only(right: w(-10)),
-                              hint: 'بحث',
-                              hintsize: w(20),
-                              hintColor: AppColor.purple,
-                              controller: searchc,
-                              function: (val) {
-                                serach = val;
-                                context.read<NavigationBarBloc>().add(SearchNewsEvent(SearchParamsModel(searchQuery: val,pageNumber: 0,pageLength: 100,orderDescending: true)));
-                              },
-                              keyboard: 'name',
-                              validation: (val) {
-                                return val!;
-                              });
-                        }
-                      ),
-                    )),
-              ),
-              SizedBox(width: w(10),),
-          Builder(
-            builder: (context) {
-              return GestureDetector( onTap: (){
-        
-                    Scaffold.of(context).openEndDrawer();
-        
-              },
-                child: Icon(Icons.menu,color: AppColor.yellow,),);
-            }
-          ),
-                       SizedBox(width: w(5),),
-        ],
-            ),
-        endDrawer:  const  HomeDrawer(),
-
-        backgroundColor: AppColor.purple,
-        bottomNavigationBar: 
-        SizedBox(
-          height: h(75),
-          child: Stack(
-            children: [
-              Positioned(
-                bottom:0,
-                left: 0,
-                child: SizedBox(
-                  width: size.width,
-                  height: h(80),
+    return BlocProvider(
+        create: (context) => sl<NavigationBarBloc>()
+          ..add(widget.categoryId == null
+              ? const GetCategoriesEvent(0, 1000)
+              : GetNewsEvent(
+                  SearchParamsModel(
+                      categoryId: widget.categoryId,
+                      pageNumber: 0,
+                      pageLength: 1000,
+                      searchQuery: '',
+                      orderDescending: true),
+                  false)),
+        child: !isVideoTaps
+            ? Scaffold(
+                appBar: AppBar(
+                  automaticallyImplyLeading: false,
+                  iconTheme: const IconThemeData(color: Colors.white, size: 40),
+                  elevation: 0,
+                  backgroundColor: AppColor.purple,
+                  actions: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: h(7)),
+                      child: container(
+                          width: w(310),
+                          hight: h(30),
+                          // color: Colors.white,
+                          borderRadius: 20,
+                          child: SizedBox(
+                            width: w(250),
+                            child: Builder(builder: (context) {
+                              return textform(
+                                  padding: EdgeInsets.only(right: w(-10)),
+                                  hint: 'بحث',
+                                  hintsize: w(20),
+                                  hintColor: AppColor.purple,
+                                  controller: searchc,
+                                  function: (val) {
+                                    serach = val;
+                                    context.read<NavigationBarBloc>().add(
+                                        SearchNewsEvent(SearchParamsModel(
+                                            searchQuery: val,
+                                            pageNumber: 0,
+                                            pageLength: 100,
+                                            orderDescending: true)));
+                                  },
+                                  keyboard: 'name',
+                                  validation: (val) {
+                                    return val!;
+                                  });
+                            }),
+                          )),
+                    ),
+                    SizedBox(
+                      width: w(10),
+                    ),
+                    Builder(builder: (context) {
+                      return GestureDetector(
+                        onTap: () {
+                          Scaffold.of(context).openEndDrawer();
+                        },
+                        child: Icon(
+                          Icons.menu,
+                          color: AppColor.yellow,
+                        ),
+                      );
+                    }),
+                    SizedBox(
+                      width: w(5),
+                    ),
+                  ],
+                ),
+                endDrawer: const HomeDrawer(),
+                backgroundColor: AppColor.purple,
+                bottomNavigationBar: SizedBox(
+                  height: h(75),
                   child: Stack(
                     children: [
-                      // CustomPaint(
-                      //   size: Size(size.width, 80),
-                      //   painter: BNBCustomPainter(),
-                      // ),
-            buildFAB(context,_fabKey),
+                      Positioned(
+                        bottom: 0,
+                        left: 0,
+                        child: SizedBox(
+                          width: size.width,
+                          height: h(80),
+                          child: Stack(
+                            children: [
+                              // CustomPaint(
+                              //   size: Size(size.width, 80),
+                              //   painter: BNBCustomPainter(),
+                              // ),
+                              buildFAB(context, _fabKey),
+                              SizedBox(
+                                width: size.width,
+                                height: h(80),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    GestureDetector(
+                                        onTap: () {
+                                          setBottomBarIndex(4);
+                                          nav(context, const ReviewTickets());
+                                        },
+                                        child: navigationSample(
+                                            'ابلاغاتي', 'profile.png')),
+                                    GestureDetector(
+                                        onTap: () {
+                                          if (currentIndex == 3) {
+                                          } else {
+                                            setBottomBarIndex(3);
+                                            nav(
+                                                context,
+                                                const HomeBar(
+                                                  categoryId:
+                                                      '3d0a5e84-9c54-46c1-8522-39daf705ce13',
+                                                ));
+                                          }
+                                        },
+                                        child: navigationSample(
+                                            'وعي', 'main 3.png')),
+                                    Container(
+                                      width: size.width * 0.20,
+                                    ),
+                                    GestureDetector(
+                                        onTap: () {
+                                          if (currentIndex == 1) {
+                                          } else {
+                                            nav(context, const HomeBar());
+                                            setBottomBarIndex(1);
+                                          }
+                                        },
+                                        child: navigationSample(
+                                            'تحقيقات', 'main 1.png', 10.sp)),
+                                    GestureDetector(
+                                        onTap: () {
+                                          setBottomBarIndex(2);
+                                          navWithReplaceAll(
+                                              context, const MainPage());
+                                        },
+                                        child: navigationSample('الرئيسية',
+                                            'icon home.png', 10.sp)),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                body: SingleChildScrollView(
+                  child: ListView(
+                    shrinkWrap: true,
+                    children: [
                       SizedBox(
-                        width: size.width,
-                        height: h(80),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                setBottomBarIndex(4);
-                                nav(context, const ReviewTickets());
-                              },
-                              child:navigationSample('ابلاغاتي', 'profile.png')
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                     
-                         if (currentIndex ==3){} else { 
-                                                       setBottomBarIndex(3);
-                            nav(context, const HomeBar(categoryId: '3d0a5e84-9c54-46c1-8522-39daf705ce13',));
-}
-                            
-                              },
-                              child: navigationSample('وعي', 'main 3.png')
-                            ),
-                            Container(
-                              width: size.width * 0.20,
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                              
+                        height: h(10),
+                      ),
+                      SizedBox(
+                        // height: h(60),
+                        child: BlocBuilder<NavigationBarBloc,
+                            NavigationBarBlocState>(
+                          builder: (context, state) {
+                            if (state is SearchNewsState) {
+                              newslist = state.newsmodel.result!;
+                            }
+                            if (state is GetNewsState) {
+                              newslist = state.newsmodel.result!;
+                            }
 
-                                   if (currentIndex ==1)   {}else  {  nav(context, const HomeBar());
-                                    setBottomBarIndex(1);}
-                              },
-                              child:  navigationSample('تحقيقات', 'main 1.png',10.sp)
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                setBottomBarIndex(2);
-                                navWithReplaceAll(context, const MainPage());
-                              },
-                              child: navigationSample('الرئيسية', 'icon home.png',10.sp)
-                            ),
-                          ],
+                            if (state is LoadingCategory) {
+                              log('here loading categories');
+                              return loadingcategories();
+                            }
+                            if (state is GetCategoriesState) {
+                              categoryModel = state.categoryModel.result;
+                              SearchParamsModel searchParamsModel =
+                                  SearchParamsModel(
+                                      categoryId: widget.categoryId,
+                                      searchQuery: '',
+                                      orderDescending: true,
+                                      pageNumber: page,
+                                      pageLength: pageSize);
+                              context
+                                  .read<NavigationBarBloc>()
+                                  .add(GetNewsEvent(searchParamsModel, false));
+                            }
+                            if (state is Error) {
+                              Fluttertoast.showToast(
+                                  msg: state.error,
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.CENTER,
+                                  timeInSecForIosWeb: 1,
+                                  backgroundColor: Colors.grey[600],
+                                  textColor: Colors.white,
+                                  fontSize: 16.0);
+                            }
+                            return (categoryModel.isNotEmpty &&
+                                    widget.categoryId == null)
+                                ? Container(
+                                    alignment: Alignment.centerRight,
+                                    height: h(60),
+                                    child: customlistview(
+                                        reverse: true,
+                                        padding: 10,
+                                        scroll: true,
+                                        // controller: scrollController,
+                                        itemcount: categoryModel.length,
+                                        function:
+                                            (BuildContext context, index) {
+                                          return GestureDetector(
+                                            onTap: () {
+                                              if (chosenIndex == index) {
+                                                chosenIndex = -1;
+                                              } else {
+                                                chosenIndex = index;
+                                              }
+
+                                              page = 0;
+                                              categoryId =
+                                                  categoryModel[index].id;
+                                              SearchParamsModel
+                                                  searchParamsModel =
+                                                  SearchParamsModel(
+                                                      categoryId: categoryId,
+                                                      searchQuery: '',
+                                                      orderDescending: true,
+                                                      pageNumber: page,
+                                                      pageLength: pageSize);
+                                              context
+                                                  .read<NavigationBarBloc>()
+                                                  .add(GetNewsEvent(
+                                                      searchParamsModel, true));
+                                            },
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: w(9)),
+                                              child: container(
+                                                  width: w(50),
+                                                  hight: h(60),
+                                                  color: chosenIndex == index
+                                                      ? Colors.yellow[200]
+                                                      : AppColor.yellow,
+                                                  borderRadius: 20,
+                                                  child: text(
+                                                      fontsize: 13.sp,
+                                                      color: AppColor.purple,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      text: categoryModel[index]
+                                                              .name ??
+                                                          '',
+                                                      fontfamily: 'marai')),
+                                            ),
+                                          );
+                                        }),
+                                  )
+                                : const SizedBox();
+                          },
+                        ),
+                      ),
+                      SizedBox(
+                        height: h(600),
+                        child: BlocBuilder<NavigationBarBloc,
+                            NavigationBarBlocState>(
+                          builder: (context, state) {
+                            return NotificationListener<ScrollNotification>(
+                                onNotification: (notification) {
+                                  if (notification is ScrollEndNotification &&
+                                      scrollController.position.extentAfter ==
+                                          0) {
+                                    page++;
+
+                                    SearchParamsModel searchParamsModel =
+                                        SearchParamsModel(
+                                            categoryId:
+                                                widget.categoryId == null
+                                                    ? categoryId
+                                                    : categoryId,
+                                            searchQuery: '',
+                                            orderDescending: true,
+                                            pageNumber: page,
+                                            pageLength: pageSize);
+                                    context.read<NavigationBarBloc>().add(
+                                        GetNewsEvent(searchParamsModel, false));
+                                  }
+
+                                  return false;
+                                },
+                                child: customlistview(
+                                    padding: 10,
+                                    direction: 'vertical',
+                                    scroll: true,
+                                    controller: scrollController,
+                                    itemcount: newslist.length + 1,
+                                    function: (context, index) {
+                                      if (index < newslist.length) {
+                                        return Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: h(10)),
+                                            child: GestureDetector(
+                                                onTap: () {
+                                                  Navigator.of(context).push(
+                                                      SecondPageRoute(
+                                                          newslist[index].id!));
+                                                },
+                                                child: (!isWa3i)
+                                                    ? newsSample(
+                                                        newslist[index]
+                                                            .fileLink!,
+                                                        newslist[index]
+                                                            .briefDescription!,
+                                                        newslist[index].title!,
+                                                        newslist[index].date!,
+                                                        newslist[index].views!)
+                                                    : videoSample(
+                                                        newslist[index]
+                                                            .fileLink!,
+                                                        newslist[index]
+                                                            .title!)));
+                                      } else {
+                                        return BlocBuilder<NavigationBarBloc,
+                                            NavigationBarBlocState>(
+                                          builder: (context, state) {
+                                            if (state is LoadingNews) {
+                                              log('here from loading');
+                                              return Center(
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                backgroundColor:
+                                                    AppColor.yellow,
+                                                color: AppColor.purple,
+                                              ));
+                                            }
+                                            return SizedBox(
+                                              height: h(25),
+                                            );
+                                          },
+                                        );
+                                      }
+                                    }));
+                          },
                         ),
                       )
                     ],
                   ),
                 ),
               )
-            ],
-          ),
-        ),
-       
-       
-        body: SingleChildScrollView(
-          child: ListView(shrinkWrap: true,
-          
-            children: [
-    SizedBox(height: h(10),),
-              SizedBox(
-                // height: h(60),
-                child: BlocBuilder<NavigationBarBloc, NavigationBarBlocState>(
-                  builder: (context, state) {
-                    if (state is SearchNewsState){
-                      newslist = state.newsmodel.result!;
-                    }
-                    if (state is GetNewsState) {
-                      newslist = state.newsmodel.result!;
-                
-                    }
-                    
-                    if (state is LoadingCategory) {
-                      log('here loading categories');
-                      return loadingcategories();
-                    }
-                    if (state is GetCategoriesState) {
-                      categoryModel = state.categoryModel.result;
-         SearchParamsModel searchParamsModel = SearchParamsModel(
-                        categoryId: widget.categoryId,
-                          searchQuery: '',
-                          orderDescending: true,
-                          pageNumber: page,
-                          pageLength: pageSize);
-                      context
-                          .read<NavigationBarBloc>()
-                          .add(GetNewsEvent(searchParamsModel,false));
-                    }
-                    if (state is Error) {
-                      Fluttertoast.showToast(
-                          msg: state.error,
-                          toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.CENTER,
-                          timeInSecForIosWeb: 1,
-                          backgroundColor: Colors.grey[600],
-                          textColor: Colors.white,
-                          fontSize: 16.0);
-                    }
-                    return
-                (categoryModel.isNotEmpty && widget.categoryId==null)
-                        ? Container(
-                          alignment: Alignment.centerRight,
-                          height: h(60),
-                          child: customlistview(
-                            reverse: true,
-                              padding: 10,
-                              scroll: true,
-                              // controller: scrollController,
-                              itemcount: categoryModel.length,
-                              function: (BuildContext context, index) {
-                                return GestureDetector(onTap: (){
-                                  if (chosenIndex ==index){
-                                    chosenIndex = -1;
-                                  }
-                                  else {
-                                  chosenIndex = index;}
+            : DefaultTabController(
+                length: 2,
+                child: BlocProvider(
+                  create: (context) => sl<NavigationBarBloc>()..add(GetNewsEvent(
+                  SearchParamsModel(
+                      categoryId: widget.categoryId,
+                      pageNumber: 0,
+                      pageLength: 1000,
+                      searchQuery: '',
+                      orderDescending: true),
+                  false)),
+                  child: Builder(
+                    builder: (context) {
+                      return Scaffold(
+                        endDrawer:const HomeDrawer(),
+                        backgroundColor: AppColor.purple,
+                        appBar: AppBar(
+                          
+                          iconTheme: IconThemeData(color: AppColor.yellow),
+                          centerTitle: true,
+                          title: text(text: 'فيديوهات',color: AppColor.yellow,fontfamily: 'marai',fontsize: 20.sp,fontWeight: FontWeight.bold),
+                          backgroundColor: AppColor.purple,
+                            bottom:  TabBar(
+                              onTap: (value) => {
+                        
+                                if (value ==0){
+                                        
 
-                                  page = 0;
-                                  categoryId = categoryModel[index].id;
-                                               SearchParamsModel searchParamsModel =
-                                    SearchParamsModel(
-                                      categoryId: categoryId,
-                                        searchQuery: '',
-                                        orderDescending: true,
-                                        pageNumber: page,
-                                        pageLength: pageSize);
-                                context.read<NavigationBarBloc>()
-                                    .add(GetNewsEvent(searchParamsModel,true));
-                              
-        
+                               
+                          context.read<NavigationBarBloc>().add(GetNewsEvent(  SearchParamsModel(
+                          categoryId: 'b520bade-3deb-4081-bb90-4b5094b8d522',
+                          pageNumber: 0,
+                          pageLength: 1000,
+                          searchQuery: '',
+                          orderDescending: true),true))
+
+                          
+
+
+                                  
+                                }
+                                else {
+                                              context.read<NavigationBarBloc>().add(GetNewsEvent(  SearchParamsModel(
+                          categoryId: '3756919b-f9e3-42e1-bfb9-1eef1d6aef6b',
+                          pageNumber: 0,
+                          pageLength: 1000,
+                          searchQuery: '',
+                          orderDescending: true),true))
+
+                                }
+                              },
+                              indicatorColor: AppColor.yellow,
+                          tabs: [
+                            Tab(child: text(text: 'فيديوهات توعوية',color: AppColor.yellow,fontfamily: 'marai',fontsize: 16.sp)),
+                 Tab(child: text(text: 'فيديوهات تحقيقية',color: AppColor.yellow,fontfamily: 'marai',fontsize: 16.sp)),
+                          ],
+                        )),
+
+                        body:  SizedBox(
+                        height: h(600),
+                        child: BlocBuilder<NavigationBarBloc,
+                            NavigationBarBlocState>(
+                          builder: (context, state) {
+                         if (state is GetNewsState) {
+                              newslist = state.newsmodel.result!;
+                            }
+                            return NotificationListener<ScrollNotification>(
+                                onNotification: (notification) {
+                                  if (notification is ScrollEndNotification &&
+                                      scrollController.position.extentAfter ==
+                                          0) {
+                                    page++;
+
+                                    SearchParamsModel searchParamsModel =
+                                        SearchParamsModel(
+                                            categoryId:
+                                                widget.categoryId == null
+                                                    ? categoryId
+                                                    : categoryId,
+                                            searchQuery: '',
+                                            orderDescending: true,
+                                            pageNumber: page,
+                                            pageLength: pageSize);
+                                    context.read<NavigationBarBloc>().add(
+                                        GetNewsEvent(searchParamsModel, false));
+                                  }
+
+                                  return false;
                                 },
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: w(9)),
-                                    child: container(
-                                        width: w(50),
-                                        hight: h(60),
-                                        color:  chosenIndex==index? Colors.yellow[200]: AppColor.yellow,
-                                        borderRadius: 20,
-                                        child: text(
-                                          fontsize: 13.sp,
-                                            color: AppColor.purple,
-                                            fontWeight: FontWeight.bold,
-                                            text: categoryModel[index].name ?? '',
-                                            fontfamily: 'marai')),
-                                  ),
-                                );
-                              }),
-                        )
-                        : const SizedBox();
-                  },
-                ),
-              ),
-              SizedBox(
-                height: h(600),
-                child: BlocBuilder<NavigationBarBloc, NavigationBarBlocState>(
-                  builder: (context, state) {
-           
-        
-                    return NotificationListener<ScrollNotification>(
-                        onNotification: (notification) {
-                          if (notification is ScrollEndNotification &&
-                              scrollController.position.extentAfter == 0) {
-                            page++;
-                            
-                            SearchParamsModel searchParamsModel =
-                                SearchParamsModel(
-                                  categoryId: widget.categoryId==null? categoryId: categoryId,
-                                    searchQuery: '',
-                                    orderDescending: true,
-                                    pageNumber: page,
-                                    pageLength: pageSize);
-                            context
-                                .read<NavigationBarBloc>()
-                                .add(GetNewsEvent(searchParamsModel,false));
-                          }
-        
-                          return false;
-                        },
-                        child: customlistview(
-                            padding: 10,
-                            direction: 'vertical',
-                            scroll: true,
-                            controller: scrollController,
-                            itemcount: newslist.length + 1,
-                            function: (context, index) {
-                              if (index <newslist.length) {
-                                return Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(vertical: h(10)),
-                                    child: GestureDetector(
-                                      onTap: (){
-                                        Navigator.of(context).push( SecondPageRoute(newslist[index].id!));
-                                      },
-                                      child: newsSample(
-                                          newslist[index].fileLink!,
-                                          newslist[index].briefDescription!,
-                                          newslist[index].title!,newslist[index].date!,
-                                          newslist[index].views!
-                                    )));
-                              } else {
-                                return BlocBuilder<NavigationBarBloc, NavigationBarBlocState>(
-                                  builder: (context, state) {
-                                    if (state is LoadingNews){
-                                      log('here from loading');
-                                                    return Center(child: CircularProgressIndicator(backgroundColor: AppColor.yellow,color: AppColor.purple,));
-                                    }
-                                    return  SizedBox(height: h(25),);
-                                  },
-                                );
-                              }
-                            }));
-                  },
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
+                                child: customlistview(
+                                    padding: 10,
+                                    direction: 'vertical',
+                                    scroll: true,
+                                    controller: scrollController,
+                                    itemcount: newslist.length + 1,
+                                    function: (context, index) {
+                                      if (index < newslist.length) {
+                                        return Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: h(10)),
+                                            child: GestureDetector(
+                                                onTap: () {
+                                                  Navigator.of(context).push(
+                                                      SecondPageRoute(
+                                                          newslist[index].id!));
+                                                },
+                                                child:  videoSample(
+                                                        newslist[index]
+                                                            .fileLink!,
+                                                        newslist[index]
+                                                            .title!)));
+                                      } else {
+                                        return BlocBuilder<NavigationBarBloc,
+                                            NavigationBarBlocState>(
+                                          builder: (context, state) {
+                                            if (state is LoadingNews) {
+                                              log('here from loading');
+                                              return Center(
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                backgroundColor:
+                                                    AppColor.yellow,
+                                                color: AppColor.purple,
+                                              ));
+                                            }
+                                            return SizedBox(
+                                              height: h(25),
+                                            );
+                                          },
+                                        );
+                                      }
+                                    }));
+                          },
+                        ),
+                      ) ,
+                      );
+                    }
+                  ),
+                ))
+                );
   }
 
   //////animation
-    onFabTap(BuildContext context) {
-    
+  onFabTap(BuildContext context) {
     // Hide the FAB on transition start
     setState(() => fabVisible = false);
 
-    final RenderBox fabRenderBox = sl<NavigationService>().navigatorKey.currentContext
-                                             !.findRenderObject() as RenderBox;  
-    final fabSize = fabRenderBox.size /4;
+    final RenderBox fabRenderBox = sl<NavigationService>()
+        .navigatorKey
+        .currentContext!
+        .findRenderObject() as RenderBox;
+    final fabSize = fabRenderBox.size / 4;
     final fabOffset = fabRenderBox.localToGlobal(Offset(w(120), h(400)));
 
     Navigator.of(context).push(PageRouteBuilder(
       transitionDuration: duration,
       pageBuilder: (BuildContext context, Animation<double> animation,
               Animation<double> secondaryAnimation) =>
-const ReverseImageSearch(),
+          const ReverseImageSearch(),
       transitionsBuilder: (BuildContext context, Animation<double> animation,
               Animation<double> secondaryAnimation, Widget child) =>
           buildTransition(child, animation, fabSize, fabOffset),
     ));
   }
 
-   buildTransition(
+  buildTransition(
     Widget page,
     Animation<double> animation,
     Size fabSize,
@@ -460,7 +662,7 @@ const ReverseImageSearch(),
 
     final transitionFab = Opacity(
       opacity: 1 - easeAnimation.value,
-      child: buildFAB(context,_fabKey),
+      child: buildFAB(context, _fabKey),
     );
 
     Widget positionedClippedChild(Widget child) => Positioned(
@@ -471,7 +673,6 @@ const ReverseImageSearch(),
         child: ClipRRect(
           borderRadius: radius,
           child: child,
-          
         ));
 
     return Stack(
@@ -480,25 +681,21 @@ const ReverseImageSearch(),
         positionedClippedChild(transitionFab),
       ],
     );
-        
+  }
+
+  buildFAB(context, GlobalKey fabKey) {
+    return GestureDetector(
+      onTap: () {
+        onFabTap(context);
+      },
+      child: Center(
+        heightFactor: 1.2,
+        child: Icon(
+          Icons.search,
+          color: AppColor.yellow,
+          size: 60.sp,
+        ),
+      ),
+    );
+  }
 }
-
-  buildFAB( context, GlobalKey fabKey) {
-        return  GestureDetector(onTap: (){
-           onFabTap(context);
-        },
-          child: Center(
-                          heightFactor: 1.2,
-                          child:
-                          Icon(
-                                Icons.search,
-                                color: AppColor.yellow,
-                                size: 60.sp,
-                              ),
-                            
-                        ),
-        );
-  }}
-
-
-

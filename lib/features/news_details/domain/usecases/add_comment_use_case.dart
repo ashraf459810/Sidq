@@ -5,7 +5,7 @@ import 'package:sidq/features/news_details/domain/repositories/add_comment_repos
 
 
 abstract class AddCommentUseCase {
-  Future<Either<Failure, CommentsResponseModel>> addCommentUseCase (String newsId, String comment);
+  Future<Either<Failure, CommentsResponseModel>> addCommentUseCase (String newsId, String comment,String name);
 }
 
 
@@ -19,8 +19,8 @@ class AddCommentUseCaseImp implements AddCommentUseCase {
 
 
   @override
-  Future<Either<Failure, CommentsResponseModel>> addCommentUseCase(String newsId, String comment) async {
-  return await addCommentRepository.addCommentFromrepo(newsId, comment);
+  Future<Either<Failure, CommentsResponseModel>> addCommentUseCase(String newsId, String comment,String name) async {
+  return await addCommentRepository.addCommentFromrepo(newsId, comment,name);
    
   }
   

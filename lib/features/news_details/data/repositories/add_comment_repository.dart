@@ -13,10 +13,10 @@ class AddCommentRepositoryImp implements AddCommentRepository{
   AddCommentRepositoryImp(this.addCommentRemoteData, this.networkInf);
 
   @override
-  Future<Either<Failure, CommentsResponseModel>> addCommentFromrepo(String newsId, String comment) async {
+  Future<Either<Failure, CommentsResponseModel>> addCommentFromrepo(String newsId, String comment,String name) async {
    if (await networkInf.isConnected!){
       try {
-        final response = await addCommentRemoteData.addComment(newsId ,comment);
+        final response = await addCommentRemoteData.addComment(newsId ,comment,name);
 
         return Right(response);
       } on ServerException {
