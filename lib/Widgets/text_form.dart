@@ -17,7 +17,8 @@ Widget textform(
     int? maxlines,
     bool? issecure}) {
   return TextFormField(
-    focusNode: FocusNode(canRequestFocus: false),
+    
+    // focusNode: FocusNode(canRequestFocus: false),
     
     textDirection: TextDirection.rtl,
     key: key,
