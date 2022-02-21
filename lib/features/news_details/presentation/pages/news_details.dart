@@ -129,13 +129,13 @@ class _NewsDetailsState extends State<NewsDetails> {
                       SliverAppBar(
                         backgroundColor: Colors.white,
                         shadowColor: Colors.white,
-                        expandedHeight: h(300),
+                        expandedHeight: h(260),
                         flexibleSpace: FlexibleSpaceBar(
                             centerTitle: true,
                             // title: Text(newsDetailsModel.result!.title!),
                             background: Image.network(
                               newsDetailsModel!.result!.fileLink!,
-                              fit: BoxFit.fill,
+                              fit: BoxFit.contain,
                             )),
 
                         // titlePadding: EdgeInsets.symmetric(vertical: w(50)),

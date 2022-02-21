@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_cropper/image_cropper.dart';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:sidq/App/app.dart';
 import 'package:sidq/Widgets/container.dart';
@@ -33,6 +34,7 @@ class ReportFakeNews extends StatefulWidget {
 }
 
 class _ReportFakeNewsState extends State<ReportFakeNews> {
+  ImageCropper imageCropper = ImageCropper ();
   String? name = '';
   String? claim = '';
   String? clamisLinks = '';
@@ -158,11 +160,11 @@ void initState() {
                       if (state is UploadPicState) {
                         imafeId = state.id;
         log('here from upload image state');
-                      await  Fluttertoast.showToast(
+                        Fluttertoast.showToast(
                             msg: 'تم اضافة الصورة بنجاح',
                             toastLength: Toast.LENGTH_SHORT,
                             gravity: ToastGravity.CENTER,
-                            timeInSecForIosWeb: 1,
+                        
                             backgroundColor: Colors.grey[600],
                             textColor: Colors.white,
                             fontSize: 16.sp);
@@ -173,7 +175,7 @@ void initState() {
                             msg: 'تم اضافة طلبك بنجاح',
                             toastLength: Toast.LENGTH_SHORT,
                             gravity: ToastGravity.CENTER,
-                            timeInSecForIosWeb: 1,
+                   
                             backgroundColor: Colors.grey[600],
                             textColor: Colors.white,
                             fontSize: 16.sp);
@@ -251,7 +253,7 @@ void initState() {
                             // ignore: unused_local_variable
                             final pickedImage = await ImagePicker()
                                 .pickImage(source: ImageSource.gallery)
-                                .then((value) => ImageCropper.cropImage(
+                                .then((value) => imageCropper.cropImage(
                                         sourcePath: value!.path,
                                         aspectRatioPresets: [
                                           CropAspectRatioPreset.square,

@@ -167,7 +167,7 @@ class _TicketsState extends State<Tickets> {
                                                         text: ' : ',
                                                       ),
                                                       text(
-                                                          text: 'النص',
+                                                          text: 'الوصف',
                                                           fontfamily: 'marai',
                                                           color:
                                                               AppColor.purple,

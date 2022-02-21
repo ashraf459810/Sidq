@@ -47,7 +47,7 @@ text(maxLines: 1000,
 
 
   void loadData() async {
-    final _loadedData = await rootBundle.loadString("assets/privacy/privacy.txt");
+    final _loadedData = await rootBundle.loadString("assets/privacy/about.txt");
     setState(() {
       data = _loadedData;
     });

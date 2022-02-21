@@ -16,7 +16,7 @@ import 'package:sidq/features/reverse_serach/presentation/bloc/reverse_serach_bl
 import 'package:sidq/features/reverse_serach/presentation/widgets/reverse_search_result.dart';
 
 import 'package:url_launcher/url_launcher.dart';
-import 'package:video_player/video_player.dart';
+
 
 import '../../../../injection_container.dart';
 
@@ -28,8 +28,9 @@ class ReverseImageSearch extends StatefulWidget {
 }
 
 class _ReverseImageSearchState extends State<ReverseImageSearch> {
-    VideoPlayerController? _controller;
-    VideoPlayerController? _toBeDisposed;
+  ImageCropper imageCropper = ImageCropper();
+    //   VideoPlayerController? _controller;
+    // VideoPlayerController? _toBeDisposed;
   File? imageFile;
   @override
   Widget build(BuildContext context) {
@@ -84,7 +85,7 @@ class _ReverseImageSearchState extends State<ReverseImageSearch> {
                   // ignore: unused_local_variable
                   final pickedImage = await ImagePicker()
                       .pickImage(source: ImageSource.gallery)
-                      .then((value) => ImageCropper.cropImage(
+                      .then((value) => imageCropper.cropImage(
                               sourcePath: value!.path,
                               aspectRatioPresets: [
                                 CropAspectRatioPreset.square,
@@ -131,7 +132,7 @@ class _ReverseImageSearchState extends State<ReverseImageSearch> {
                           hight: h(50),
                           width: w(100),
                           child: text(
-                              text: "بحث صورة",
+                              text: "البحث العكسي عن صورة",
                               fontsize: 18.sp,
                               fontfamily: 'marai',
                               color: AppColor.purple,

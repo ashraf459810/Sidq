@@ -8,7 +8,9 @@ import 'package:sidq/core/consts.dart';
 import 'package:sidq/features/home/presentation/pages/home.dart';
 import 'package:sidq/features/index_page/presentation/widgets/about.dart';
 import 'package:sidq/features/index_page/presentation/widgets/privacy.dart';
-import 'package:sidq/features/report_fake_news/presentation/pages/report_fake_news.dart';
+import 'package:sidq/features/reverse_serach/presentation/pages/reverse_image_search.dart';
+import 'package:sidq/features/review_tickets/presentation/pages/review_tickets.dart';
+
 
 
 class HomeDrawer extends StatefulWidget {
@@ -93,32 +95,32 @@ SizedBox(height: h(40),),
                                          children: [
                                            SizedBox(
                                              width: w(150),
-                                             child: text(text: 'فديوهات',color: AppColor.yellow,fontsize: 20.sp,fontWeight: FontWeight.bold,fontfamily: 'marai')),
+                                             child: text(text: 'فيديوهات',color: AppColor.yellow,fontsize: 20.sp,fontWeight: FontWeight.bold,fontfamily: 'marai')),
                                            Image.asset('assets/images/MAIN 4.png',height: h(30),width: w(30),color: AppColor.yellow,)
                                          ],
                                        )),
                     )
                ,  SizedBox(height: h(40),),
-                 GestureDetector(onTap: (){
-                   navigation(const ReportFakeNews(isReport: false,title: 'ارسل تحقيقا',));
-                 },
-                   child: SizedBox(
-                     width: w(200),
-                     child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
-                       children: [
-                         SizedBox
-                         (
-                           width: w(150),
-                           child: text(text: 'ارسل تحقيقا',color: AppColor.yellow,fontsize: 20.sp,fontWeight: FontWeight.bold,fontfamily: 'marai')),
-                           Image.asset('assets/images/main 5.png',height: h(30),width: w(30),color: AppColor.yellow,)
-                       ],
-                     )),
-                 )
-               ,  SizedBox(height: h(40),),
-                 GestureDetector(onTap: (){
+                //  GestureDetector(onTap: (){
+                //    navigation(const ReportFakeNews(isReport: false,title: 'أرسل  تحقيقًا',));
+                //  },
+                //    child: SizedBox(
+                //      width: w(200),
+                //      child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                //        children: [
+                //          SizedBox
+                //          (
+                //            width: w(150),
+                //            child: text(text:  'أرسل  تحقيقًا',color: AppColor.yellow,fontsize: 20.sp,fontWeight: FontWeight.bold,fontfamily: 'marai')),
+                //            Image.asset('assets/images/main 5.png',height: h(30),width: w(30),color: AppColor.yellow,)
+                //        ],
+                //      )),
+                //  )
+                //  SizedBox(height: h(40),),
+               GestureDetector(onTap: (){
 
 
-                   navigation(const ReportFakeNews(isReport: false,title: 'ابلغ عن اشاعة',));
+                   navigation(const ReverseImageSearch());
                  },
                    child: SizedBox(
                      width: w(200),
@@ -126,7 +128,7 @@ SizedBox(height: h(40),),
                        children: [
                          SizedBox(
                            width: w(150),
-                           child: text(text: 'ابلغ عن اشاعة',color: AppColor.yellow,fontsize: 20.sp,fontWeight: FontWeight.bold,fontfamily: 'marai')),
+                           child: text(text:'البحث العكسي',color: AppColor.yellow,fontsize: 20.sp,fontWeight: FontWeight.bold,fontfamily: 'marai')),
                              Image.asset('assets/images/main 6.png',height: h(30),width: w(30),color: AppColor.yellow,)
                          
                        ],
@@ -136,7 +138,7 @@ SizedBox(height: h(40),),
                  GestureDetector(onTap: (){
 
 
-                   navigation(const ReportFakeNews(isReport: false,title: 'ابلغ عن اشاعة',));
+                   navigation(const ReviewTickets());
                  },
                    child: SizedBox(
                      width: w(200),

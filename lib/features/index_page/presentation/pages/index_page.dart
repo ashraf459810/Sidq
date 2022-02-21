@@ -64,7 +64,7 @@ class MainPage extends StatelessWidget {
               nav(
                   context,
                   const ReportFakeNews(
-                    title: 'ارسل تحقيقا',
+                    title: 'أرسل  تحقيقًا',
                     isReport: false,
                   ));
             },'main 5.png'),
@@ -75,7 +75,7 @@ class MainPage extends StatelessWidget {
               nav(
                   context,
                   const ReportFakeNews(
-                    title: 'الابلاغ عن خبر زائف',
+                    title: 'أبلغ عن  إشاعة',
                     isReport: true,
                   ));
             },'main 6.png'),
