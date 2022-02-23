@@ -200,7 +200,11 @@ class _NewsDetailsState extends State<NewsDetails> {
                                       children: [
                                         Directionality(
                                           textDirection: TextDirection.rtl,
-                                          child: Html(
+                                          child:
+                                           Html(
+                                             
+
+
                                             onLinkTap: (String? url,
                                                 RenderContext context,
                                                 Map<String, String> attributes,

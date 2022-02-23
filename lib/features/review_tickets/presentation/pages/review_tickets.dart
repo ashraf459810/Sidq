@@ -43,7 +43,7 @@ class _ReviewTicketsState extends State<ReviewTickets> {
                
                     borderRadius: 20,
                     child: text(
-                        text: 'ابلاغاتي',
+                        text: 'إبلاغاتي',
                         fontfamily: 'marai',
                         color: AppColor.purple,
                         fontsize: 18.sp,
@@ -70,10 +70,10 @@ class _ReviewTicketsState extends State<ReviewTickets> {
 
                       InkWell(
                         onTap: (){
-                            nav(context,const Tickets(isFakeNews: true,title: 'ابلاغاتي السابقة',));
+                            nav(context,const Tickets(isFakeNews: true,title: 'إبلاغاتي السابقة',));
                         },
                         child: container(width: w(100),
-                          color: AppColor.yellow,hight: h(50),borderRadius: 20,child: text(text: 'ابلاغاتي السابقة',color: AppColor.purple,fontfamily: 'marai',fontWeight: FontWeight.bold,fontsize: 18.sp)),
+                          color: AppColor.yellow,hight: h(50),borderRadius: 20,child: text(text: 'إبلاغاتي السابقة',color: AppColor.purple,fontfamily: 'marai',fontWeight: FontWeight.bold,fontsize: 18.sp)),
                       ),
                            SizedBox(height: h(40),),
                   GestureDetector(
@@ -93,7 +93,7 @@ class _ReviewTicketsState extends State<ReviewTickets> {
                         nav(context, const ReportFakeNews(isReport: true,title: 'الإبلاغ عن خبر زائف',));
                       },
                         child: container(width: w(100),
-                          color: AppColor.yellow,hight: h(50),borderRadius: 20,child: text(text: 'بلغ عن إشاعة',color: AppColor.purple,fontfamily: 'marai',fontWeight: FontWeight.bold,fontsize: 18.sp)),
+                          color: AppColor.yellow,hight: h(50),borderRadius: 20,child: text(text: 'أبلغ عن إشاعة',color: AppColor.purple,fontfamily: 'marai',fontWeight: FontWeight.bold,fontsize: 18.sp)),
                       ),
                 
               ],),

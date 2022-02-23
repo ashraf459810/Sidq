@@ -4,7 +4,7 @@ import 'package:sidq/App/app.dart';
 
 Widget loadingcategories(){return
  SizedBox(
-   height: h(80),
+   height: h(50),
    
    child: Shimmer.fromColors(
         baseColor: Colors.grey[300]!,

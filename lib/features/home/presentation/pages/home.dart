@@ -282,6 +282,7 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
                               newslist = state.newsmodel.result!;
                             }
                             if (state is GetNewsState) {
+              
                               newslist = state.newsmodel.result!;
                             }
 
@@ -329,11 +330,22 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
                                             onTap: () {
                                               if (chosenIndex == index) {
                                                 chosenIndex = -1;
+                                                page =0;
+                                                         SearchParamsModel searchParamsModel =
+                                  SearchParamsModel(
+                                      categoryId: widget.categoryId,
+                                      searchQuery: '',
+                                      orderDescending: true,
+                                      pageNumber: page,
+                                      pageLength: pageSize);
+                              context
+                                  .read<NavigationBarBloc>()
+                                  .add(GetNewsEvent(searchParamsModel, true));
+                                                
+
                                               } else {
                                                 chosenIndex = index;
-                                              }
-
-                                              page = 0;
+                                                 page = 0;
                                               categoryId =
                                                   categoryModel[index].id;
                                               SearchParamsModel
@@ -348,6 +360,9 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
                                                   .read<NavigationBarBloc>()
                                                   .add(GetNewsEvent(
                                                       searchParamsModel, true));
+                                              }
+
+                                             
                                             },
                                             child: Padding(
                                               padding: EdgeInsets.symmetric(

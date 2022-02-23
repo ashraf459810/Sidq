@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 
 
 
+
 import 'package:sidq/App/app.dart';
 
 import 'injection_container.dart' as di;
@@ -16,6 +17,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+    // SystemChrome.setEnabledSystemUIMode (SystemUiMode.manual, overlays: []);
 
 
   await di.init();

@@ -65,7 +65,7 @@ void initState() {
         body: SingleChildScrollView(
           child: GestureDetector(
             onTap: () {
-                      FocusScope.of(context).requestFocus(new FocusNode());
+                      FocusScope.of(context).requestFocus( FocusNode());
 
             },
             child: Center(
