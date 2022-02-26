@@ -244,7 +244,7 @@ void initState() {
                                   width: w(250),
                                   // color: Colors.green[900],
                                   child: text(
-                                      text: "ارسال",
+                                      text: "إرسال",
                                       color: AppColor.purple,
                                       fontfamily: 'marai',
                                       fontsize: 18.sp,

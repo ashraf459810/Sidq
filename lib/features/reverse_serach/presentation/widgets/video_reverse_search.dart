@@ -83,11 +83,12 @@ class PlayerVideoAndPopPageState extends State<PlayerVideoAndPopPage> {
               centerTitle: true,
               title: text(text: 'البحث العكسي للفيديو', fontsize: 18.sp)),
         ),
-        body: Column(
+        body: ListView(
+          shrinkWrap: true,
           children: [
             startedPlaying
                 ? container(
-                    hight: h(300),
+                    hight: h(400),
                     child: videoPlayer(),
                   )
                 : const SizedBox(),

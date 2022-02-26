@@ -97,7 +97,7 @@ Widget newsSample(String image, String desc, String title,String date,int views)
                         alignment: Alignment.centerRight,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: text(text: date.substring(0,10),color: AppColor.purple,fontWeight: FontWeight.bold,fontsize: 10.sp),
+                      child: text(text: date,color: AppColor.purple,fontWeight: FontWeight.bold,fontsize: 10.sp),
                     )),
               ),
                 Positioned(

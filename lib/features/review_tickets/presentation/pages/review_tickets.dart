@@ -11,6 +11,8 @@ import 'package:sidq/Widgets/container.dart';
 import 'package:sidq/Widgets/nav.dart';
 import 'package:sidq/Widgets/text.dart';
 import 'package:sidq/core/consts.dart';
+import 'package:sidq/features/home/presentation/widgets/bottom_bar.dart';
+import 'package:sidq/features/home/presentation/widgets/drawer.dart';
 import 'package:sidq/features/report_fake_news/presentation/pages/report_fake_news.dart';
 import 'package:sidq/features/review_tickets/data/models/tickets_response_model.dart';
 
@@ -30,12 +32,25 @@ class _ReviewTicketsState extends State<ReviewTickets> {
   Widget build(BuildContext context) {
     return 
          Scaffold(
+           endDrawer:const HomeDrawer(),
+           bottomNavigationBar: bottomBar(context,MediaQuery.of(context).size),
              appBar: AppBar(
+               
                elevation: 0,
                  automaticallyImplyLeading: false,
                backgroundColor: AppColor.purple,
 
-               
+               actions: [
+                 SizedBox(width: w(10),),
+                 Builder(
+                   builder: (context) {
+                     return GestureDetector(
+                       onTap: (){
+                                   Scaffold.of(context).openEndDrawer();
+                       },
+                       child: Icon(Icons.menu,color: AppColor.yellow,size: 40,));
+                   }
+                 )],
                 centerTitle: true,
                 title:   container(
                     width: w(330),

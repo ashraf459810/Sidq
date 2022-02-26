@@ -79,11 +79,13 @@ class _NewsDetailsState extends State<NewsDetails> {
     return BlocProvider(
       create: (context) => sl<NewsDetailsBloc>()..add(GetNewsDetailsEvent(widget.news!)),
       child: Scaffold(
+        backgroundColor: Colors.grey[50],
           body: BlocConsumer<NewsDetailsBloc , NewsDetailsState>(listener: (context , state ){
 
     if (state is GetnewsDetailsState) {
                   log('here  details state ');
-                  newsDetailsModel = state.newsDetailsModel;
+                  print(state.newsDetailsModel.result!.trueLinks!.length);
+                                    newsDetailsModel = state.newsDetailsModel;
                   trueVotesNumber =
                       state.newsDetailsModel.result!.trueVotesCount!;
                   falseVotesNumber =
@@ -118,6 +120,7 @@ class _NewsDetailsState extends State<NewsDetails> {
             
 
                 return newsDetailsModel!=null? SafeArea(
+                  
                   top: true,
                   child: CustomScrollView(
                     shrinkWrap: true,
@@ -127,46 +130,106 @@ class _NewsDetailsState extends State<NewsDetails> {
                     slivers: <Widget>[
          
                       SliverAppBar(
-                        backgroundColor: Colors.white,
+                        
+                        backgroundColor: AppColor.purple,
                         shadowColor: Colors.white,
-                        expandedHeight: h(260),
+                        expandedHeight: h(275),
                         flexibleSpace: FlexibleSpaceBar(
+                          
                             centerTitle: true,
                             // title: Text(newsDetailsModel.result!.title!),
-                            background: Image.network(
-                              newsDetailsModel!.result!.fileLink!,
-                              fit: BoxFit.contain,
+                            background: Center(
+                              child: Stack(
+                                children: [
+                       
+                                  Image.network(
+                                    newsDetailsModel!.result!.fileLink!,
+                                    fit: BoxFit.contain,
+                                  ),
+                                        newsDetailsModel!.result!.isTrue!=null  ?  Positioned(
+                                          top: h(20),
+                                          right: w(20),
+                                          child: container(color: AppColor.purple,
+                                            borderRadius: 5,hight: h(40),width: w(60), child: text(text:  newsDetailsModel!.result!.isTrue! ? 'حقيقة' : 'إشاعة',color: Colors.white)),
+                                        ):const SizedBox(),
+                                ],
+                              ),
                             )),
 
                         // titlePadding: EdgeInsets.symmetric(vertical: w(50)),
                       ),
                       SliverList(
                           delegate: SliverChildListDelegate([
-                            SizedBox(height: h(10),),
+                           
 
-                                  Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: [
-                                    text(text:'المشاهدات''    '  '${newsDetailsModel!.result!.views!}' ,fontWeight: FontWeight.bold,fontfamily: 'marai'),
-                                      text(text: newsDetailsModel!.result!.isTrue! ? 'خبر صحيح':'اشاعة' ,fontWeight: FontWeight.bold,fontfamily: 'marai'),
+                                  Container(
+                                    height: h(40),
+                                    color: 
+                                    AppColor.yellow,
+                                    child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      children: [
+                                        SizedBox(
+                                               width: MediaQuery.of(context).size.width / 3 ,
+                                          child: container(hight: h(40),color: AppColor.purple,child: GestureDetector(onTap: () async {
 
 
-                                  ]
-                                  ,),
-                        // SizedBox(height: h(50),),
-                        Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                                      GestureDetector(onTap: () async {
+                                              
   final box = context.findRenderObject() as RenderBox?;
 
       
       await Share.share(newsDetailsModel!.result!.shareableLink!,
           // subject: subject,
           sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
-                                      },
-                                        child:const Icon(Icons.share)),
+                                          
+                             
+                                          },
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                              text(text: "مشاركة",color: Colors.white,fontWeight: FontWeight.bold),
+                                              text(text: "  "),
+                                              Image.asset('assets/images/share.png',height: h(30),)
+                                            ],),
+                                          ))),
+                                                       SizedBox(
+                                                              width: MediaQuery.of(context).size.width / 3 ,
+                                                         child: Row(mainAxisAlignment: MainAxisAlignment.center,
+                                                                                               children: [
+                                                                                                 
+                                                                                                 text(text:  '${newsDetailsModel!.result!.views!}' " "'مشاهدة' ,fontWeight: FontWeight.bold,fontfamily: 'marai'),
+                                                                                                 text(text: " "),
+                                                                                                      Image.asset('assets/images/eye.png',height: h(30),), 
+                                                                                                
+                                                                                               ],
+                                                                                             ),
+                                                       ),
+                                        SizedBox(
+                                          width: MediaQuery.of(context).size.width / 3 ,
+                                          child: Row(mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                         
+                                            text(text: newsDetailsModel!.result!.date.toString(),color: AppColor.purple,fontWeight: FontWeight.bold),
+                                            text(text: " "),
+                                                             Image.asset('assets/images/calender.png',height: h(30),),
+                                          ],),
+                                        ),
+
+                                        
+                                        
+                       
+                                        // text(text: newsDetailsModel!.result!.isTrue! ? 'خبر صحيح':'اشاعة' ,fontWeight: FontWeight.bold,fontfamily: 'marai'),
+
+
+                                    ]
+                                    ,),
+                                  ),
+                        // SizedBox(height: h(50),),
+                        Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                             
                               // SizedBox(height: h(50),),
 
                               text(
@@ -259,19 +322,21 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                           (context, index) {
                                                         return GestureDetector(
                                                           onTap: () async {
+                                                               newsDetailsModel
+                                                                        !.result!
+                                                                        .falseLinks![index].link;
                                                             await launchInWebViewOrVC(
                                                                 newsDetailsModel
                                                                       !  .result!
                                                                         .trueLinks![
-                                                                    index]);
+                                                                    index].link!);
                                                           },
                                                           child: Padding(
                                                             padding:
                                                                 const EdgeInsets
                                                                     .all(8.0),
                                                             child: container(
-                                                                color: AppColor
-                                                                    .purple,
+                                                                color:Colors.transparent,
                                                                 hight: h(60),
                                                                 width: w(200),
                                                                 borderRadius:
@@ -284,14 +349,14 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                                   child: Text(
                                                                     newsDetailsModel
                                                                         !.result!
-                                                                        .falseLinks![index],
+                                                                        .falseLinks![index].name!,
                                                                     maxLines: 1,
                                                                     overflow:
                                                                         TextOverflow
                                                                             .ellipsis,
                                                                     style: TextStyle(
                                                                         color: Colors
-                                                                            .white,
+                                                                            .black,
                                                                         fontSize:
                                                                             12.sp),
                                                                   ),
@@ -341,7 +406,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                                   newsDetailsModel
                                                                      !     .result!
                                                                           .trueLinks![
-                                                                      index]);
+                                                                      index].link!);
                                                             },
                                                             child: container(
                                                                 color: AppColor
@@ -358,7 +423,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                                   child: Text(
                                                                     newsDetailsModel
                                                                      !   .result!
-                                                                        .trueLinks![index],
+                                                                        .trueLinks![index].name!,
                                                                     maxLines: 1,
                                                                     overflow:
                                                                         TextOverflow
@@ -432,11 +497,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                 BlocBuilder(
                                                       bloc: newsDetailsBloc,
                                                       builder: (context, state) {
-                                                          if (state
-                                                      is AddCommentState) {
-                                                    comments = state.comments;
-                                                    log('here from comments');
-                                                  }
+                                          
                                                         if (state
                                                             is LoadingComment) {
                                                               log('state is loading');
@@ -456,7 +517,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                                 AppColor.yellow,
                                                             child: text(
                                                               fontWeight: FontWeight.bold,
-                                                                text: 'ارسال',
+                                                                text: 'إرسال',
                                                                 fontfamily: 'marai',
                                                                 color:
                                                                     AppColor.purple));
@@ -539,9 +600,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                                             )
                                           ],
                                         ),
-                                        comments.isNotEmpty
-                                            ?
-
+                                        
                                              BlocBuilder(
                                                 bloc: newsDetailsBloc,
                                                 builder: (context, state) {
@@ -551,7 +610,9 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                     log('here from comments');
                                                   }
 
-                                                  return customlistview(
+                                                  return comments.isNotEmpty
+                                            ?
+ customlistview(
                                                     scroll: false,
                                                     direction: 'vertical',
                                                     padding: 10,
@@ -616,11 +677,11 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                         ),
                                                       );
                                                     },
-                                                  );
+                                                  )    : const SizedBox();
                                                 },
                                               )
                                     // commentsWidget(newsDetailsBloc,comments)
-                                            : const SizedBox(),
+                                        
                                       ],
                                     ),
                                   ],

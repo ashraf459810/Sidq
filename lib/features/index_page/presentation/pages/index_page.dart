@@ -8,9 +8,8 @@ import 'package:sidq/Widgets/nav.dart';
 import 'package:sidq/Widgets/text.dart';
 import 'package:sidq/core/consts.dart';
 import 'package:sidq/features/home/presentation/pages/home.dart';
-
-import 'package:sidq/features/report_fake_news/presentation/pages/report_fake_news.dart';
 import 'package:sidq/features/reverse_serach/presentation/pages/reverse_image_search.dart';
+import 'package:sidq/features/review_tickets/presentation/pages/review_tickets.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MainPage extends StatelessWidget {
@@ -39,7 +38,7 @@ class MainPage extends StatelessWidget {
             },'main 1.png'),
    
                   SizedBox(
-              height: h(20),
+              height: h(25),
             ),
         
                      item('البحث  العكسي', () {
@@ -52,7 +51,7 @@ class MainPage extends StatelessWidget {
               nav(context,const  HomeBar(categoryId:'3d0a5e84-9c54-46c1-8522-39daf705ce13' ,));
             },'main 3.png'),
                    SizedBox(
-              height: h(20),
+              height: h(25),
             ),
             item('فيديوهات', () {
               nav(context, const  HomeBar(categoryId: 'b520bade-3deb-4081-bb90-4b5094b8d522',));
@@ -60,25 +59,22 @@ class MainPage extends StatelessWidget {
             SizedBox(
               height: h(25),
             ),
-            item('أرسل  تحقيقًا', () {
+            item('إبلاغاتي', () {
               nav(
                   context,
-                  const ReportFakeNews(
-                    title: 'أرسل  تحقيقًا',
-                    isReport: false,
-                  ));
+              const   ReviewTickets());
             },'main 5.png'),
                    SizedBox(
               height: h(20),
             ),
-            item('أبلغ عن  إشاعة', () {
-              nav(
-                  context,
-                  const ReportFakeNews(
-                    title: 'أبلغ عن  إشاعة',
-                    isReport: true,
-                  ));
-            },'main 6.png'),
+            // item('أبلغ عن  إشاعة', () {
+            //   nav(
+            //       context,
+            //       const ReportFakeNews(
+            //         title: 'أبلغ عن  إشاعة',
+            //         isReport: true,
+            //       ));
+            // },'main 6.png'),
             SizedBox(
               height: h(60),
             ),

@@ -70,8 +70,8 @@ class Result {
     });
 int ?views;
     String ?description;
-    List<String>? trueLinks;
-    List<String>? falseLinks;
+    List<Links>? trueLinks;
+    List<Links>? falseLinks;
     int ?trueVotesCount;
     int ?falseVotesCount;
     List<Comment> ?comments;
@@ -84,15 +84,15 @@ int ?views;
     String ?categoryId;
     String ?fileId;
     String ?fileLink;
-    DateTime? date;
+    String? date;
     dynamic  viewsCount;
     String ?id;
 
     factory Result.fromJson(Map<String, dynamic> json) => Result(
       views: json['viewsCount'],
         description: json["description"],
-        trueLinks: json['trueLinks'] !=null ?List<String>.from(json["trueLinks"].map((x) => x)):null,
-        falseLinks: json['falseLinks']!=null? List<String>.from(json["falseLinks"].map((x) => x)):null,
+        trueLinks: json['trueLinks'] !=null ?List<Links>.from(json["trueLinks"]!.map((x) => Links.fromJson(x))):null,
+        falseLinks: json['falseLinks']!=null? List<Links>.from(json["falseLinks"]!.map((x) => Links.fromJson(x))):null,
         trueVotesCount: json["trueVotesCount"],
         falseVotesCount: json["falseVotesCount"],
         comments:  json['comments'] !=null? List<Comment>.from(json["comments"]!.map((x) => Comment.fromJson(x))):null,
@@ -106,7 +106,7 @@ int ?views;
         // categoryName: json["categoryName"],
         fileId: json["fileId"],
         fileLink: json["fileLink"],
-        // date: DateTime.parse(json["date"]),
+        date: json["date"],
         viewsCount: json["viewsCount"],
         id: json["id"],
     );
@@ -153,5 +153,26 @@ class Comment {
     Map<String, dynamic> toJson() => {
         "name": name,
         "text": text,
+    };
+}
+
+
+class Links {
+    Links({
+        this.name,
+        this.link,
+    });
+
+    String?  name;
+    String? link;
+
+    factory Links.fromJson(Map<String, dynamic> json) => Links(
+        name: json["name"],
+        link: json["link"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "name": name,
+        "text": link,
     };
 }

@@ -70,6 +70,41 @@ class _ReverseImageSearchState extends State<ReverseImageSearch> {
             SizedBox(
               height: h(50),
             ),
+          
+            GestureDetector(
+              onTap: () async {
+                // ignore: unused_local_variable
+                var pickedVideo = await ImagePicker()
+                    .pickVideo(source: ImageSource.gallery)
+                    .then((value) {
+
+                      if (value !=null){
+                  nav(
+                      context,
+                      PlayerVideoAndPopPage(
+                        video: value,
+                      ));
+                      }  });
+              },
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: w(30)),
+                child: container(
+                    borderRadius: 20,
+                    // color: Colors.green[900],
+                    hight: h(50),
+                    width: w(100),
+                    child: text(
+                        text: "البحث العكسي عن فيديو",
+                        fontsize: 18.sp,
+                        fontfamily: 'marai',
+                        color: AppColor.purple,
+                        fontWeight: FontWeight.bold)),
+              ),
+            ),
+
+              SizedBox(
+              height: h(40),
+            ),
             Builder(builder: (context) {
               return GestureDetector(
                 onTap: () async {
@@ -138,39 +173,6 @@ class _ReverseImageSearchState extends State<ReverseImageSearch> {
                 ),
               );
             }),
-            SizedBox(
-              height: h(40),
-            ),
-            GestureDetector(
-              onTap: () async {
-                // ignore: unused_local_variable
-                var pickedVideo = await ImagePicker()
-                    .pickVideo(source: ImageSource.gallery)
-                    .then((value) {
-
-                      if (value !=null){
-                  nav(
-                      context,
-                      PlayerVideoAndPopPage(
-                        video: value,
-                      ));
-                      }  });
-              },
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: w(30)),
-                child: container(
-                    borderRadius: 20,
-                    // color: Colors.green[900],
-                    hight: h(50),
-                    width: w(100),
-                    child: text(
-                        text: "البحث العكسي عن فيديو",
-                        fontsize: 18.sp,
-                        fontfamily: 'marai',
-                        color: AppColor.purple,
-                        fontWeight: FontWeight.bold)),
-              ),
-            ),
 
             SizedBox(
               height: h(50),
