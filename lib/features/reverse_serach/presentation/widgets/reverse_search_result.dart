@@ -26,14 +26,17 @@ class _ReverseSearchResultState extends State<ReverseSearchResult> {
   // String bingExtention = '&idpbck=1&selectedindex=0&id=https%3A%2F%2Fstatic01.nyt.com%2Fimages%2F2021%2F09%2F14%2Fscience%2F07CAT-STRIPES%2F07CAT-STRIPES-superJumbo.jpg%3Fquality%3D75%26amp%3Bauto%3Dwebp&ccid=MWtidL3P&vt=2&sim=11';
     bool loading=true;
   String url ='https://images.google.com/searchbyimage?image_url=' ;
-  List<String> sites = ['Google', 'Bing', 'Yandex'];
+  List<String> sites = ['Google', 'Bing', 'Yandex' ,"Tineye"];
   @override
   void initState() {
-      Timer(const Duration(seconds: 3), (){loading = !loading ;
+      Timer(const Duration(seconds: 4), (){loading = !loading ;
       
       setState(() {
+
         
       });});
+
+      log(widget.imageLink!);
     super.initState();
   }
   @override
@@ -65,7 +68,7 @@ class _ReverseSearchResultState extends State<ReverseSearchResult> {
                                     scrollDirection: Axis.horizontal,
                                     itemCount: sites.length,
                                     itemBuilder: (context, index) => Padding(
-                                      padding: EdgeInsets.symmetric(horizontal: w(25)),
+                                      padding: EdgeInsets.symmetric(horizontal: w(10)),
                                       child: GestureDetector(onTap: (){
                                         log('here');
                                         switch(index){
@@ -87,7 +90,11 @@ class _ReverseSearchResultState extends State<ReverseSearchResult> {
                                           case 2 : 
                                  
                                             url = 'https://yandex.com/images/search?rpt=imageview&url=';
-                                               navWithReplacement(context, ReverseSearchResult(site: url,imageLink: widget.imageLink)) ;     
+                                               navWithReplacement(context, ReverseSearchResult(site: url,imageLink: widget.imageLink)) ;    
+break;
+                                               case 3  : url = "https://tineye.com/search/?pluginver=chrome-1.5.1&url=";
+                                               navWithReplacement(context, ReverseSearchResult(site: url,imageLink: widget.imageLink)) ;   
+
                                          
                                           break;
                                         }
@@ -96,12 +103,12 @@ class _ReverseSearchResultState extends State<ReverseSearchResult> {
                                             hight: h(50),
                                             width: w(70),
                                             borderRadius: 10,
-                                            color: Colors.grey,
+                                            color: Colors.white,
                                             child: text(
                                                 text: sites[index],
                                                 fontsize: 12.sp,
                                                 fontWeight: FontWeight.bold,
-                                                color: Colors.white)),
+                                                color: Colors.grey)),
                                       ),
                                     ),
                                   ),

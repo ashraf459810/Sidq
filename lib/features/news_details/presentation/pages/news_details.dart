@@ -84,13 +84,14 @@ class _NewsDetailsState extends State<NewsDetails> {
 
     if (state is GetnewsDetailsState) {
                   log('here  details state ');
-                  print(state.newsDetailsModel.result!.trueLinks!.length);
-                                    newsDetailsModel = state.newsDetailsModel;
+           
                   trueVotesNumber =
                       state.newsDetailsModel.result!.trueVotesCount!;
                   falseVotesNumber =
                       state.newsDetailsModel.result!.falseVotesCount!;
                   comments = state.newsDetailsModel.result!.comments!;
+
+                  newsDetailsModel = state.newsDetailsModel;
                 }
                 if (state is Error) {
                                              Fluttertoast.showToast(
@@ -130,13 +131,18 @@ class _NewsDetailsState extends State<NewsDetails> {
                     slivers: <Widget>[
          
                       SliverAppBar(
+               
                         
-                        backgroundColor: AppColor.purple,
+                        backgroundColor: Colors.grey[100],
+                           iconTheme: IconThemeData(
+                color: AppColor.purple,
+              ),
                         shadowColor: Colors.white,
                         expandedHeight: h(275),
                         flexibleSpace: FlexibleSpaceBar(
                           
                             centerTitle: true,
+                            
                             // title: Text(newsDetailsModel.result!.title!),
                             background: Center(
                               child: Stack(
@@ -290,13 +296,21 @@ class _NewsDetailsState extends State<NewsDetails> {
                                              !   .result!.falseLinks!.isNotEmpty
                                             ? Column(
                                                 children: [
-                                                  text(
-                                                      text: 'روابط مزيفة',
-                                                      color: Colors.black,
-                                                      fontsize: 20.sp,
-                                                      fontfamily: 'marai',
-                                                      fontWeight:
-                                                          FontWeight.bold),
+                                                  Container(
+                                                     alignment: Alignment.center,
+                                                        height: h(40),
+                                                        width: w(330),
+                                                        color: Colors.red[800],
+                                                    child: Center(
+                                                      child: text(
+                                                          text: 'روابط الإشاعة',
+                                                          color: Colors.white,
+                                                          fontsize: 15.sp,
+                                                          fontfamily: 'marai',
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                  ),
                                                   customlistview(
                                                       padding: 10,
                                                       scroll: false,
@@ -335,32 +349,35 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                             padding:
                                                                 const EdgeInsets
                                                                     .all(8.0),
-                                                            child: container(
-                                                                color:Colors.transparent,
-                                                                hight: h(60),
-                                                                width: w(200),
-                                                                borderRadius:
-                                                                    10,
-                                                                child: Padding(
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                              .all(
-                                                                          8.0),
-                                                                  child: Text(
-                                                                    newsDetailsModel
-                                                                        !.result!
-                                                                        .falseLinks![index].name!,
-                                                                    maxLines: 1,
-                                                                    overflow:
-                                                                        TextOverflow
-                                                                            .ellipsis,
-                                                                    style: TextStyle(
-                                                                        color: Colors
-                                                                            .black,
-                                                                        fontSize:
-                                                                            12.sp),
-                                                                  ),
-                                                                )),
+                                                            child: Row(mainAxisAlignment: MainAxisAlignment.start,
+                                                              children: [
+                                                                Container(
+                                                                    color:Colors.transparent,
+                                                                    height: h(60),
+                                                                    width: w(300),
+                                                                   alignment: Alignment.topLeft,
+                                                                    child: Padding(
+                                                                      padding:
+                                                                          const EdgeInsets
+                                                                                  .all(
+                                                                              8.0),
+                                                                      child: Text(
+                                                                        newsDetailsModel
+                                                                            !.result!
+                                                                            .falseLinks![index].name!,
+                                                                        maxLines: 1,
+                                                                        overflow:
+                                                                            TextOverflow
+                                                                                .ellipsis,
+                                                                        style: TextStyle(
+                                                                            color: Colors
+                                                                                .black,
+                                                                            fontSize:
+                                                                                15.sp),
+                                                                      ),
+                                                                    )),
+                                                              ],
+                                                            ),
                                                           ),
                                                         );
                                                       }),
@@ -374,13 +391,23 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                 !.result!.trueLinks!.isNotEmpty
                                             ? Column(
                                                 children: [
-                                                  text(
-                                                      text: 'روابط حقيقية',
-                                                      color: Colors.black,
-                                                      fontsize: 20.sp,
-                                                      fontfamily: 'marai',
-                                                      fontWeight:
-                                                          FontWeight.bold),
+                                                  Container(
+                                                    alignment: Alignment.center,
+                                                        height: h(40),
+                                                        width: w(320),
+                                                        color: Colors.green[800],
+                                                    child: Center(
+                                                      
+                                                      child: text(
+                                                        textAlign: TextAlign.center,
+                                                          text: 'روابط الحقيقية',
+                                                          color: Colors.white,
+                                                          fontsize: 15.sp,
+                                                          fontfamily: 'marai',
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                  ),
                                                   customlistview(
                                                       padding: 10,
                                                       scroll: false,
@@ -408,33 +435,38 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                                           .trueLinks![
                                                                       index].link!);
                                                             },
-                                                            child: container(
-                                                                color: AppColor
-                                                                    .purple,
-                                                                hight: h(60),
-                                                                width: w(200),
-                                                                borderRadius:
-                                                                    10,
-                                                                child: Padding(
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                              .all(
-                                                                          8.0),
-                                                                  child: Text(
-                                                                    newsDetailsModel
-                                                                     !   .result!
-                                                                        .trueLinks![index].name!,
-                                                                    maxLines: 1,
-                                                                    overflow:
-                                                                        TextOverflow
-                                                                            .ellipsis,
-                                                                    style: TextStyle(
-                                                                        color: Colors
-                                                                            .white,
-                                                                        fontSize:
-                                                                            12.sp),
-                                                                  ),
-                                                                )),
+                                                            child: Row(mainAxisAlignment: MainAxisAlignment.start,
+                                                              children: [
+                                                                Container(
+                                                                    // color:Colors.red,
+                                                                    height: h(60),
+                                                                    width: w(300),
+                                                                    alignment: Alignment.topLeft,
+                                                               
+                                                                    child: Padding(
+                                                                      padding:
+                                                                          const EdgeInsets
+                                                                                  .all(
+                                                                              8.0),
+                                                                      child: Text(
+                                                                        newsDetailsModel
+                                                                         !   .result!
+                                                                            .trueLinks![index].name!,
+                                                                        maxLines: 1,
+                                                                        overflow:
+                                                                            TextOverflow
+                                                                                .ellipsis,
+                                                                        style: TextStyle(
+                                                                            color: Colors
+                                                                                .black,
+                                                                                
+                                                                            fontSize:
+                                                                                15.sp),
+                                                                      ),
+                                                                    )
+                                                                    ),
+                                                              ],
+                                                            ),
                                                           ),
                                                         );
                                                       }),
