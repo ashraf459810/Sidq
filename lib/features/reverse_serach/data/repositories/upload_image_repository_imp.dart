@@ -23,6 +23,7 @@ class UploadImageRepositoryImp implements UploadImageRepostiry {
 
         return Right(result);
        } on ServerException {
+    
         return const Left(ServerFailure("تعذر الاتصال"));
       }
     } else {

@@ -1,4 +1,5 @@
 
+import 'dart:developer';
 import 'dart:io';
 
 
@@ -7,6 +8,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:image_cropper/image_cropper.dart';
 
@@ -108,6 +110,8 @@ class _ReverseImageSearchState extends State<ReverseImageSearch> {
             Builder(builder: (context) {
               return GestureDetector(
                 onTap: () async {
+
+                  try{
                   // ignore: unused_local_variable
                   final pickedImage = await ImagePicker()
                       .pickImage(source: ImageSource.gallery)
@@ -122,7 +126,7 @@ class _ReverseImageSearchState extends State<ReverseImageSearch> {
                                 CropAspectRatioPreset.ratio16x9
                               ],
                               androidUiSettings: const AndroidUiSettings(
-                                  toolbarTitle: 'Cropper',
+                                   toolbarTitle: 'Cropper',
                                   toolbarColor: Colors.deepOrange,
                                   toolbarWidgetColor: Colors.white,
                                   initAspectRatio:
@@ -134,7 +138,7 @@ class _ReverseImageSearchState extends State<ReverseImageSearch> {
                           .then((value) => context
                               .read<ReverseSerachBloc>()
                               .add(UploadImageEvent(value!))));
-                },
+                  }catch(e){log('no photo captured');}  },
                 child: BlocConsumer<ReverseSerachBloc, ReverseSerachState>(
                   listener: (context, state) {
                     if (state is UploadImageState) {
@@ -145,6 +149,19 @@ class _ReverseImageSearchState extends State<ReverseImageSearch> {
                             site:
                                 'https://images.google.com/searchbyimage?image_url=',
                           ));
+                    }
+                    if (state is Error){
+
+                                                                   Fluttertoast.showToast(
+        msg: '',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.grey[600],
+        textColor: Colors.white,
+        fontSize: 16.sp
+    );
+                      
                     }
                   },
                   builder: (context, state) {

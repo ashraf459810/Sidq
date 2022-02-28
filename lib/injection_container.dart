@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:http/http.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sidq/App/bloc/app_bloc.dart';
@@ -29,9 +30,13 @@ import 'package:sidq/features/report_fake_news/domain/repository/add_ticket_repo
 import 'package:sidq/features/news_details/domain/repositories/add_vote_repository.dart';
 import 'package:sidq/features/report_fake_news/domain/use_case/add_ticket_use_case.dart';
 import 'package:sidq/features/news_details/domain/usecases/add_vote_use_case.dart';
+import 'package:sidq/features/reverse_serach/data/datasources/tin_eye_remote_data.dart';
 import 'package:sidq/features/reverse_serach/data/datasources/upload_image_remote_data.dart';
+import 'package:sidq/features/reverse_serach/data/repositories/tin_eye_repository_imp.dart';
 import 'package:sidq/features/reverse_serach/data/repositories/upload_image_repository_imp.dart';
+import 'package:sidq/features/reverse_serach/domain/repositories/tiny_eye_repositroy.dart';
 import 'package:sidq/features/reverse_serach/domain/repositories/upload_image_repository.dart';
+import 'package:sidq/features/reverse_serach/domain/usecases/tin_eye_use_case.dart';
 import 'package:sidq/features/reverse_serach/domain/usecases/upload_image_use_case.dart';
 import 'package:sidq/features/review_tickets/data/datasources/get_tickets_remote_data.dart';
 import 'package:sidq/features/review_tickets/data/repositories/tickts_repository_imp.dart';
@@ -50,7 +55,7 @@ Future<void> init() async {
   //! Features
   // Bloc
   sl.registerFactory(
-    () => ReverseSerachBloc(
+    () => ReverseSerachBloc(sl(),
       sl(),
     ),
   );
@@ -88,6 +93,12 @@ sl.registerFactory(
   // Use cases
   sl.registerLazySingleton<UploadImageUseCase>(
     () => UploadImageUseCaseImp(
+      sl(),
+    ),
+  );
+
+  sl.registerLazySingleton<TinyEyeUseCase>(
+    () => TinyEyeUseCaseImp(
       sl(),
     ),
   );
@@ -134,6 +145,12 @@ sl.registerLazySingleton<NewsDetailsUseCase>(
 
   sl.registerLazySingleton<UploadImageRepostiry>(
     () => UploadImageRepositoryImp(
+      sl(),
+      sl(),
+    ),
+  );  
+    sl.registerLazySingleton<TinyEyeRepository>(
+    () => TinyEyeRepositoryImp(
       sl(),
       sl(),
     ),
@@ -189,6 +206,10 @@ sl.registerLazySingleton<NewsDetailsUseCase>(
     () => UploadImageRemoteDataImp(sl(), sl()),
   );
 
+   sl.registerLazySingleton<TinEyeRemoteData>(
+    () => TinEyeRemoteDataImp(sl(), sl()),
+  );
+
   sl.registerLazySingleton<GetTicketsRemoteData>(
     () => GetTicketsRemoteDataImp(sl(), sl()),
   );
@@ -223,7 +244,9 @@ sl.registerLazySingleton<NewsDetailsUseCase>(
   sl.registerLazySingleton(() => sharedPreferences);
   sl.registerLazySingleton<NetworkFunctions>(
     () => NetworkFunctionsImp(),
+    
   );
+   sl.registerLazySingleton(() => Client());
   sl.registerLazySingleton<NetworkInf>(
     () => NetworkInfImpl(),
   );

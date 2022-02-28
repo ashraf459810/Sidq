@@ -12,3 +12,12 @@ class UploadImageEvent extends ReverseSerachEvent {
 
   const UploadImageEvent(this.imageLink);
 }
+
+
+class TinyEyeEvent extends ReverseSerachEvent {
+
+  final String imageUrl ;
+
+  const TinyEyeEvent(this.imageUrl);
+
+}

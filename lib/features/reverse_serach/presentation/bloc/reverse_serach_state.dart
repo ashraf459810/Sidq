@@ -22,3 +22,10 @@ class Error extends ReverseSerachState {
 }
 
 class Loading extends ReverseSerachState {}
+
+
+class TinyEyeState extends ReverseSerachState {
+ final TinyEyeModel tinyEyeModel ;
+
+ const TinyEyeState(this.tinyEyeModel);
+}
