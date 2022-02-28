@@ -120,26 +120,26 @@ class Backlink {
     Backlink({
      required   this.backlink,
      required   this.crawlDate,
-     required   this.sourceId,
+
      required   this.url,
     });
 
     String backlink;
     DateTime crawlDate;
-    int sourceId;
+
     String url;
 
     factory Backlink.fromJson(Map<String, dynamic> json) => Backlink(
         backlink: json["backlink"],
         crawlDate: DateTime.parse(json["crawl_date"]),
-        sourceId: json["source_id"],
+        // sourceId: json["source_id"],
         url: json["url"],
     );
 
     Map<String, dynamic> toJson() => {
         "backlink": backlink,
         "crawl_date": "${crawlDate.year.toString().padLeft(4, '0')}-${crawlDate.month.toString().padLeft(2, '0')}-${crawlDate.day.toString().padLeft(2, '0')}",
-        "source_id": sourceId,
+        // "source_id": sourceId,
         "url": url,
     };
 }

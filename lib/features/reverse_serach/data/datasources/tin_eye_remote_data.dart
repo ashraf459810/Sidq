@@ -1,7 +1,4 @@
 
-
-import 'dart:math';
-
 import 'package:http/http.dart';
 import 'package:sidq/core/error/exceptions.dart';
 import 'package:sidq/core/network/network_info.dart';
@@ -21,8 +18,6 @@ class TinEyeRemoteDataImp implements TinEyeRemoteData {
   @override
   Future tinEyeRemoteData(String imageUrl, int limit) async {
 
-    print('here from remote data');
-print(imageUrl);
 
    final result  = await client.get(Uri.parse('https://api.tineye.com/rest/search/?image_url=$imageUrl&limit=$limit'),headers: {
      "x-api-key" : "rl9-JYTGhdISxMcTWBTi=tqQQyZK.sbK+N1zB6bk"}
@@ -30,10 +25,9 @@ print(imageUrl);
 
   );
 
-  print(result.body);
-    print(result.statusCode);
+
    if (result.statusCode==200){
-     print('200');
+ 
      return tinyEyeFromJson(result.body);
    }
 

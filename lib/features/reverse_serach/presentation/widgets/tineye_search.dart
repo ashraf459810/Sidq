@@ -1,4 +1,4 @@
-import 'dart:developer';
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -101,7 +101,7 @@ AppBar(
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: GridView.builder(
+          child: widget.tinyEyeModel.results.matches.isNotEmpty? GridView.builder(
                 gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                     maxCrossAxisExtent: 200,
                     childAspectRatio: 0.8,
@@ -149,7 +149,7 @@ if (!await launch(
                       ],
                     ),
                      ),   );
-                }),
+                }):  SizedBox(height: h(600),child: Center(child: text(text: 'لاتوجد نتائج حاليا')),),
         ),
       ),
     );
