@@ -50,7 +50,7 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
   TextEditingController searchc = TextEditingController();
   int currentIndex = 1;
   int page = 0;
-  int pageSize = 100;
+  int pageSize = 20;
   bool isVideoTaps = false;
   ScrollController scrollController = ScrollController();
   bool isWa3i = false;
@@ -124,7 +124,7 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
                   SearchParamsModel(
                       categoryId: widget.categoryId,
                       pageNumber: 0,
-                      pageLength: 1000,
+                      pageLength: 100,
                       searchQuery: '',
                       orderDescending: true),
                   false)),

@@ -33,7 +33,7 @@ class MainPage extends StatelessWidget {
             SizedBox(
               height: h(50),
             ),
-                item('التحقيقات', () {
+                item('الـــتـــحقـــيقـــات', () {
               nav(context, const HomeBar());
             },'main 1.png'),
    
@@ -47,23 +47,23 @@ class MainPage extends StatelessWidget {
             SizedBox(
               height: h(25),
             ),
-            item(' وعي وتعليم', () {
+            item(' وعي وتـــعـــليـــم', () {
               nav(context,const  HomeBar(categoryId:'3d0a5e84-9c54-46c1-8522-39daf705ce13' ,));
             },'main 3.png'),
                    SizedBox(
               height: h(25),
             ),
-            item('فيديوهات', () {
+            item('فــيديـــوهـــات', () {
               nav(context, const  HomeBar(categoryId: 'b520bade-3deb-4081-bb90-4b5094b8d522',));
-            },'MAIN 4.png'),
+            },'MAIN 4.png',),
             SizedBox(
               height: h(25),
             ),
-            item('إبلاغاتي', () {
+            item('إبـــلاغـــاتــــــي', () {
               nav(
                   context,
               const   ReviewTickets());
-            },'main 5.png'),
+            },'profile.png'),
                    SizedBox(
               height: h(20),
             ),
@@ -202,7 +202,7 @@ Widget item(String title, Function navigat,String image) {
                     textAlign: TextAlign.center,
                     fontsize: 20.sp),
               ),
-                   Image.asset('assets/images/'+image,height: h(35),width: w(30),fit: BoxFit.contain,)
+                   Image.asset('assets/images/'+image,height: h(35),width: w(30),fit: BoxFit.contain,color: AppColor.purple,)
             ],
           ),
         )),

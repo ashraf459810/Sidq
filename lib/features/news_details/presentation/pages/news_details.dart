@@ -133,9 +133,9 @@ class _NewsDetailsState extends State<NewsDetails> {
                       SliverAppBar(
                
                         
-                        backgroundColor: Colors.grey[100],
-                           iconTheme: IconThemeData(
-                color: AppColor.purple,
+                        backgroundColor: Colors.grey[300],
+                           iconTheme:const IconThemeData(
+                color: Colors.white,
               ),
                         shadowColor: Colors.white,
                         expandedHeight: h(275),
@@ -150,13 +150,15 @@ class _NewsDetailsState extends State<NewsDetails> {
                        
                                   Image.network(
                                     newsDetailsModel!.result!.fileLink!,
-                                    fit: BoxFit.contain,
+                                    fit: BoxFit.cover,
+                                    height: h(380),
+                                    width: w(380),
                                   ),
                                         newsDetailsModel!.result!.isTrue!=null  ?  Positioned(
                                           top: h(20),
                                           right: w(20),
                                           child: container(color: AppColor.purple,
-                                            borderRadius: 5,hight: h(40),width: w(60), child: text(text:  newsDetailsModel!.result!.isTrue! ? 'حقيقة' : 'إشاعة',color: Colors.white)),
+                                            borderRadius: 5,hight: h(40),width: w(60), child: text(text:  newsDetailsModel!.result!.isTrue! ? 'حقيقة' : 'إشاعة',color: Colors.white,fontfamily: 'marai')),
                                         ):const SizedBox(),
                                 ],
                               ),
@@ -192,7 +194,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                                             child: Row(
                                               mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
-                                              text(text: "مشاركة",color: Colors.white,fontWeight: FontWeight.bold),
+                                              text(text: "مشاركة",color: Colors.white,fontWeight: FontWeight.bold,fontfamily: 'marai'),
                                               text(text: "  "),
                                               Image.asset('assets/images/share.png',height: h(30),)
                                             ],),
@@ -229,498 +231,501 @@ class _NewsDetailsState extends State<NewsDetails> {
                                     ]
                                     ,),
                                   ),
-                        // SizedBox(height: h(50),),
-                        Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                             
-                              // SizedBox(height: h(50),),
+                        // SizedBox(height: h(20),),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                           
+                            // SizedBox(height: h(50),),
 
-                              text(
-                                  text: newsDetailsModel!.result!.title!,
-                                  fontsize: 16.sp,
-                                  color: Colors.black,
-                                  fontfamily: 'marai',
-                                  fontWeight: FontWeight.bold),
-// SizedBox(height: h(30),),
-                              SizedBox(
-                                height: h(15),
+                            Padding(
+                              padding:  EdgeInsets.all(w(25)),
+                              child: Container(
+                         
+                                child: text(
+                                    text: newsDetailsModel!.result!.title!,
+                                    fontsize: 16.sp,
+                                    color: AppColor.purple,
+                                    fontfamily: 'marai',
+                                    
+                                    fontWeight: FontWeight.bold),
                               ),
-                              text(
+                            ),
+// SizedBox(height: h(30),),
+                          
+                            Padding(
+                              padding:  EdgeInsets.symmetric(horizontal: w(25)),
+                              child: text(
                                   text: newsDetailsModel
                                       !.result!.briefDescription!,
                                   fontsize: 14.sp,
                                   color: Colors.black,
                                   fontfamily: 'marai'),
-                              // SizedBox(
-                              //   height: h(20),
-                              // ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  children: [
-                                    ListView(
-                                      shrinkWrap: true,
-                                      physics: const ScrollPhysics(
-                                          parent:
-                                              NeverScrollableScrollPhysics()),
-                                      children: [
-                                        Directionality(
-                                          textDirection: TextDirection.rtl,
-                                          child:
-                                           Html(
-                                             
+                            ),
+                            // SizedBox(
+                            //   height: h(20),
+                            // ),
+                            Padding(
+                              padding:  EdgeInsets.symmetric(horizontal: w(18)),
+                              child: Column(
+                                children: [
+                                  ListView(
+                                    shrinkWrap: true,
+                                    physics: const ScrollPhysics(
+                                        parent:
+                                            NeverScrollableScrollPhysics()),
+                                    children: [
+                                      Directionality(
+                                        textDirection: TextDirection.rtl,
+                                        child:
+                                         Html(
+                                           
 
 
-                                            onLinkTap: (String? url,
-                                                RenderContext context,
-                                                Map<String, String> attributes,
-                                                element) {
-                                              launchInWebViewOrVC(
-                                                url!,
-                                              );
+                                          onLinkTap: (String? url,
+                                              RenderContext context,
+                                              Map<String, String> attributes,
+                                              element) {
+                                            launchInWebViewOrVC(
+                                              url!,
+                                            );
 
-                                              //open URL in webview, or launch URL in browser, or any other logic here
-                                            },
-                                            shrinkWrap: true,
-                                            data: newsDetailsModel
-                                               ! .result!.description!,
-                                          ),
+                                            //open URL in webview, or launch URL in browser, or any other logic here
+                                          },
+                                          shrinkWrap: true,
+                                          data: newsDetailsModel
+                                             ! .result!.description!,
                                         ),
-                                        SizedBox(
-                                          height: h(10),
-                                        ),
-                                        newsDetailsModel
-                                             !   .result!.falseLinks!.isNotEmpty
-                                            ? Column(
-                                                children: [
-                                                  Container(
-                                                     alignment: Alignment.center,
-                                                        height: h(40),
-                                                        width: w(330),
-                                                        color: Colors.red[800],
-                                                    child: Center(
-                                                      child: text(
-                                                          text: 'روابط الإشاعة',
-                                                          color: Colors.white,
-                                                          fontsize: 15.sp,
-                                                          fontfamily: 'marai',
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    ),
+                                      ),
+                                      SizedBox(
+                                        height: h(10),
+                                      ),
+                                      newsDetailsModel
+                                           !   .result!.falseLinks!.isNotEmpty
+                                          ? Column(
+                                              children: [
+                                                Container(
+                                                   alignment: Alignment.center,
+                                                      height: h(40),
+                                                      width: w(330),
+                                                      color: Colors.red[800],
+                                                  child: Center(
+                                                    child: text(
+                                                        text: 'روابط الإشاعة',
+                                                        color: Colors.white,
+                                                        fontsize: 15.sp,
+                                                        fontfamily: 'marai',
+                                                        fontWeight:
+                                                            FontWeight.bold),
                                                   ),
-                                                  customlistview(
-                                                      padding: 10,
-                                                      scroll: false,
-                                                      hight: newsDetailsModel
-                                                          !    .result!
-                                                              .falseLinks!
-                                                              .isNotEmpty
-                                                          ? newsDetailsModel
-                                                                  !.result!
-                                                                  .falseLinks!
-                                                                  .length *
-                                                              h(100)
-                                                          : h(30),
-                                                      direction: 'vertical',
-                                                      itemcount:
-                                                          newsDetailsModel
-                                                             ! .result!
-                                                              .falseLinks!
-                                                              .length,
-                                                      controller:
-                                                          ScrollController(),
-                                                      function:
-                                                          (context, index) {
-                                                        return GestureDetector(
-                                                          onTap: () async {
-                                                               newsDetailsModel
-                                                                        !.result!
-                                                                        .falseLinks![index].link;
-                                                            await launchInWebViewOrVC(
-                                                                newsDetailsModel
-                                                                      !  .result!
-                                                                        .trueLinks![
-                                                                    index].link!);
-                                                          },
-                                                          child: Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(8.0),
-                                                            child: Row(mainAxisAlignment: MainAxisAlignment.start,
-                                                              children: [
-                                                                Container(
-                                                                    color:Colors.transparent,
-                                                                    height: h(60),
-                                                                    width: w(300),
-                                                                   alignment: Alignment.topLeft,
-                                                                    child: Padding(
-                                                                      padding:
-                                                                          const EdgeInsets
-                                                                                  .all(
-                                                                              8.0),
-                                                                      child: Text(
-                                                                        newsDetailsModel
-                                                                            !.result!
-                                                                            .falseLinks![index].name!,
-                                                                        maxLines: 1,
-                                                                        overflow:
-                                                                            TextOverflow
-                                                                                .ellipsis,
-                                                                        style: TextStyle(
-                                                                            color: Colors
-                                                                                .black,
-                                                                            fontSize:
-                                                                                15.sp),
-                                                                      ),
-                                                                    )),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        );
-                                                      }),
-                                                ],
-                                              )
-                                            : const SizedBox(),
-                                        SizedBox(
-                                          height: h(10),
-                                        ),
-                                        newsDetailsModel
-                                                !.result!.trueLinks!.isNotEmpty
-                                            ? Column(
-                                                children: [
-                                                  Container(
-                                                    alignment: Alignment.center,
-                                                        height: h(40),
-                                                        width: w(320),
-                                                        color: Colors.green[800],
-                                                    child: Center(
+                                                ),
+                                                customlistview(
+                                                    padding: 10,
+                                                    scroll: false,
+                                                    hight: newsDetailsModel
+                                                        !    .result!
+                                                            .falseLinks!
+                                                            .isNotEmpty
+                                                        ? newsDetailsModel
+                                                                !.result!
+                                                                .falseLinks!
+                                                                .length *
+                                                            h(100)
+                                                        : h(30),
+                                                    direction: 'vertical',
+                                                    itemcount:
+                                                        newsDetailsModel
+                                                           ! .result!
+                                                            .falseLinks!
+                                                            .length,
+                                                    controller:
+                                                        ScrollController(),
+                                                    function:
+                                                        (context, index) {
+                                                      return GestureDetector(
+                                                        onTap: () async {
                                                       
-                                                      child: text(
-                                                        textAlign: TextAlign.center,
-                                                          text: 'روابط الحقيقية',
-                                                          color: Colors.white,
-                                                          fontsize: 15.sp,
-                                                          fontfamily: 'marai',
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    ),
-                                                  ),
-                                                  customlistview(
-                                                      padding: 10,
-                                                      scroll: false,
-                                               
-                                                      direction: 'vertical',
-                                                      itemcount:
-                                                          newsDetailsModel
-                                                             ! .result!
-                                                              .trueLinks!
-                                                              .length,
-                                                      controller:
-                                                          ScrollController(),
-                                                      function:
-                                                          (context, index) {
-                                                        return Padding(
+                                                          await launchInWebViewOrVC(
+                                                              newsDetailsModel
+                                                                    !  .result!
+                                                                      .falseLinks![
+                                                                  index].link!);
+                                                        },
+                                                        child: Padding(
                                                           padding:
                                                               const EdgeInsets
                                                                   .all(8.0),
-                                                          child:
-                                                              GestureDetector(
-                                                            onTap: () async {
-                                                              await launchInWebViewOrVC(
-                                                                  newsDetailsModel
-                                                                     !     .result!
-                                                                          .trueLinks![
-                                                                      index].link!);
-                                                            },
-                                                            child: Row(mainAxisAlignment: MainAxisAlignment.start,
-                                                              children: [
-                                                                Container(
-                                                                    // color:Colors.red,
-                                                                    height: h(60),
-                                                                    width: w(300),
-                                                                    alignment: Alignment.topLeft,
-                                                               
-                                                                    child: Padding(
-                                                                      padding:
-                                                                          const EdgeInsets
-                                                                                  .all(
-                                                                              8.0),
-                                                                      child: Text(
-                                                                        newsDetailsModel
-                                                                         !   .result!
-                                                                            .trueLinks![index].name!,
-                                                                        maxLines: 1,
-                                                                        overflow:
-                                                                            TextOverflow
-                                                                                .ellipsis,
-                                                                        style: TextStyle(
-                                                                            color: Colors
-                                                                                .black,
-                                                                                
-                                                                            fontSize:
-                                                                                15.sp),
-                                                                      ),
-                                                                    )
+                                                          child: Row(mainAxisAlignment: MainAxisAlignment.start,
+                                                            children: [
+                                                              Container(
+                                                                  color:Colors.transparent,
+                                                                  height: h(60),
+                                                                  width: w(300),
+                                                                 alignment: Alignment.topLeft,
+                                                                  child: Padding(
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                                .all(
+                                                                            8.0),
+                                                                    child: Text(
+                                                                      newsDetailsModel
+                                                                          !.result!
+                                                                          .falseLinks![index].name!,
+                                                                      maxLines: 1,
+                                                                      overflow:
+                                                                          TextOverflow
+                                                                              .ellipsis,
+                                                                      style: TextStyle(
+                                                                          color: Colors
+                                                                              .black,
+                                                                          fontSize:
+                                                                              15.sp),
                                                                     ),
-                                                              ],
-                                                            ),
+                                                                  )),
+                                                            ],
                                                           ),
-                                                        );
-                                                      }),
-                                                ],
-                                              )
-                                            : const SizedBox(),
-
-                                   newsDetailsModel!.result!.isVotable!?            Row(
-                                              mainAxisAlignment: MainAxisAlignment.end,
-                                              children: [
-                                                container(color: Colors.grey[50],
-                                                  width: w(90),child: text(text: 'التصويت',fontfamily: 'marai',fontsize: 24.sp)),
+                                                        ),
+                                                      );
+                                                    }),
                                               ],
-                                            ):const SizedBox(),
-                                            SizedBox(height: h(10),),
-                                        newsDetailsModel
-                                                   ! .result!.trueLinks!.length >
-                                                1
-                                            ? SizedBox(
-                                                height: h(30),
-                                              )
-                                            : const SizedBox(),
-                                        newsDetailsModel!.result!.isVotable!
-                                            ? Builder(
-                                              builder: (context) {
-                                                return
-                                           addVote(newsDetailsBloc,trueVotesNumber,falseVotesNumber,voteTrue,voteFalse,newsDetailsModel!);
-                                              }
                                             )
-                                            : const SizedBox(
-                                                height: 1,
-                                              ),
-                                        SizedBox(
-                                          height: h(30),
-                                        ),
-                                        text(
-                                            text: 'اكتب تعليقا',
-                                        fontfamily: 'marai',fontsize: 20.sp)
-                                    ,
-                                    SizedBox(height: h(20),),
-
-                                            Padding(
-                                              padding: const EdgeInsets.all(8.0),
-                                              child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                children: [
-                                                     GestureDetector(
-                                                onTap: () {
-                                                  if (comment != null) {
-                                                    newsDetailsBloc.add(
-                                                        AddCommentEvent(
-                                                            widget.news!
-                                                                .toString(),
-                                                            comment
-                                                                .toString(),name));
-                                                  }
-                                                },
-                                                child: Builder(
-                                                  builder: (context) {
-                                                    return 
-                                                BlocBuilder(
-                                                      bloc: newsDetailsBloc,
-                                                      builder: (context, state) {
-                                          
-                                                        if (state
-                                                            is LoadingComment) {
-                                                              log('state is loading');
-                                                          return Center(
-                                                              child:
-                                                                  CircularProgressIndicator(
-                                                        backgroundColor: AppColor.yellow,color: AppColor.purple,)
-                                                          );
-                                                        }
-                                                        
+                                          : const SizedBox(),
+                                      SizedBox(
+                                        height: h(10),
+                                      ),
+                                      newsDetailsModel
+                                              !.result!.trueLinks!.isNotEmpty
+                                          ? Column(
+                                              children: [
+                                                Container(
+                                                  alignment: Alignment.center,
+                                                      height: h(40),
+                                                      width: w(320),
+                                                      color: Colors.green[800],
+                                                  child: Center(
                                                     
-                                                        return container(
-                                                            hight: h(50),
-                                                            width: w(80),
-                                                            borderRadius: 10,
-                                                            color:
-                                                                AppColor.yellow,
-                                                            child: text(
-                                                              fontWeight: FontWeight.bold,
-                                                                text: 'إرسال',
-                                                                fontfamily: 'marai',
-                                                                color:
-                                                                    AppColor.purple));
-                                                      },
-                                                    );
-                                                  }
-                                                )),
-                                        
-                                                  Center(
-                                                    child: container(
-                                                      color: Colors.grey[200],
-                                                      hight: h(50),
-                                                      width: w(200),
-                                                      borderRadius: 10,
-                                                      child: textform(
-                                                        maxlines: 1,
-                                                          padding: EdgeInsets.only(
-                                                              bottom: h(10),
-                                                              right: w(10)),
-                                                          hint: 'الاسم (اختياري)',
-                                                          
-                                                          hintsize: w(14),
-                                                          controller: namec,
-                                                          function: (val) {
-                                                            name = val;
-                                                          },
-                                                          keyboard: 'name',
-                                                          validation: (val) {
-                                                            return val!;
-                                                          }),
-                                                    ),
+                                                    child: text(
+                                                      textAlign: TextAlign.center,
+                                                        text: 'روابط الحقيقية',
+                                                        color: Colors.white,
+                                                        fontsize: 15.sp,
+                                                        fontfamily: 'marai',
+                                                        fontWeight:
+                                                            FontWeight.bold),
                                                   ),
-                                                  
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(height: h(20),),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                         
-                                        
-                                            container(
-                                              color: Colors.grey[200],
-                                              hight: h(100),
-                                              width: w(300),
-                                              borderRadius: 10,
-                                              child: textform(
-                                                maxlines: 6,
-                                                  padding: EdgeInsets.only(
-                                                      bottom: h(10),
-                                                      right: w(5)),
-                                                  hint: '',
-                                                  hintsize: w(20),
-                                                  controller: commentc,
-                                                  function: (val) {
-                                                    comment = val;
-                                                  },
-                                                  keyboard: 'name',
-                                                  validation: (val) {
-                                                    return val!;
-                                                  }),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: h(20),
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            SizedBox(
-                                              width: w(150),
-                                        
-                                              child: text(fontfamily: 'marai',fontsize: 20.sp,
-                                                  text: 'التعليقات',
                                                 ),
-                                            )
-                                          ],
-                                        ),
-                                        
-                                             BlocBuilder(
-                                                bloc: newsDetailsBloc,
-                                                builder: (context, state) {
-                                                  if (state
-                                                      is AddCommentState) {
-                                                    comments = state.comments;
-                                                    log('here from comments');
-                                                  }
-
-                                                  return comments.isNotEmpty
-                                            ?
- customlistview(
-                                                    scroll: false,
-                                                    direction: 'vertical',
+                                                customlistview(
                                                     padding: 10,
+                                                    scroll: false,
+                                             
+                                                    direction: 'vertical',
+                                                    itemcount:
+                                                        newsDetailsModel
+                                                           ! .result!
+                                                            .trueLinks!
+                                                            .length,
                                                     controller:
                                                         ScrollController(),
-                                                    itemcount: comments.length,
-                                                    function: (context, index) {
+                                                    function:
+                                                        (context, index) {
                                                       return Padding(
                                                         padding:
                                                             const EdgeInsets
                                                                 .all(8.0),
-                                                        child: Column(
-                                                          children: [
-                                                                  comments[
-                                                                            index].name !=null?  
-                                                                                   Padding(
-                                                                                     padding:  EdgeInsets.symmetric(horizontal: w(10)),
-                                                                                     child: Row(mainAxisAlignment: MainAxisAlignment.end,
-                                                                                       children: [
-                                                                                         text(
-                                                                                          fontfamily: 'marai',
-                                                                                          text: comments[
-                                                                                              index].name!,
-                                                                                          color: Colors
-                                                                                              .black,
-                                                                                              fontWeight: FontWeight.bold
-                                                                                  
-                                                                                         ),
-                                                                                       ],
-                                                                                     ),
-                                                                                   ):const SizedBox(),
-                                                                                   SizedBox(height: h(5),),
-                                                            Container(
-                                                                alignment: Alignment
-                                                                    .topRight,
-                                                                decoration: BoxDecoration(
-                                                                    shape: BoxShape
-                                                                        .rectangle,
-                                                                    color: Colors
-                                                                            .grey[
-                                                                        200],
-                                                                    borderRadius: const BorderRadius
-                                                                            .all(
-                                                                        Radius.circular(
-                                                                            10))),
-                                                                // constraints: BoxConstraints(minHeight: h(50),maxWidth: w(250),maxHeight: h(120),minWidth:w(250) ),
-
-                                                                child: Padding(
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                              .all(
-                                                                          8.0),
-                                                                  child: text(
-                                                                    fontfamily: 'marai',
-                                                                    text: comments[
-                                                                        index].text!,
-                                                                    color: Colors
-                                                                        .black,
+                                                        child:
+                                                            GestureDetector(
+                                                          onTap: () async {
+                                                            await launchInWebViewOrVC(
+                                                                newsDetailsModel
+                                                                   !     .result!
+                                                                        .trueLinks![
+                                                                    index].link!);
+                                                          },
+                                                          child: Row(mainAxisAlignment: MainAxisAlignment.start,
+                                                            children: [
+                                                              Container(
+                                                                  // color:Colors.red,
+                                                                  height: h(60),
+                                                                  width: w(300),
+                                                                  alignment: Alignment.topLeft,
+                                                             
+                                                                  child: Padding(
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                                .all(
+                                                                            8.0),
+                                                                    child: Text(
+                                                                      newsDetailsModel
+                                                                       !   .result!
+                                                                          .trueLinks![index].name!,
+                                                                      maxLines: 1,
+                                                                      overflow:
+                                                                          TextOverflow
+                                                                              .ellipsis,
+                                                                      style: TextStyle(
+                                                                          color: Colors
+                                                                              .black,
+                                                                              
+                                                                          fontSize:
+                                                                              15.sp),
+                                                                    ),
+                                                                  )
                                                                   ),
-                                                                )),
-                                                          ],
+                                                            ],
+                                                          ),
                                                         ),
                                                       );
-                                                    },
-                                                  )    : const SizedBox();
-                                                },
-                                              )
-                                    // commentsWidget(newsDetailsBloc,comments)
+                                                    }),
+                                              ],
+                                            )
+                                          : const SizedBox(),
+
+                                 newsDetailsModel!.result!.isVotable!?            Row(
+                                            mainAxisAlignment: MainAxisAlignment.end,
+                                            children: [
+                                              container(color: Colors.grey[50],
+                                                width: w(90),child: text(text: 'التصويت',fontfamily: 'marai',fontsize: 24.sp)),
+                                            ],
+                                          ):const SizedBox(),
+                                          SizedBox(height: h(10),),
+                                      newsDetailsModel
+                                                 ! .result!.trueLinks!.length >
+                                              1
+                                          ? SizedBox(
+                                              height: h(30),
+                                            )
+                                          : const SizedBox(),
+                                      newsDetailsModel!.result!.isVotable!
+                                          ? Builder(
+                                            builder: (context) {
+                                              return
+                                         addVote(newsDetailsBloc,trueVotesNumber,falseVotesNumber,voteTrue,voteFalse,newsDetailsModel!);
+                                            }
+                                          )
+                                          : const SizedBox(
+                                              height: 1,
+                                            ),
+                                      SizedBox(
+                                        height: h(30),
+                                      ),
+                                      text(
+                                          text: 'اكتب تعليقا',
+                                      fontfamily: 'marai',fontsize: 20.sp)
+                                  ,
+                                  SizedBox(height: h(20),),
+
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                              children: [
+                                                   GestureDetector(
+                                              onTap: () {
+                                                if (comment != null) {
+                                                  newsDetailsBloc.add(
+                                                      AddCommentEvent(
+                                                          widget.news!
+                                                              .toString(),
+                                                          comment
+                                                              .toString(),name));
+                                                }
+                                              },
+                                              child: Builder(
+                                                builder: (context) {
+                                                  return 
+                                              BlocBuilder(
+                                                    bloc: newsDetailsBloc,
+                                                    builder: (context, state) {
                                         
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
+                                                      if (state
+                                                          is LoadingComment) {
+                                                            log('state is loading');
+                                                        return Center(
+                                                            child:
+                                                                CircularProgressIndicator(
+                                                      backgroundColor: AppColor.yellow,color: AppColor.purple,)
+                                                        );
+                                                      }
+                                                      
+                                                  
+                                                      return container(
+                                                          hight: h(50),
+                                                          width: w(80),
+                                                          borderRadius: 10,
+                                                          color:
+                                                              AppColor.yellow,
+                                                          child: text(
+                                                            fontWeight: FontWeight.bold,
+                                                              text: 'إرسال',
+                                                              fontfamily: 'marai',
+                                                              color:
+                                                                  AppColor.purple));
+                                                    },
+                                                  );
+                                                }
+                                              )),
+                                      
+                                                Center(
+                                                  child: container(
+                                                    color: Colors.grey[200],
+                                                    hight: h(50),
+                                                    width: w(200),
+                                                    borderRadius: 10,
+                                                    child: textform(
+                                                      maxlines: 1,
+                                                        padding: EdgeInsets.only(
+                                                            bottom: h(10),
+                                                            right: w(10)),
+                                                        hint: 'الاسم (اختياري)',
+                                                        
+                                                        hintsize: w(14),
+                                                        controller: namec,
+                                                        function: (val) {
+                                                          name = val;
+                                                        },
+                                                        keyboard: 'name',
+                                                        validation: (val) {
+                                                          return val!;
+                                                        }),
+                                                  ),
+                                                ),
+                                                
+                                              ],
+                                            ),
+                                          ),
+                                          SizedBox(height: h(20),),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                       
+                                      
+                                          container(
+                                            color: Colors.grey[200],
+                                            hight: h(100),
+                                            width: w(300),
+                                            borderRadius: 10,
+                                            child: textform(
+                                              maxlines: 6,
+                                                padding: EdgeInsets.only(
+                                                    bottom: h(10),
+                                                    right: w(5)),
+                                                hint: '',
+                                                hintsize: w(20),
+                                                controller: commentc,
+                                                function: (val) {
+                                                  comment = val;
+                                                },
+                                                keyboard: 'name',
+                                                validation: (val) {
+                                                  return val!;
+                                                }),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: h(20),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          SizedBox(
+                                            width: w(150),
+                                      
+                                            child: text(fontfamily: 'marai',fontsize: 20.sp,
+                                                text: 'التعليقات',
+                                              ),
+                                          )
+                                        ],
+                                      ),
+                                      
+                                           BlocBuilder(
+                                              bloc: newsDetailsBloc,
+                                              builder: (context, state) {
+                                                if (state
+                                                    is AddCommentState) {
+                                                  comments = state.comments;
+                                                  log('here from comments');
+                                                }
+
+                                                return comments.isNotEmpty
+                                          ?
+ customlistview(
+                                                  scroll: false,
+                                                  direction: 'vertical',
+                                                  padding: 10,
+                                                  controller:
+                                                      ScrollController(),
+                                                  itemcount: comments.length,
+                                                  function: (context, index) {
+                                                    return Padding(
+                                                      padding:
+                                                          const EdgeInsets
+                                                              .all(8.0),
+                                                      child: Column(
+                                                        children: [
+                                                                comments[
+                                                                          index].name !=null?  
+                                                                                 Padding(
+                                                                                   padding:  EdgeInsets.symmetric(horizontal: w(10)),
+                                                                                   child: Row(mainAxisAlignment: MainAxisAlignment.end,
+                                                                                     children: [
+                                                                                       text(
+                                                                                        fontfamily: 'marai',
+                                                                                        text: comments[
+                                                                                            index].name!,
+                                                                                        color: Colors
+                                                                                            .black,
+                                                                                            fontWeight: FontWeight.bold
+                                                                                
+                                                                                       ),
+                                                                                     ],
+                                                                                   ),
+                                                                                 ):const SizedBox(),
+                                                                                 SizedBox(height: h(5),),
+                                                          Container(
+                                                              alignment: Alignment
+                                                                  .topRight,
+                                                              decoration: BoxDecoration(
+                                                                  shape: BoxShape
+                                                                      .rectangle,
+                                                                  color: Colors
+                                                                          .grey[
+                                                                      200],
+                                                                  borderRadius: const BorderRadius
+                                                                          .all(
+                                                                      Radius.circular(
+                                                                          10))),
+                                                              // constraints: BoxConstraints(minHeight: h(50),maxWidth: w(250),maxHeight: h(120),minWidth:w(250) ),
+
+                                                              child: Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .all(
+                                                                        8.0),
+                                                                child: text(
+                                                                  fontfamily: 'marai',
+                                                                  text: comments[
+                                                                      index].text!,
+                                                                  color: Colors
+                                                                      .black,
+                                                                ),
+                                                              )),
+                                                        ],
+                                                      ),
+                                                    );
+                                                  },
+                                                )    : const SizedBox();
+                                              },
+                                            )
+                                  // commentsWidget(newsDetailsBloc,comments)
+                                      
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
                         )
                       ]))
                     ],
