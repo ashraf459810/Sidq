@@ -13,6 +13,11 @@ import 'package:sidq/features/home/domain/repositories/get_category_repositroy.d
 import 'package:sidq/features/home/domain/repositories/get_news_repository.dart';
 import 'package:sidq/features/home/domain/usecases/get_category_use_case.dart';
 import 'package:sidq/features/home/domain/usecases/get_news_use_case.dart';
+import 'package:sidq/features/index_page/data/datasources/get_user_d_remote_data.dart';
+import 'package:sidq/features/index_page/data/repositories/get_user_token_repository_imp.dart';
+import 'package:sidq/features/index_page/domain/repositories/get_user_id_repository.dart';
+import 'package:sidq/features/index_page/domain/usecases/get_user_id_use_case.dart';
+import 'package:sidq/features/index_page/presentation/bloc/index_page_bloc.dart';
 import 'package:sidq/features/news_details/data/datasources/add_comment.dart';
 import 'package:sidq/features/news_details/data/datasources/news_details_remote_data.dart';
 import 'package:sidq/features/news_details/data/repositories/add_comment_repository.dart';
@@ -61,6 +66,12 @@ Future<void> init() async {
   );
 
     sl.registerFactory(
+    () => IndexPageBloc(sl(),
+      
+    ),
+  );
+
+    sl.registerFactory(
     () => ReviewTicketsBloc(
       sl(),
     ),
@@ -93,6 +104,12 @@ sl.registerFactory(
   // Use cases
   sl.registerLazySingleton<UploadImageUseCase>(
     () => UploadImageUseCaseImp(
+      sl(),
+    ),
+  );
+
+    sl.registerLazySingleton<GetUserIdUseCase>(
+    () => GetUserIdUseCaseImp(
       sl(),
     ),
   );
@@ -145,6 +162,13 @@ sl.registerLazySingleton<NewsDetailsUseCase>(
 
   sl.registerLazySingleton<UploadImageRepostiry>(
     () => UploadImageRepositoryImp(
+      sl(),
+      sl(),
+    ),
+  );  
+
+    sl.registerLazySingleton<GetUserIdRepository>(
+    () => GetUserIdRepostiroyImp(
       sl(),
       sl(),
     ),
@@ -205,6 +229,11 @@ sl.registerLazySingleton<NewsDetailsUseCase>(
   sl.registerLazySingleton<UploadImageRemoteData>(
     () => UploadImageRemoteDataImp(sl(), sl()),
   );
+
+    sl.registerLazySingleton<GetUserIdRemoteData>(
+    () => GetUserIdRemoteDataImp(sl(), sl()),
+  );
+
 
    sl.registerLazySingleton<TinEyeRemoteData>(
     () => TinEyeRemoteDataImp(sl(), sl()),

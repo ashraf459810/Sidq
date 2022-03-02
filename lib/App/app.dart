@@ -16,8 +16,9 @@ import 'package:sidq/App/bloc/app_bloc.dart';
 
 import 'package:sidq/core/consts.dart';
 import 'package:sidq/core/navigatuin_service/navigation.dart';
+import 'package:sidq/features/index_page/presentation/pages/index.dart';
 
-import 'package:sidq/features/index_page/presentation/pages/index_page.dart';
+
 import 'package:sidq/features/news_details/presentation/pages/news_details.dart';
 import 'package:sidq/features/review_tickets/presentation/pages/review_tickets.dart';
 
@@ -167,7 +168,7 @@ super.initState();
                 );
               },
 
-              home: const  MainPage(),
+              home:   IndexPage(),
             ));
   }
 
@@ -278,10 +279,12 @@ void basicStatusCheck(NewVersion newVersion) {
         sound: true,
       );
 
-      String? token = await FirebaseMessaging.instance.getToken();
-      log(token!);
-      await SharedPreferences.getInstance()
-          .then((value) => value.setString(Con.fcmToken, token));
+      String? fcmToken = await FirebaseMessaging.instance.getToken();
+      print(fcmToken);
+
+      
+      SharedPreferences sharedPreferences = sl<SharedPreferences>();
+       sharedPreferences.setString(Con.fcmToken, fcmToken!);
     }
   }
 

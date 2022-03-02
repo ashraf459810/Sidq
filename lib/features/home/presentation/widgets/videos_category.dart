@@ -14,7 +14,8 @@ import 'package:sidq/features/home/presentation/bloc/home_page_bloc.dart';
 import 'package:sidq/features/home/presentation/pages/home.dart';
 import 'package:sidq/features/home/presentation/widgets/navigation_sample.dart';
 import 'package:sidq/features/home/presentation/widgets/video_sample.dart';
-import 'package:sidq/features/index_page/presentation/pages/index_page.dart';
+import 'package:sidq/features/index_page/presentation/pages/index.dart';
+
 import 'package:sidq/features/news_details/presentation/pages/news_details.dart';
 import 'package:sidq/features/reverse_serach/presentation/pages/reverse_image_search.dart';
 import 'package:sidq/features/review_tickets/presentation/pages/review_tickets.dart';
@@ -122,7 +123,7 @@ class VideoCategory extends StatefulWidget {
                                         onTap: () {
                                  
                                           navWithReplaceAll(
-                                              context, const MainPage());
+                                              context,  IndexPage());
                                         },
                                         child: navigationSample('الرئيسية',
                                             'icon home.png', 10.sp)),

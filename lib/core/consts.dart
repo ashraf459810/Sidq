@@ -12,6 +12,8 @@ class Con {
   static String isverify= '';
   static String savedcontactsforemergency = "false";
   static String token = 'token';
+    static String id = 'id';
+  
 }
 
 // MaterialColor black = MaterialColor(

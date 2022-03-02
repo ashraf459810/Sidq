@@ -4,7 +4,7 @@ import 'package:sidq/App/app.dart';
 import 'package:sidq/Widgets/nav.dart';
 import 'package:sidq/core/consts.dart';
 import 'package:sidq/features/home/presentation/pages/home.dart';
-import 'package:sidq/features/index_page/presentation/pages/index_page.dart';
+import 'package:sidq/features/index_page/presentation/pages/index.dart';
 import 'package:sidq/features/reverse_serach/presentation/pages/reverse_image_search.dart';
 import 'package:sidq/features/review_tickets/presentation/pages/review_tickets.dart';
 
@@ -74,7 +74,7 @@ bottomBar(BuildContext context , Size size , ){
                             GestureDetector(
                               onTap: () {
                         
-                                navWithReplaceAll(context, const MainPage());
+                                navWithReplaceAll(context,  IndexPage());
                               },
                               child: navigationSample('الرئيسية', 'icon home.png',10.sp)
                             ),

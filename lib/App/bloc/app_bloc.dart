@@ -8,6 +8,8 @@ import 'package:platform_device_id/platform_device_id.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sidq/core/consts.dart';
 
+import '../../injection_container.dart';
+
 part 'app_event.dart';
 part 'app_state.dart';
 
@@ -18,7 +20,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     on<AppEvent>((event, emit) async {
 
 if (event is GetTokensEvent){
-   final sharedPreferences =await SharedPreferences.getInstance();
+   final sharedPreferences =sl< SharedPreferences>();
   
  var token =  sharedPreferences.getString(Con.token);
  var fcmToken = sharedPreferences.getString(Con.fcmToken);

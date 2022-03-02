@@ -8,6 +8,7 @@ import 'package:sidq/core/consts.dart';
 import 'package:sidq/features/home/presentation/pages/home.dart';
 import 'package:sidq/features/index_page/presentation/widgets/about.dart';
 import 'package:sidq/features/index_page/presentation/widgets/privacy.dart';
+
 import 'package:sidq/features/reverse_serach/presentation/pages/reverse_image_search.dart';
 import 'package:sidq/features/review_tickets/presentation/pages/review_tickets.dart';
 
