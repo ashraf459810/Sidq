@@ -278,13 +278,15 @@ void basicStatusCheck(NewVersion newVersion) {
         badge: true,
         sound: true,
       );
-
-      String? fcmToken = await FirebaseMessaging.instance.getToken();
-      print(fcmToken);
+  
 
       
-      SharedPreferences sharedPreferences = sl<SharedPreferences>();
-       sharedPreferences.setString(Con.fcmToken, fcmToken!);
+ 
+
+
+      
+   
+
     }
   }
 

@@ -16,10 +16,13 @@ class IndexPageBloc extends Bloc<IndexPageEvent, IndexPageState> {
   IndexPageBloc(this.getUserIdUseCase) : super(IndexPageInitial()) {
     on<IndexPageEvent>((event, emit) async {
     
-    if (event is GetUserIdEvent){
+    if (event is GetUserIdEvent) {
         SharedPreferences sharedPreferences= sl <SharedPreferences> ();
         var deviceToken = sharedPreferences.getString("token");
-        var fcmToken = sharedPreferences.getString("fcmToken");
+        var fcmToken =  sharedPreferences.getString("fcmToken");
+
+        print(deviceToken);
+        print(fcmToken);
         
       var response = await getUserIdUseCase.getUserIdUsecase(deviceToken!, fcmToken!);
       response.fold((l) => emit(Error(l.error!)), (r) {
