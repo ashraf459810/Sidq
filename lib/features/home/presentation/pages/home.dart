@@ -51,7 +51,7 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
   TextEditingController searchc = TextEditingController();
   int currentIndex = 1;
   int page = 0;
-  int pageSize = 20;
+  int pageSize = 10;
   bool isVideoTaps = false;
   ScrollController scrollController = ScrollController();
   bool isWa3i = false;

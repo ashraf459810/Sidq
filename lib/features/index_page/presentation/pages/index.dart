@@ -17,6 +17,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../injection_container.dart';
 
+// ignore: must_be_immutable
 class IndexPage extends StatelessWidget {
   IndexPage({Key? key}) : super(key: key);
 

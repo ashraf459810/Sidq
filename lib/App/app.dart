@@ -11,20 +11,14 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_version/new_version.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sidq/App/bloc/app_bloc.dart';
 
-import 'package:sidq/core/consts.dart';
+import 'package:sidq/App/bloc/app_bloc.dart';
 import 'package:sidq/core/navigatuin_service/navigation.dart';
 import 'package:sidq/features/index_page/presentation/pages/index.dart';
-
-
 import 'package:sidq/features/news_details/presentation/pages/news_details.dart';
 import 'package:sidq/features/review_tickets/presentation/pages/review_tickets.dart';
-
 import '../injection_container.dart';
 import 'app_localizations.dart';
-
 final routeObserver = RouteObserver<PageRoute>();
 const duration =  Duration(milliseconds: 400);
 

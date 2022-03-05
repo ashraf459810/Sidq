@@ -21,8 +21,8 @@ class IndexPageBloc extends Bloc<IndexPageEvent, IndexPageState> {
         var deviceToken = sharedPreferences.getString("token");
         var fcmToken =  sharedPreferences.getString("fcmToken");
 
-        print(deviceToken);
-        print(fcmToken);
+        log(deviceToken.toString());
+        log(fcmToken.toString());
         
       var response = await getUserIdUseCase.getUserIdUsecase(deviceToken!, fcmToken!);
       response.fold((l) => emit(Error(l.error!)), (r) {
