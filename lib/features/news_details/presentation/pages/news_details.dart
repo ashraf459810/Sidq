@@ -330,7 +330,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                                 !.result!
                                                                 .falseLinks!
                                                                 .length *
-                                                            h(100)
+                                                            h(50)
                                                         : h(30),
                                                     direction: 'vertical',
                                                     itemcount:
@@ -351,39 +351,33 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                                       .falseLinks![
                                                                   index].link!);
                                                         },
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(8.0),
-                                                          child: Row(mainAxisAlignment: MainAxisAlignment.start,
-                                                            children: [
-                                                              Container(
+                                                        child: Row(mainAxisAlignment: MainAxisAlignment.end ,
+                                                          children: [
+                                                            Padding(
+                                                              padding:  EdgeInsets.symmetric(horizontal: w(10)),
+                                                              child: Container(
                                                                   color:Colors.transparent,
-                                                                  height: h(60),
-                                                                  width: w(300),
-                                                                 alignment: Alignment.topLeft,
-                                                                  child: Padding(
-                                                                    padding:
-                                                                        const EdgeInsets
-                                                                                .all(
-                                                                            8.0),
-                                                                    child: Text(
-                                                                      newsDetailsModel
-                                                                          !.result!
-                                                                          .falseLinks![index].name!,
-                                                                      maxLines: 1,
-                                                                      overflow:
-                                                                          TextOverflow
-                                                                              .ellipsis,
-                                                                      style: TextStyle(
-                                                                          color: Colors
-                                                                              .black,
-                                                                          fontSize:
-                                                                              15.sp),
-                                                                    ),
+                                                                  height: h(50),
+                                                                  width: w(200),
+                                                                 alignment: Alignment.topRight,
+                                                                  child: Text(
+                                                                    
+                                                                    newsDetailsModel
+                                                                        !.result!
+                                                                        .falseLinks![index].name!,
+                                                                        textAlign: TextAlign.right,
+                                                                    maxLines: 1,
+                                                                    overflow:
+                                                                        TextOverflow
+                                                                            .ellipsis,
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .black,
+                                                                        fontSize:
+                                                                            15.sp),
                                                                   )),
-                                                            ],
-                                                          ),
+                                                            ),
+                                                          ],
                                                         ),
                                                       );
                                                     }),
@@ -400,7 +394,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                 Container(
                                                   alignment: Alignment.center,
                                                       height: h(40),
-                                                      width: w(320),
+                                                      width: w(330),
                                                       color: Colors.green[800],
                                                   child: Center(
                                                     
@@ -415,6 +409,16 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                   ),
                                                 ),
                                                 customlistview(
+                                                    hight: newsDetailsModel
+                                                        !    .result!
+                                                            .trueLinks!
+                                                            .isNotEmpty
+                                                        ? newsDetailsModel
+                                                                !.result!
+                                                                .trueLinks!
+                                                                .length *
+                                                            h(50)
+                                                        : h(30),
                                                     padding: 10,
                                                     scroll: false,
                                              
@@ -428,53 +432,45 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                         ScrollController(),
                                                     function:
                                                         (context, index) {
-                                                      return Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
-                                                        child:
-                                                            GestureDetector(
+                                                      return GestureDetector(
                                                           onTap: () async {
-                                                            await launchInWebViewOrVC(
-                                                                newsDetailsModel
-                                                                   !     .result!
-                                                                        .trueLinks![
-                                                                    index].link!);
+                                                      await launchInWebViewOrVC(
+                                                          newsDetailsModel
+                                                             !     .result!
+                                                                  .trueLinks![
+                                                              index].link!);
                                                           },
-                                                          child: Row(mainAxisAlignment: MainAxisAlignment.start,
-                                                            children: [
-                                                              Container(
-                                                                  // color:Colors.red,
-                                                                  height: h(60),
-                                                                  width: w(300),
-                                                                  alignment: Alignment.topLeft,
-                                                             
-                                                                  child: Padding(
-                                                                    padding:
-                                                                        const EdgeInsets
-                                                                                .all(
-                                                                            8.0),
-                                                                    child: Text(
-                                                                      newsDetailsModel
-                                                                       !   .result!
-                                                                          .trueLinks![index].name!,
-                                                                      maxLines: 1,
-                                                                      overflow:
-                                                                          TextOverflow
-                                                                              .ellipsis,
-                                                                      style: TextStyle(
-                                                                          color: Colors
-                                                                              .black,
-                                                                              
-                                                                          fontSize:
-                                                                              15.sp),
-                                                                    ),
-                                                                  )
-                                                                  ),
-                                                            ],
-                                                          ),
+                                                          child: Row(mainAxisAlignment: MainAxisAlignment.end,
+                                                      children: [
+                                                        Padding(
+                                                          padding:  EdgeInsets.symmetric(horizontal: w(10)),
+                                                          child: Container(
+                                                              
+                                                              height: h(50),
+                                                              width: w(200),
+                                                              alignment: Alignment.topRight,
+                                                       
+                                                              child: Text(
+                                                                newsDetailsModel
+                                                                 !   .result!
+                                                                    .trueLinks![index].name!,
+                                                                maxLines: 1,
+                                                                textAlign: TextAlign.right,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                        
+                                                                    fontSize:
+                                                                        15.sp),
+                                                              )
+                                                              ),
                                                         ),
-                                                      );
+                                                      ],
+                                                          ),
+                                                        );
                                                     }),
                                               ],
                                             )
@@ -505,9 +501,9 @@ class _NewsDetailsState extends State<NewsDetails> {
                                           : const SizedBox(
                                               height: 1,
                                             ),
-                                      SizedBox(
-                                        height: h(30),
-                                      ),
+                                      // SizedBox(
+                                      //   height: h(30),
+                                      // ),
                                       text(
                                           text: 'اكتب تعليقا',
                                       fontfamily: 'marai',fontsize: 20.sp)
@@ -715,7 +711,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                       ),
                                                     );
                                                   },
-                                                )    : const SizedBox();
+                                                )    : const SizedBox(height: 10,);
                                               },
                                             )
                                   // commentsWidget(newsDetailsBloc,comments)
