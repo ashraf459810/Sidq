@@ -430,7 +430,7 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
                                       if (index < newslist.length) {
                                         return Padding(
                                             padding: EdgeInsets.symmetric(
-                                                vertical: h(17)),
+                                                vertical: h(7)),
                                             child: GestureDetector(
                                                 onTap: () {
                                                   Navigator.of(context).push(

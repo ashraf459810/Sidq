@@ -25,12 +25,17 @@ class NavigationBarBloc
       : super(NavigationBarBlocInitial()) {
     on<NavigationBarBlocEvent>((event, emit) async {
       if (event is GetCategoriesEvent) {
+
+        try {
         log('here  from bloc');
         emit(LoadingCategory());
         final response = await getCategroyUseCase.getCategoriesUseCase(
             event.page, event.size);
         response.fold((l) => emit(Error(l.error.toString())),
             (r) => emit(GetCategoriesState(r)));
+      } catch (e){
+        emit(Error(e.toString()));
+      }
       }
       if (event is GetNewsEvent) {
         

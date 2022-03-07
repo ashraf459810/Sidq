@@ -12,7 +12,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_version/new_version.dart';
 import 'package:rxdart/rxdart.dart';
 
-import 'package:sidq/App/bloc/app_bloc.dart';
 import 'package:sidq/core/navigatuin_service/navigation.dart';
 import 'package:sidq/features/index_page/presentation/pages/index.dart';
 import 'package:sidq/features/news_details/presentation/pages/news_details.dart';
@@ -104,7 +103,7 @@ super.initState();
 }
   @override
   Widget build(BuildContext context) {
-      sl<AppBloc>().add(GetTokensEvent());
+      // sl<AppBloc>().add(GetTokensEvent());
     return ScreenUtilInit(
         designSize: const Size(375, 812),
         builder: () => MaterialApp(
@@ -180,7 +179,7 @@ void basicStatusCheck(NewVersion newVersion) {
           if (message !=null){
             if (message.data['type'] == 'NewNewsPublished') {
        var id = message.data['id'];
-        log(id);
+   
 
         sl<NavigationService>()
             .navigatorKey
@@ -191,8 +190,8 @@ void basicStatusCheck(NewVersion newVersion) {
                     )));
       }
             if (message.data['type'] == 'TicketAnswered') {
-       var id = message.data['id'];
-        log(id);
+
+     
 
         sl<NavigationService>()
             .navigatorKey
@@ -314,7 +313,7 @@ void basicStatusCheck(NewVersion newVersion) {
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       if (message.data['type'] == 'NewNewsPublished') {
        var id = message.data['id'];
-        log(id);
+ 
 
         sl<NavigationService>()
             .navigatorKey
@@ -325,9 +324,8 @@ void basicStatusCheck(NewVersion newVersion) {
                     )));
       }
             if (message.data['type'] == 'TicketAnswered') {
-       var id = message.data['id'];
-        log(id);
 
+  
         sl<NavigationService>()
             .navigatorKey
             .currentState

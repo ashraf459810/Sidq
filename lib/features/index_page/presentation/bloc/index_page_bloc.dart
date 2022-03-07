@@ -1,4 +1,4 @@
-import 'dart:developer';
+
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -21,8 +21,7 @@ class IndexPageBloc extends Bloc<IndexPageEvent, IndexPageState> {
         var deviceToken = sharedPreferences.getString("token");
         var fcmToken =  sharedPreferences.getString("fcmToken");
 
-        log(deviceToken.toString());
-        log(fcmToken.toString());
+
         
       var response = await getUserIdUseCase.getUserIdUsecase(deviceToken!, fcmToken!);
       response.fold((l) => emit(Error(l.error!)), (r) {

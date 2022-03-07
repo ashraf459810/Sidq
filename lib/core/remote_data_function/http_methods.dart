@@ -59,11 +59,11 @@ class NetworkFunctionsImp implements NetworkFunctions {
             final shared = await SharedPreferences.getInstance();
          String ? id=   shared.getString(Con.id) ??'';
           
-log(id);
+
 
     final response = await client.post(Uri.parse(baseurl + url),
         headers: {
-          'ClientId' : id,
+          'ClientId' : id ,
             'Accept-Language':'ar-sy',
           'Content-Type': 'application/json',
         },

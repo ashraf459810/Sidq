@@ -24,6 +24,8 @@ if (event is GetTokensEvent){
   
  var token =  sharedPreferences.getString(Con.token);
  var fcmToken = sharedPreferences.getString(Con.fcmToken);
+
+
   if ( token ==null || fcmToken ==null){
     
       String? fcmToken = await FirebaseMessaging.instance.getToken();
