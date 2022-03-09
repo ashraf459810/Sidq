@@ -41,7 +41,7 @@ class _ReviewTicketsState extends State<ReviewTickets> {
                backgroundColor: AppColor.purple,
 
                actions: [
-                 SizedBox(width: w(10),),
+
                  Builder(
                    builder: (context) {
                      return GestureDetector(
@@ -50,15 +50,18 @@ class _ReviewTicketsState extends State<ReviewTickets> {
                        },
                        child: Icon(Icons.menu,color: AppColor.yellow,size: 40,));
                    }
-                 )],
-                centerTitle: true,
+                 ),
+                   SizedBox(width: w(10),),
+                 ],
+                // centerTitle: true,
                 title:   container(
-                    width: w(330),
+                  
+                    width: w(350),
                     hight: h(50),
                
                     borderRadius: 20,
                     child: text(
-                        text: 'إبلاغاتي',
+                        text: 'إبـــلاغـــاتـــي',
                         fontfamily: 'marai',
                         color: AppColor.purple,
                         fontsize: 18.sp,
@@ -67,49 +70,189 @@ class _ReviewTicketsState extends State<ReviewTickets> {
             backgroundColor: AppColor.purple,
             body:
 
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: ListView(children: [
-                SizedBox(height: h(50),),
+            Center(
+              child: Column(
+                
+                children: [
+                SizedBox(height: h(100),),
 
-                InkWell(
-                  onTap: (){
-                    nav(context,const Tickets(isFakeNews: false,title: 'تحقيقاتي السابقة',));
-                  },
-                  child: container
-                            (width: w(100),
-                              color: AppColor.yellow,hight: h(50),borderRadius: 20,child: text(text: 'تحقيقاتي السابقة',color: AppColor.purple,fontfamily: 'marai',fontWeight: FontWeight.bold,fontsize: 18.sp)),
-                ),
 
-                            SizedBox(height: h(40),),
+                                 
+                  container(hight: h(180),width: w(350),
+                  borderRadius: 12,
+                    child: Center(
+                      child: Column(
+                        // crossAxisAlignment: CrossAxisAlignment.end,
+                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(height: h(30),),
+                          Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Column(  
+                                children: [
+                                  // SizedBox(height: h(10),),
+                                  Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: [
+                                      GestureDetector(
+                                        onTap: (){
+                  
+                                           nav(context, const ReportFakeNews(isReport: false,title: 'أرسل تحقيقا',));
+                  
+                                        },
+                                        child: container
+                                                (width: w(240),
+                                                  color: AppColor.purple,hight: h(50),borderRadius: 20,child: text(text: 'أرســـل تـــحقـــيـــقـــا',color: AppColor.yellow,fontfamily: 'marai',fontWeight: FontWeight.bold,fontsize: 18.sp)),
+                                      ),
+                                                      
+                                    ],
+   
+                                  ),
+                  
+                   SizedBox(height: h(10),),
+                                          Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                            children: [
+       
+                                         
 
-                      InkWell(
-                        onTap: (){
-                            nav(context,const Tickets(isFakeNews: true,title: 'إبلاغاتي السابقة',));
-                        },
-                        child: container(width: w(100),
-                          color: AppColor.yellow,hight: h(50),borderRadius: 20,child: text(text: 'إبلاغاتي السابقة',color: AppColor.purple,fontfamily: 'marai',fontWeight: FontWeight.bold,fontsize: 18.sp)),
+                                              InkWell(
+                                  onTap: (){
+                                    nav(context,const Tickets(isFakeNews: false,title: 'تحقيقاتي السابقة',));
+                                  },
+                                  child: container
+                                                (width: w(240),
+                                                  color: AppColor.purple,hight: h(50),borderRadius: 20,child: text(text: 'تحقيقاتي السابقة',color: AppColor.yellow,fontfamily: 'marai',fontWeight: FontWeight.bold,fontsize: 18.sp)),
+                                              ),
+                                                                                  
+                                            ],
+                                          ),
+                                ],
+                              ),
+                                        Column(
+                                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                                          // mainAxisAlignment: MainAxisAlignment.center,
+                                                          children: [
+                                                            SizedBox(
+                  height: h(60),
+                  width: w(70),
+                  child: Image.asset('assets/images/main 1.png')),
+
+                  SizedBox(
+                      width: w(90),
+                      child: text(text: "تحقيقات",color: AppColor.purple,fontWeight: FontWeight.bold,fontsize: 19.sp,fontfamily: 'marai',textAlign: TextAlign.center)),
+                                container(color: AppColor.purple,hight: h(1),width: w(80)),
+                 text(text: "قم بارسال الخبر",color: AppColor.purple,fontfamily: 'marai',fontsize: 11.sp,fontWeight: FontWeight.bold),
+                  text(text: "الزائف مع حقيقته",color: AppColor.purple,fontfamily: 'marai',fontsize: 11.sp,fontWeight: FontWeight.bold)
+                                                          ],
+                                                                                                        ),
+                            ],
+                            
+                          ),
+                        ],
                       ),
-                           SizedBox(height: h(40),),
-                  GestureDetector(
-                    onTap: (){
-
-                       nav(context, const ReportFakeNews(isReport: false,title: 'أرسل تحقيقا',));
-
-                    },
-                    child: container
-                            (width: w(100),
-                              color: AppColor.yellow,hight: h(50),borderRadius: 20,child: text(text: 'أرسل تحقيقا',color: AppColor.purple,fontfamily: 'marai',fontWeight: FontWeight.bold,fontsize: 18.sp)),
+                    ),
                   ),
 
-                            SizedBox(height: h(40),),
+                  SizedBox(height: h(90),),
 
-                      GestureDetector(onTap: (){
-                        nav(context, const ReportFakeNews(isReport: true,title: 'الإبلاغ عن خبر زائف',));
-                      },
-                        child: container(width: w(100),
-                          color: AppColor.yellow,hight: h(50),borderRadius: 20,child: text(text: 'أبلغ عن إشاعة',color: AppColor.purple,fontfamily: 'marai',fontWeight: FontWeight.bold,fontsize: 18.sp)),
+
+
+
+
+
+                          container(hight: h(180),width: w(350),
+                  borderRadius: 12,
+                    child: Center(
+                      child: Column(
+                        // crossAxisAlignment: CrossAxisAlignment.end,
+                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(height: h(30),),
+                          Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Column(  
+                                children: [
+                                  // SizedBox(height: h(10),),
+                                  Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: [
+                                      GestureDetector(
+                                        onTap: (){
+                  
+                                     nav(context, const ReportFakeNews(isReport: true,title: 'الإبلاغ عن خبر زائف',));
+                  
+                                        },
+                                        child: container
+                                                (width: w(240),
+                                                  color: AppColor.purple,hight: h(50),borderRadius: 20,child: text(text: 'أبلغ عن إشاعة',color: AppColor.yellow,fontfamily: 'marai',fontWeight: FontWeight.bold,fontsize: 18.sp)),
+                                      ),
+                                                      
+                                    ],
+   
+                                  ),
+                  
+                   SizedBox(height: h(10),),
+                                          Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                            children: [
+       
+                                         
+
+                                              InkWell(
+                                  onTap: (){
+                                      nav(context,const Tickets(isFakeNews: true,title: 'إبلاغاتي السابقة',));
+                                  },
+                                  child: container
+                                                (width: w(240),
+                                                  color: AppColor.purple,hight: h(50),borderRadius: 20,child: text(text: 'إبلاغاتي السابقة',color: AppColor.yellow,fontfamily: 'marai',fontWeight: FontWeight.bold,fontsize: 18.sp)),
+                                              ),
+                                                                                  
+                                            ],
+                                          ),
+                                ],
+                              ),
+                                        Column(
+                                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                                          // mainAxisAlignment: MainAxisAlignment.center,
+                                                          children: [
+                                                            SizedBox(
+                  height: h(60),
+                  width: w(70),
+                  child: Image.asset('assets/images/main 5.png')),
+
+                  SizedBox(
+                      width: w(90),
+                      child: text(text: "إبلاغـــات",color: AppColor.purple,fontWeight: FontWeight.bold,fontsize: 19.sp,fontfamily: 'marai',textAlign: TextAlign.center)),
+                      SizedBox(height: h(2),),
+                                container(color: AppColor.purple,hight: h(1),width: w(80)),
+                 text(text: "قم بارسال الخبر",color: AppColor.purple,fontfamily: 'marai',fontsize: 11.sp,fontWeight: FontWeight.bold),
+                  text(text: "الزائف فقط",color: AppColor.purple,fontfamily: 'marai',fontsize: 11.sp,fontWeight: FontWeight.bold)
+                                                          ],
+                                                                                                        ),
+                            ],
+                            
+                          ),
+                        ],
                       ),
+                    ),
+                  ),
+
+
+                      //       SizedBox(height: h(40),),
+
+                      // InkWell(
+                      //   onTap: (){
+                      //   nav(context,const Tickets(isFakeNews: true,title: 'إبلاغاتي السابقة',));    
+                      //   },
+                      //   child: container(width: w(100),
+                      //     color: AppColor.yellow,hight: h(50),borderRadius: 20,child: text(text: 'إبلاغاتي السابقة',color: AppColor.purple,fontfamily: 'marai',fontWeight: FontWeight.bold,fontsize: 18.sp)),
+                      // ),
+         
+                      //       SizedBox(height: h(40),),
+
+                      // GestureDetector(onTap: (){
+                      //   nav(context, const ReportFakeNews(isReport: true,title: 'الإبلاغ عن خبر زائف',));
+                      // },
+                      //   child: container(width: w(100),
+                      //     color: AppColor.yellow,hight: h(50),borderRadius: 20,child: text(text: 'أبلغ عن إشاعة',color: AppColor.purple,fontfamily: 'marai',fontWeight: FontWeight.bold,fontsize: 18.sp)),
+                      // ),
                 
               ],),
             )
