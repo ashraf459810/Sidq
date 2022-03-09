@@ -97,8 +97,8 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
 
     // Instantiate NewVersion manager object (Using GCP Console app as example)
     final newVersion = NewVersion(
-      iOSId: 'com.example.sidq',
-      androidId: 'com.example.sidq',
+      iOSId: 'com.kernel.sidq',
+      androidId: 'com.kernel.sidq',
     );
 
     // You can let the plugin handle fetching the status and showing a dialog,
@@ -409,7 +409,7 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
                                             categoryId:
                                                 widget.categoryId == null
                                                     ? categoryId
-                                                    : categoryId,
+                                                    : widget.categoryId,
                                             searchQuery: '',
                                             orderDescending: true,
                                             pageNumber: page,

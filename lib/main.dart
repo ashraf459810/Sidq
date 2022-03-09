@@ -25,15 +25,15 @@ Future<void> main() async {
 
   await di.init();
    SharedPreferences sharedPreferences = sl<SharedPreferences>();
-      String? fcmToken = await FirebaseMessaging.instance.getToken();
-      log(fcmToken.toString());
+      await FirebaseMessaging.instance.getToken().then((value) => sharedPreferences.setString('fcmToken', value!))
+      
      
-               sharedPreferences.setString('fcmToken', fcmToken!);
+               ;
 
                    try {
-     final deviceId = await PlatformDeviceId.getDeviceId;
-     log(deviceId!);
-     sharedPreferences.setString(Con.token, deviceId);
+      await PlatformDeviceId.getDeviceId.then((value) =>  sharedPreferences.setString(Con.token, value!))
+
+    ;
      
     } on PlatformException {
    log('Failed to get deviceId.');

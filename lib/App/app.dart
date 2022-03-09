@@ -75,8 +75,8 @@ class _MyAppState extends State<MyApp> {
   @override
 void initState() {
     final newVersion = NewVersion(
-      iOSId: 'com.example.sidq',
-      androidId: 'com.example.sidq',
+      iOSId: 'com.kernel.sidq',
+      androidId: 'com.kernel.sidq',
     );
 
     // You can let the plugin handle fetching the status and showing a dialog,

@@ -21,6 +21,7 @@ Widget newsSample(String image, String desc, String title,String date,int views)
                 width: w(220),
                 
                 borderRadius: 10,
+                
                 child: Column(
                   children: [
                     Padding(

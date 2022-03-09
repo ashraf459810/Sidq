@@ -22,19 +22,19 @@ class AppBloc extends Bloc<AppEvent, AppState> {
 if (event is GetTokensEvent){
    final sharedPreferences =sl< SharedPreferences>();
   
- var token =  sharedPreferences.getString(Con.token);
- var fcmToken = sharedPreferences.getString(Con.fcmToken);
+ String ? token =  sharedPreferences.getString(Con.token);
+ String  ?fcmToken = sharedPreferences.getString(Con.fcmToken);
 
 
   if ( token ==null || fcmToken ==null){
     
       String? fcmToken = await FirebaseMessaging.instance.getToken();
-      log(fcmToken!);
-      sharedPreferences.setString(Con.fcmToken, fcmToken);
+  
+      sharedPreferences.setString(Con.fcmToken, fcmToken!);
        try {
      final deviceId = await PlatformDeviceId.getDeviceId;
-     log(deviceId!);
-     sharedPreferences.setString(Con.token, deviceId);
+
+     sharedPreferences.setString(Con.token, deviceId!);
      
     } on PlatformException {
    log('Failed to get deviceId.');

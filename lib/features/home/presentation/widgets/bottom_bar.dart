@@ -6,7 +6,7 @@ import 'package:sidq/core/consts.dart';
 import 'package:sidq/features/home/presentation/pages/home.dart';
 import 'package:sidq/features/index_page/presentation/pages/index.dart';
 import 'package:sidq/features/reverse_serach/presentation/pages/reverse_image_search.dart';
-import 'package:sidq/features/review_tickets/presentation/pages/review_tickets.dart';
+
 
 import 'navigation_sample.dart';
 
@@ -37,13 +37,18 @@ bottomBar(BuildContext context , Size size , ){
                             GestureDetector(
                               onTap: () {
                            
-                                navWithReplacement(context, const ReviewTickets());
+                                // navWithReplacement(context, const ReviewTickets());
                               },
                               child:navigationSample('ابلاغاتي', 'profile.png')
                             ),
                             GestureDetector(
                               onTap: () {
-                               
+                                 navWithReplacement(
+                                                context,
+                                                const HomeBar(
+                                                  categoryId:
+                                                      '3d0a5e84-9c54-46c1-8522-39daf705ce13',
+                                                ));
                                 //  navWithReplacement(context, const ReportFakeNews(isReport: true,title: 'الابلاغ عن خبر زائف',));
                               },
                               child: navigationSample('وعي', 'main 3.png')
