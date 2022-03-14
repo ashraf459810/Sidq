@@ -22,9 +22,8 @@ class UploadImageRepositoryImp implements UploadImageRepostiry {
         final result = await uploadImageRemoteData.uploadImage(file);
 
         return Right(result);
-       } on ServerException {
-    
-        return const Left(ServerFailure("تعذر الاتصال"));
+      } on ServerException catch(e) {
+        return  Left(ServerFailure(e.error));
       }
     } else {
       return const Left(NetWorkFailure('تحقق من الاتصال بالانترنت'));

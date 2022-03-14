@@ -89,7 +89,10 @@ class _NewsDetailsState extends State<NewsDetails> {
           body: BlocConsumer<NewsDetailsBloc , NewsDetailsState>(listener: (context , state ){
 
     if (state is GetnewsDetailsState) {
-         videoUrl = YoutubePlayer.convertUrlToId(state.newsDetailsModel.result!.videoUrl!);
+      print(state.newsDetailsModel.result!.videoUrl);
+
+     if (state.newsDetailsModel.result!.videoUrl ==null ||state.newsDetailsModel.result!.videoUrl ==""  )  {} else {{ videoUrl = YoutubePlayer.convertUrlToId(state.newsDetailsModel.result!.videoUrl!);}}
+
            
                   trueVotesNumber =
                       state.newsDetailsModel.result!.trueVotesCount!;

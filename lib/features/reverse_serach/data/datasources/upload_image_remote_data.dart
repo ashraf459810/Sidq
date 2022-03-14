@@ -48,6 +48,8 @@ class UploadImageRemoteDataImp implements UploadImageRemoteData {
       final uploadImage = jsonn.body;
       final error = json.decode(uploadImage);
 
+      print(error);
+
       throw ServerException(error['error']['message']);
     }
 
