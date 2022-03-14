@@ -35,9 +35,17 @@ class VideoCategory extends StatefulWidget {
    }
    
    class _VideoCategoryState extends State<VideoCategory> {
+     late String  categoryId;
      ScrollController scrollController = ScrollController();
         int page = 0;
+
+        @override
+  void initState() {
+    categoryId = widget.categorId;
+    super.initState();
+  }
      @override
+     
      Widget build(BuildContext context) {
           var size= MediaQuery.of(context).size;
        return 
@@ -48,7 +56,7 @@ class VideoCategory extends StatefulWidget {
                   SearchParamsModel(
                       categoryId: widget.categorId,
                       pageNumber: 0,
-                      pageLength: 1000,
+                      pageLength: 10,
                       searchQuery: '',
                       orderDescending: true),
                   false)),
@@ -138,18 +146,18 @@ class VideoCategory extends StatefulWidget {
                           title: text(text: 'فيديوهات',color: AppColor.yellow,fontfamily: 'marai',fontsize: 20.sp,fontWeight: FontWeight.bold),
                           backgroundColor: AppColor.purple,
                             bottom:  TabBar(
-                              onTap: (value) => {
+                              onTap: (value) {
+                                
                         
                                 if (value ==0){
-                                        
-
-                               
+                                  categoryId= 'b520bade-3deb-4081-bb90-4b5094b8d522';
+                                      
                           context.read<NavigationBarBloc>().add(GetNewsEvent(  SearchParamsModel(
                           categoryId: 'b520bade-3deb-4081-bb90-4b5094b8d522',
                           pageNumber: 0,
-                          pageLength: 1000,
+                          pageLength: 10,
                           searchQuery: '',
-                          orderDescending: true),true))
+                          orderDescending: true),true));
 
                           
 
@@ -157,12 +165,13 @@ class VideoCategory extends StatefulWidget {
                                   
                                 }
                                 else {
+                                  categoryId = '3756919b-f9e3-42e1-bfb9-1eef1d6aef6b';
                                               context.read<NavigationBarBloc>().add(GetNewsEvent(  SearchParamsModel(
                           categoryId: '3756919b-f9e3-42e1-bfb9-1eef1d6aef6b',
                           pageNumber: 0,
-                          pageLength: 1000,
+                          pageLength: 10,
                           searchQuery: '',
-                          orderDescending: true),true))
+                          orderDescending: true),true));
 
                                 }
                               },
@@ -191,7 +200,7 @@ class VideoCategory extends StatefulWidget {
                                     SearchParamsModel searchParamsModel =
                                         SearchParamsModel(
                                             categoryId:
-                                                widget.categorId,
+                                                categoryId,
                                             searchQuery: '',
                                             orderDescending: true,
                                             pageNumber: page,

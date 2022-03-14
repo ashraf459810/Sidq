@@ -23,8 +23,10 @@ import 'package:sidq/features/news_details/presentation/bloc/news_details_bloc.d
 import 'package:sidq/features/news_details/presentation/widgets/add_vote.dart';
 
 import 'package:sidq/features/news_details/presentation/widgets/loading_news_details.dart';
+import 'package:sidq/features/news_details/presentation/widgets/youtube_player.dart';
 
 import 'package:url_launcher/url_launcher.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../../injection_container.dart';
 
@@ -71,9 +73,10 @@ class _NewsDetailsState extends State<NewsDetails> {
   int falseVotesNumber = 0;
     NewsDetailsModel? newsDetailsModel;
   List<Comment> comments = [];
+  String ? videoUrl;
   @override
   void initState() {
-    // newsDetailsBloc.add(GetNewsDetailsEvent(widget.news!.id!));
+  
     super.initState();
   }
 
@@ -86,7 +89,7 @@ class _NewsDetailsState extends State<NewsDetails> {
           body: BlocConsumer<NewsDetailsBloc , NewsDetailsState>(listener: (context , state ){
 
     if (state is GetnewsDetailsState) {
-                  log('here  details state ');
+         videoUrl = YoutubePlayer.convertUrlToId(state.newsDetailsModel.result!.videoUrl!);
            
                   trueVotesNumber =
                       state.newsDetailsModel.result!.trueVotesCount!;
@@ -300,8 +303,11 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                ! .result!.description!,
                                           ),
                                         ),
+                                videoUrl !=null ? videoUrl!=""?       SizedBox
+                              (height: h(300),
+                                child: YoutubeAppDemo(video: videoUrl!,)):const SizedBox():const SizedBox(),
                                         SizedBox(
-                                          height: h(10),
+                                          height: h(40),
                                         ),
                                         newsDetailsModel
                                              !   .result!.falseLinks!.isNotEmpty
@@ -723,7 +729,8 @@ class _NewsDetailsState extends State<NewsDetails> {
                                     ),
                                   ],
                                 ),
-                              )
+                              ),
+                             
                             ],
                           )
                         ]))

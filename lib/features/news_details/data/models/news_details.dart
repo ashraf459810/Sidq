@@ -46,7 +46,7 @@ class NewsDetailsModel {
 
 class Result {
     Result({
- 
+        this.videoUrl,
         this.description,
         this.trueLinks,
         this.falseLinks,
@@ -68,6 +68,7 @@ class Result {
         this.id,
              this.views,
     });
+    String ? videoUrl;
 int ?views;
     String ?description;
     List<Links>? trueLinks;
@@ -89,6 +90,7 @@ int ?views;
     String ?id;
 
     factory Result.fromJson(Map<String, dynamic> json) => Result(
+      videoUrl: json["videoUrl"],
       views: json['viewsCount'],
         description: json["description"],
         trueLinks: json['trueLinks'] !=null ?List<Links>.from(json["trueLinks"]!.map((x) => Links.fromJson(x))):null,

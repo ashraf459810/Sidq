@@ -39,13 +39,14 @@ dependencies:
   rxdart: ^0.27.3
   get_it: ^7.2.0
   bloc_test:
-  youtube_player_flutter:
   connectivity:
   flutter_bloc: ^8.0.1
   share_plus: ^3.0.4
   path_provider: ^2.0.8
+  youtube_player_iframe: ^2.2.2
   permission_handler: ^8.1.0
   hydrated_bloc: ^8.0.0
+  youtube_player_flutter:
   analyzer: ^1.0.0
   flutter_screenutil: ^5.0.0
   platform_device_id: ^1.0.1

@@ -164,6 +164,7 @@ void initState() {
                         }
                         if (state is UploadPicState) {
                           imafeId = state.id;
+                          print(state.id);
                   log('here from upload image state');
                           Fluttertoast.showToast(
                               msg: 'تم اضافة الصورة بنجاح',
@@ -201,6 +202,7 @@ void initState() {
                             GestureDetector(
                               onTap: () {
                                 log(name!);
+                                log(imafeId.toString());
                                 log(claim!);
                                 if (widget.isReport == true &&
                                     name != "" &&
@@ -208,6 +210,7 @@ void initState() {
                                     clamisLinks != null) {
                                   context.read<ReportFakeNewsBloc>().add(
                                       AddTicketEvent(TicketRequestBody(
+                                        fileId: imafeId,
                                           name: name,
                                           text: claim,
                                           falseLinks: clamisLinks,

@@ -1,4 +1,5 @@
 
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
@@ -41,7 +42,13 @@ class UploadImageRemoteDataImp implements UploadImageRemoteData {
       return uploadImageResponseFromJson(uploadImage);
     }
     if (response.statusCode == 500) {
-      throw ServerException('error while downloading photo');
+
+    var jsonn = await http.Response.fromStream(response);
+
+      final uploadImage = jsonn.body;
+      final error = json.decode(uploadImage);
+
+      throw ServerException(error['error']['message']);
     }
 
     return 'null';
