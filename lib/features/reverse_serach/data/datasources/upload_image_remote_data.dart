@@ -25,10 +25,11 @@ class UploadImageRemoteDataImp implements UploadImageRemoteData {
     final String url = networkInf.baseUrl + '/Common/File/Upload';
     final uri = Uri.parse(url);
 
-    var request = http.MultipartRequest('post', uri);
+    var request = http.MultipartRequest('post', uri,);
 
     var pic = await http.MultipartFile.fromPath("file", image.path);
     request.files.add(pic);
+    request.headers.addAll({'Accept-Language':'ar-sy' });
 
     var response = await request.send();
     log(response.statusCode.toString());

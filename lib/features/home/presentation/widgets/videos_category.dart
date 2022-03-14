@@ -147,7 +147,7 @@ class VideoCategory extends StatefulWidget {
                           backgroundColor: AppColor.purple,
                             bottom:  TabBar(
                               onTap: (value) {
-                                
+                                page = 0;
                         
                                 if (value ==0){
                                   categoryId= 'b520bade-3deb-4081-bb90-4b5094b8d522';
@@ -165,6 +165,7 @@ class VideoCategory extends StatefulWidget {
                                   
                                 }
                                 else {
+                                  page =   0 ;
                                   categoryId = '3756919b-f9e3-42e1-bfb9-1eef1d6aef6b';
                                               context.read<NavigationBarBloc>().add(GetNewsEvent(  SearchParamsModel(
                           categoryId: '3756919b-f9e3-42e1-bfb9-1eef1d6aef6b',
