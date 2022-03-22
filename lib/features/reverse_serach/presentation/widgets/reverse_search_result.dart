@@ -2,8 +2,10 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:sidq/App/app.dart';
 import 'package:sidq/Widgets/container.dart';
 import 'package:sidq/Widgets/nav.dart';
@@ -154,23 +156,89 @@ class _ReverseSearchResultState extends State<ReverseSearchResult> {
               child: Center(child: CircularProgressIndicator(color: AppColor.purple,backgroundColor: AppColor.yellow ,))):const SizedBox(),
                      SizedBox(
                        height: loading? h(1): h(700),
-                       child: WebView(
-                            onPageFinished: (val) {
-                              loading = false;
-                              setState(() {
-                                
-                              });
-                          
-                            },
-                            onWebViewCreated: (controller) {
-                           
+                       child: Stack(
+                         children: [
+                           WebView(
+                                onPageFinished: (val) {
+                                  loading = false;
+                                  setState(() {
+                                    
+                                  });
                               
-                       
-                              webViewController = controller;
-                             
-                            },
-                            javascriptMode: JavascriptMode.unrestricted,
-                            initialUrl: widget.site! + widget.imageLink!),
+                                },
+                                onWebViewCreated: (controller) {
+                               
+                                  
+                           
+                                  webViewController = controller;
+                                 
+                                },
+                                javascriptMode: JavascriptMode.unrestricted,
+                                initialUrl: widget.site! + widget.imageLink!),
+                               Positioned(
+                                 bottom: 0,
+                                 child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                          children: [
+                                            SizedBox(
+                                                   width: MediaQuery.of(context).size.width / 2,
+                                              child: container(hight: h(40),color: AppColor.purple,child: GestureDetector(onTap: () async {
+                                                      
+                                                 
+                                                 
+                                                  
+                                                   final box = context.findRenderObject() as RenderBox?;
+                                                 
+                                                 var url= await webViewController.currentUrl();
+                                                       
+                                                       await Share.share( url!,
+                                                           // subject: subject,
+                                                           sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
+                                              
+                                 
+                                              },
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                  text(text: "مشاركة",color: Colors.white,fontWeight: FontWeight.bold,fontfamily: 'marai'),
+                                                  text(text: "  "),
+                                                  Image.asset('assets/images/share.png',height: h(30),)
+                                                ],),
+                                              ))),
+                                                      
+                                            GestureDetector(onTap: () async {
+                                                                                               var url= await webViewController.currentUrl();
+                                               Clipboard.setData(ClipboardData(text: url));
+                                               print(url);
+                                            },
+                                              child: SizedBox(
+                                                                                 width: MediaQuery.of(context).size.width / 2 ,
+                                              
+                                                child: Container(
+                                                  height: h(40),
+                                                  color: AppColor.yellow,
+                                                  child: Row(mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: [
+                                                              
+                                                    text(text: "نسخ الرابط",color: AppColor.purple,fontWeight: FontWeight.bold,fontfamily: 'marai',),
+                                                    text(text: " "),
+                                                    Icon(Icons.copy,color: AppColor.purple,size: 20,)
+                                                                   
+                                                  ],),
+                                                ),
+                                              ),
+                                            ),
+                                                 
+                                            
+                                            
+                                                        
+                                            // text(text: newsDetailsModel!.result!.isTrue! ? 'خبر صحيح':'اشاعة' ,fontWeight: FontWeight.bold,fontfamily: 'marai'),
+                                                 
+                                                 
+                                        ]
+                                        ,),
+                               ),
+                         ],
+                       ),
                      ),
                    ],
                  );

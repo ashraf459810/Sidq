@@ -312,93 +312,8 @@ class _NewsDetailsState extends State<NewsDetails> {
                                         SizedBox(
                                           height: h(40),
                                         ),
-                                        newsDetailsModel
-                                             !   .result!.falseLinks!.isNotEmpty
-                                            ? Column(
-                                                children: [
-                                                  Container(
-                                                     alignment: Alignment.center,
-                                                        height: h(40),
-                                                        width: w(330),
-                                                        color: Colors.red[800],
-                                                    child: Center(
-                                                      child: text(
-                                                          text: 'روابط الإشاعة',
-                                                          color: Colors.white,
-                                                          fontsize: 15.sp,
-                                                          fontfamily: 'marai',
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    ),
-                                                  ),
-                                                  customlistview(
-                                                      padding: 10,
-                                                      scroll: false,
-                                                      hight: newsDetailsModel
-                                                          !    .result!
-                                                              .falseLinks!
-                                                              .isNotEmpty
-                                                          ? newsDetailsModel
-                                                                  !.result!
-                                                                  .falseLinks!
-                                                                  .length *
-                                                              h(50)
-                                                          : h(30),
-                                                      direction: 'vertical',
-                                                      itemcount:
-                                                          newsDetailsModel
-                                                             ! .result!
-                                                              .falseLinks!
-                                                              .length,
-                                                      controller:
-                                                          ScrollController(),
-                                                      function:
-                                                          (context, index) {
-                                                        return GestureDetector(
-                                                          onTap: () async {
-                                                        
-                                                            await launchInWebViewOrVC(
-                                                                newsDetailsModel
-                                                                      !  .result!
-                                                                        .falseLinks![
-                                                                    index].link!);
-                                                          },
-                                                          child: Row(mainAxisAlignment: MainAxisAlignment.end ,
-                                                            children: [
-                                                              Padding(
-                                                                padding:  EdgeInsets.symmetric(horizontal: w(10)),
-                                                                child: Container(
-                                                                    color:Colors.transparent,
-                                                                    height: h(50),
-                                                                    width: w(200),
-                                                                   alignment: Alignment.topRight,
-                                                                    child: Text(
-                                                                      
-                                                                      newsDetailsModel
-                                                                          !.result!
-                                                                          .falseLinks![index].name!,
-                                                                          textAlign: TextAlign.right,
-                                                                      maxLines: 1,
-                                                                      overflow:
-                                                                          TextOverflow
-                                                                              .ellipsis,
-                                                                      style: TextStyle(
-                                                                          color: Colors
-                                                                              .black,
-                                                                          fontSize:
-                                                                              15.sp),
-                                                                    )),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        );
-                                                      }),
-                                                ],
-                                              )
-                                            : const SizedBox(),
-                                        SizedBox(
-                                          height: h(10),
-                                        ),
+                         
+                                  
                                         newsDetailsModel
                                                 !.result!.trueLinks!.isNotEmpty
                                             ? Column(
@@ -483,6 +398,91 @@ class _NewsDetailsState extends State<NewsDetails> {
                                                         ],
                                                             ),
                                                           );
+                                                      }),
+                                                ],
+                                              )
+                                            : const SizedBox(),
+                                            SizedBox(height: h(10),),
+                                                           newsDetailsModel
+                                             !   .result!.falseLinks!.isNotEmpty
+                                            ? Column(
+                                                children: [
+                                                  Container(
+                                                     alignment: Alignment.center,
+                                                        height: h(40),
+                                                        width: w(330),
+                                                        color: Colors.red[800],
+                                                    child: Center(
+                                                      child: text(
+                                                          text: 'روابط الإشاعة',
+                                                          color: Colors.white,
+                                                          fontsize: 15.sp,
+                                                          fontfamily: 'marai',
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                  ),
+                                                  customlistview(
+                                                      padding: 10,
+                                                      scroll: false,
+                                                      hight: newsDetailsModel
+                                                          !    .result!
+                                                              .falseLinks!
+                                                              .isNotEmpty
+                                                          ? newsDetailsModel
+                                                                  !.result!
+                                                                  .falseLinks!
+                                                                  .length *
+                                                              h(50)
+                                                          : h(30),
+                                                      direction: 'vertical',
+                                                      itemcount:
+                                                          newsDetailsModel
+                                                             ! .result!
+                                                              .falseLinks!
+                                                              .length,
+                                                      controller:
+                                                          ScrollController(),
+                                                      function:
+                                                          (context, index) {
+                                                        return GestureDetector(
+                                                          onTap: () async {
+                                                        
+                                                            await launchInWebViewOrVC(
+                                                                newsDetailsModel
+                                                                      !  .result!
+                                                                        .falseLinks![
+                                                                    index].link!);
+                                                          },
+                                                          child: Row(mainAxisAlignment: MainAxisAlignment.end ,
+                                                            children: [
+                                                              Padding(
+                                                                padding:  EdgeInsets.symmetric(horizontal: w(10)),
+                                                                child: Container(
+                                                                    color:Colors.transparent,
+                                                                    height: h(50),
+                                                                    width: w(200),
+                                                                   alignment: Alignment.topRight,
+                                                                    child: Text(
+                                                                      
+                                                                      newsDetailsModel
+                                                                          !.result!
+                                                                          .falseLinks![index].name!,
+                                                                          textAlign: TextAlign.right,
+                                                                      maxLines: 1,
+                                                                      overflow:
+                                                                          TextOverflow
+                                                                              .ellipsis,
+                                                                      style: TextStyle(
+                                                                          color: Colors
+                                                                              .black,
+                                                                          fontSize:
+                                                                              15.sp),
+                                                                    )),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        );
                                                       }),
                                                 ],
                                               )

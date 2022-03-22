@@ -130,7 +130,7 @@ SizedBox(height: h(40),),
                          SizedBox(
                            width: w(150),
                            child: text(text:'البحث العكسي',color: AppColor.yellow,fontsize: 20.sp,fontWeight: FontWeight.bold,fontfamily: 'marai')),
-                             Image.asset('assets/images/main 6.png',height: h(30),width: w(30),color: AppColor.yellow,)
+                             Image.asset('assets/images/main2.png',height: h(30),width: w(30),color: AppColor.yellow,)
                          
                        ],
                      )),

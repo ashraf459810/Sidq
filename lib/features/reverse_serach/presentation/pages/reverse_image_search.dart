@@ -23,6 +23,8 @@ import 'package:sidq/Widgets/nav.dart';
 import 'package:sidq/Widgets/text.dart';
 
 import 'package:sidq/core/consts.dart';
+import 'package:sidq/features/home/presentation/widgets/bottom_bar.dart';
+import 'package:sidq/features/home/presentation/widgets/drawer.dart';
 import 'package:sidq/features/reverse_serach/presentation/bloc/reverse_serach_bloc.dart';
 import 'package:sidq/features/reverse_serach/presentation/widgets/reverse_search_result.dart';
 import 'package:sidq/features/reverse_serach/presentation/widgets/video_reverse_search.dart';
@@ -53,9 +55,26 @@ class _ReverseImageSearchState extends State<ReverseImageSearch> {
     return BlocProvider(
       create: (context) => sl<ReverseSerachBloc>(),
       child: Scaffold(
+        bottomNavigationBar: bottomBar(context,  MediaQuery.of(context).size,2),
+        endDrawer: const HomeDrawer(),
+        appBar: AppBar(
+          title:text(text: 'البحث العكسي',color: AppColor.yellow,fontfamily: 'marai',fontsize: 20.sp,fontWeight: FontWeight.bold),
+          centerTitle: true,
+          foregroundColor: Colors.transparent,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          actions: [ Builder(
+            builder: (context) {
+              return GestureDetector(onTap: (){
+                    Scaffold.of(context).openEndDrawer();
+              },
+                child: Icon(Icons.menu,color: AppColor.yellow,size: 30,));
+            }
+          ),      SizedBox(width: w(10),),]),
         backgroundColor: AppColor.purple,
         body: ListView(
           children: [
+      
             SizedBox(
               height: h(30),
             ),
@@ -66,7 +85,7 @@ class _ReverseImageSearchState extends State<ReverseImageSearch> {
               width: w(200),
             ),
             SizedBox(
-              height: h(80),
+              height: h(20),
             ),
 
             SizedBox(
@@ -105,7 +124,7 @@ class _ReverseImageSearchState extends State<ReverseImageSearch> {
             ),
 
               SizedBox(
-              height: h(40),
+              height: h(50),
             ),
             Builder(builder: (context) {
               return GestureDetector(

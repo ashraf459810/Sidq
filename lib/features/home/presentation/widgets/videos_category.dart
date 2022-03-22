@@ -50,11 +50,12 @@ class VideoCategory extends StatefulWidget {
           var size= MediaQuery.of(context).size;
        return 
      DefaultTabController(
+       initialIndex: 1,
                 length: 2,
                 child: BlocProvider(
                   create: (context) => sl<NavigationBarBloc>()..add(GetNewsEvent(
                   SearchParamsModel(
-                      categoryId: widget.categorId,
+                      categoryId: "3756919b-f9e3-42e1-bfb9-1eef1d6aef6b",
                       pageNumber: 0,
                       pageLength: 10,
                       searchQuery: '',
@@ -147,6 +148,7 @@ class VideoCategory extends StatefulWidget {
                           backgroundColor: AppColor.purple,
                             bottom:  TabBar(
                               onTap: (value) {
+                                scrollController.position.jumpTo(0);
                                 page = 0;
                         
                                 if (value ==0){
@@ -165,6 +167,7 @@ class VideoCategory extends StatefulWidget {
                                   
                                 }
                                 else {
+                                        scrollController.position.jumpTo(0);
                                   page =   0 ;
                                   categoryId = '3756919b-f9e3-42e1-bfb9-1eef1d6aef6b';
                                               context.read<NavigationBarBloc>().add(GetNewsEvent(  SearchParamsModel(
@@ -222,7 +225,7 @@ class VideoCategory extends StatefulWidget {
                                       if (index < widget.newslist.length) {
                                         return Padding(
                                             padding: EdgeInsets.symmetric(
-                                                vertical: h(10)),
+                                                vertical: h(35)),
                                             child: GestureDetector(
                                                 onTap: () {
                                                   Navigator.of(context).push(

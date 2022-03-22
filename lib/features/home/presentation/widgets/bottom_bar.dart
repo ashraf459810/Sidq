@@ -10,7 +10,7 @@ import 'package:sidq/features/reverse_serach/presentation/pages/reverse_image_se
 
 import 'navigation_sample.dart';
 
-bottomBar(BuildContext context , Size size , ){
+bottomBar(BuildContext context , Size size , [int ? index] ){
    return   SizedBox(
           height: size.height * 0.10,
           child: Stack(
@@ -54,7 +54,8 @@ bottomBar(BuildContext context , Size size , ){
                               child: navigationSample('وعي', 'main 3.png')
                             ),
                              GestureDetector(onTap: (){
-                               navWithReplacement(context, const ReverseImageSearch());
+                               if (index != 2)
+                    navWithReplacement(context, const ReverseImageSearch());
                              },
                                child: Center(
                                                        heightFactor: 1.2,

@@ -8,7 +8,7 @@ return Column(children: [
 
   Padding(
     padding:  EdgeInsets.symmetric(horizontal: w(40)),
-    child: text(text: title, color: Colors.white,fontfamily: 'marai',fontWeight: FontWeight.bold,fontsize: 16.sp),
+    child: text(text: title, color: Colors.white,fontfamily: 'marai',fontWeight: FontWeight.bold,fontsize: 16.sp,textAlign: TextAlign.center),
   ),
   SizedBox(height: h(15),),
   SizedBox(
