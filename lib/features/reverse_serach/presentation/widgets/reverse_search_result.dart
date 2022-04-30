@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:sidq/App/app.dart';
 import 'package:sidq/Widgets/container.dart';
@@ -179,14 +180,8 @@ class _ReverseSearchResultState extends State<ReverseSearchResult> {
                                  bottom: 0,
                                  child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
                                           children: [
-                                            SizedBox(
-                                                   width: MediaQuery.of(context).size.width / 2,
-                                              child: container(hight: h(40),color: AppColor.purple,child: GestureDetector(onTap: () async {
-                                                      
-                                                 
-                                                 
-                                                  
-                                                   final box = context.findRenderObject() as RenderBox?;
+                                            GestureDetector(onTap: () async {
+                                                         final box = context.findRenderObject() as RenderBox?;
                                                  
                                                  var url= await webViewController.currentUrl();
                                                        
@@ -194,21 +189,33 @@ class _ReverseSearchResultState extends State<ReverseSearchResult> {
                                                            // subject: subject,
                                                            sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
                                               
-                                 
-                                              },
-                                                child: Row(
+                                            },
+                                              child: SizedBox(
+                                                     width: MediaQuery.of(context).size.width / 2,
+                                                child: container(hight: h(40),color: AppColor.purple,child: Row(
                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
                                                   text(text: "مشاركة",color: Colors.white,fontWeight: FontWeight.bold,fontfamily: 'marai'),
                                                   text(text: "  "),
                                                   Image.asset('assets/images/share.png',height: h(30),)
-                                                ],),
-                                              ))),
+                                                ],))),
+                                            ),
                                                       
                                             GestureDetector(onTap: () async {
                                                                                                var url= await webViewController.currentUrl();
                                                Clipboard.setData(ClipboardData(text: url));
-                                               print(url);
+
+                                               log(url!);
+                                                Fluttertoast.showToast(
+                                  msg: "تم نسخ الرابط بنجاح",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.CENTER,
+                                  timeInSecForIosWeb: 1,
+                                  backgroundColor: Colors.grey[600],
+                                  textColor: Colors.white,
+                                  fontSize: 16.0);
+                                               
+
                                             },
                                               child: SizedBox(
                                                                                  width: MediaQuery.of(context).size.width / 2 ,
