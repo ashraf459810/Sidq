@@ -1,5 +1,3 @@
-
-
 import 'dart:developer';
 import 'dart:io';
 
@@ -18,42 +16,30 @@ import 'injection_container.dart';
 Future<void> main() async {
   HttpOverrides.global = MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp();
-    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-    // SystemChrome.setEnabledSystemUIMode (SystemUiMode.manual, overlays: []);
-
-
+  await Firebase.initializeApp();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   await di.init();
-   SharedPreferences sharedPreferences = sl<SharedPreferences>();
-      await FirebaseMessaging.instance.getToken().then((value) => sharedPreferences.setString('fcmToken', value!))
-      
-     
-               ;
+  SharedPreferences sharedPreferences = sl<SharedPreferences>();
+  await FirebaseMessaging.instance
+      .getToken()
+      .then((value) => sharedPreferences.setString('fcmToken', value!));
 
-                   try {
-      await PlatformDeviceId.getDeviceId.then((value) =>  sharedPreferences.setString(Con.token, value!))
-
-    ;
-     
-    } on PlatformException {
-   log('Failed to get deviceId.');
-    }
+  try {
+    await PlatformDeviceId.getDeviceId
+        .then((value) => sharedPreferences.setString(Con.token, value!));
+  } on PlatformException {
+    log('Failed to get deviceId.');
+  }
 
   runApp(const MyApp());
   // });
-      
-      
-
-  
-
-
 }
 
-
- class MyHttpOverrides extends HttpOverrides{
+class MyHttpOverrides extends HttpOverrides {
   @override
-  HttpClient createHttpClient(SecurityContext? context){
+  HttpClient createHttpClient(SecurityContext? context) {
     return super.createHttpClient(context)
-      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }

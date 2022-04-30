@@ -71,16 +71,12 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
 
   @override
   void initState() {
-    if (
-    widget.categoryId!=null){
-      if(widget.categoryId!.contains(  '39daf705ce13')){
-
+    if (widget.categoryId != null) {
+      if (widget.categoryId!.contains('39daf705ce13')) {
         isWa3i = true;
-
       }
     }
-                                                      
-                                                          
+
     if (widget.categoryId != null) {
       if (widget.categoryId!.contains('3d0a5e84-9c54-46c1-8522-39daf705ce13')) {
         currentIndex = 3;
@@ -253,7 +249,7 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
                                         onTap: () {
                                           setBottomBarIndex(2);
                                           navWithReplaceAll(
-                                              context,  IndexPage());
+                                              context, IndexPage());
                                         },
                                         child: navigationSample('الرئيسية',
                                             'icon home.png', 10.sp)),
@@ -283,7 +279,6 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
                               newslist = state.newsmodel.result!;
                             }
                             if (state is GetNewsState) {
-              
                               newslist = state.newsmodel.result!;
                             }
 
@@ -320,7 +315,7 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
                                     alignment: Alignment.centerRight,
                                     height: h(60),
                                     child: customlistview(
-                                        reverse: true,
+                                        reverse: false,
                                         padding: 10,
                                         scroll: true,
                                         // controller: scrollController,
@@ -331,45 +326,47 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
                                             onTap: () {
                                               if (chosenIndex == index) {
                                                 chosenIndex = -1;
-                                                page =0;
-                                                         SearchParamsModel searchParamsModel =
-                                  SearchParamsModel(
-                                      categoryId: widget.categoryId,
-                                      searchQuery: '',
-                                      orderDescending: true,
-                                      pageNumber: page,
-                                      pageLength: pageSize);
-                              context
-                                  .read<NavigationBarBloc>()
-                                  .add(GetNewsEvent(searchParamsModel, true));
-                                                
-
+                                                page = 0;
+                                                SearchParamsModel
+                                                    searchParamsModel =
+                                                    SearchParamsModel(
+                                                        categoryId:
+                                                            widget.categoryId,
+                                                        searchQuery: '',
+                                                        orderDescending: true,
+                                                        pageNumber: page,
+                                                        pageLength: pageSize);
+                                                context
+                                                    .read<NavigationBarBloc>()
+                                                    .add(GetNewsEvent(
+                                                        searchParamsModel,
+                                                        true));
                                               } else {
                                                 chosenIndex = index;
-                                                 page = 0;
-                                              categoryId =
-                                                  categoryModel[index].id;
-                                              SearchParamsModel
-                                                  searchParamsModel =
-                                                  SearchParamsModel(
-                                                      categoryId: categoryId,
-                                                      searchQuery: '',
-                                                      orderDescending: true,
-                                                      pageNumber: page,
-                                                      pageLength: pageSize);
-                                              context
-                                                  .read<NavigationBarBloc>()
-                                                  .add(GetNewsEvent(
-                                                      searchParamsModel, true));
+                                                page = 0;
+                                                categoryId =
+                                                    categoryModel[index].id;
+                                                SearchParamsModel
+                                                    searchParamsModel =
+                                                    SearchParamsModel(
+                                                        categoryId: categoryId,
+                                                        searchQuery: '',
+                                                        orderDescending: true,
+                                                        pageNumber: page,
+                                                        pageLength: pageSize);
+                                                context
+                                                    .read<NavigationBarBloc>()
+                                                    .add(GetNewsEvent(
+                                                        searchParamsModel,
+                                                        true));
                                               }
-
-                                             
                                             },
                                             child: Padding(
                                               padding: EdgeInsets.symmetric(
-                                                  horizontal: w(9)),
+                                                horizontal: w(9),
+                                              ),
                                               child: container(
-                                                  width: w(55),
+                                                  width: w(80),
                                                   hight: h(60),
                                                   color: chosenIndex == index
                                                       ? Colors.yellow[200]
@@ -407,9 +404,7 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
                                     SearchParamsModel searchParamsModel =
                                         SearchParamsModel(
                                             categoryId:
-                                                widget.categoryId == null
-                                                    ? categoryId
-                                                    : widget.categoryId,
+                                                widget.categoryId ?? categoryId,
                                             searchQuery: '',
                                             orderDescending: true,
                                             pageNumber: page,
@@ -479,10 +474,10 @@ class _HomeBarState extends State<HomeBar> with RouteAware {
                   ),
                 ),
               )
-        :VideoCategory(categorId: 'b520bade-3deb-4081-bb90-4b5094b8d522' , newslist: newslist,)
-           
-           
-                );
+            : VideoCategory(
+                categorId: 'b520bade-3deb-4081-bb90-4b5094b8d522',
+                newslist: newslist,
+              ));
   }
 
   //////animation

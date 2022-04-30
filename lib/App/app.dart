@@ -106,7 +106,7 @@ super.initState();
       // sl<AppBloc>().add(GetTokensEvent());
     return ScreenUtilInit(
         designSize: const Size(375, 812),
-        builder: () => MaterialApp(
+        builder: (context ,child) => MaterialApp(
            navigatorObservers: [routeObserver],
               navigatorKey: sl<NavigationService>().navigatorKey,
               supportedLocales: const [

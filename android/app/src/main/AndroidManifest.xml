@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.sidq">
+    package="com.kernel.sidq">
    <application
         android:usesCleartextTraffic="true"
         android:label="صدق اليمنية"

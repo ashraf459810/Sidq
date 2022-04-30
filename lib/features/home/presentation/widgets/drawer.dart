@@ -11,6 +11,7 @@ import 'package:sidq/features/index_page/presentation/widgets/privacy.dart';
 
 import 'package:sidq/features/reverse_serach/presentation/pages/reverse_image_search.dart';
 import 'package:sidq/features/review_tickets/presentation/pages/review_tickets.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 
 
@@ -178,17 +179,33 @@ SizedBox(height: h(40),),
                          SizedBox(
                            width: w(160
                            ),
-                           child: text(text: 'سياسة الخصوصية والمعلومات',color: AppColor.yellow,fontsize: 19.sp,fontWeight: FontWeight.bold,fontfamily: 'marai')),
+                           child: text(text: 'سياسة صدق ',color: AppColor.yellow,fontsize: 19.sp,fontWeight: FontWeight.bold,fontfamily: 'marai')),
                          Icon(Icons.error_outline_outlined,color: AppColor.yellow,size: 30.sp,)
                        ],
                      )),
+
+                     
                  )
                 
                 
                 
                 
-                
-                
+                         ,  SizedBox(height: h(30),),
+                 GestureDetector(onTap: (){
+                   launch("https://kernel.services/sidq/sidq.pdf");
+                 },
+                   child: SizedBox(
+                     width: w(200),
+                     child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                       children: [
+                         SizedBox(
+                           width: w(160
+                           ),
+                           child: text(text: 'سياسة الخصوصية',color: AppColor.yellow,fontsize: 19.sp,fontWeight: FontWeight.bold,fontfamily: 'marai')),
+                         Icon(Icons.privacy_tip,color: AppColor.yellow,size: 30.sp,)
+                       ],
+                     )),
+                 )
                 
                 
                     ],

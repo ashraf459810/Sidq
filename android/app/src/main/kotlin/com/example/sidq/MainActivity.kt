@@ -1,4 +1,4 @@
-package com.example.sidq
+package com.kernel.sidq
 
 import io.flutter.embedding.android.FlutterActivity
 

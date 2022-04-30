@@ -13,7 +13,7 @@ class Con {
   static String savedcontactsforemergency = "false";
   static String token = 'token';
     static String id = 'id';
-  
+  static String privacyAccepted = 'asfasf';
 }
 
 // MaterialColor black = MaterialColor(

@@ -1,9 +1,13 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sidq/App/app.dart';
 import 'package:sidq/Widgets/container.dart';
 import 'package:sidq/Widgets/nav.dart';
@@ -17,26 +21,37 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../injection_container.dart';
 
-// ignore: must_be_immutable
-class IndexPage extends StatelessWidget {
+
+class IndexPage extends StatefulWidget {
   IndexPage({Key? key}) : super(key: key);
 
-  IndexPageBloc indexPageBloc = sl<IndexPageBloc>();
+  @override
+  State<IndexPage> createState() => _IndexPageState();
+}
 
+class _IndexPageState extends State<IndexPage> {
+     IndexPageBloc indexPageBloc = sl<IndexPageBloc>();
+ bool acceptPrivacy = true;
+ @override
+  void initState() {
+      indexPageBloc.add(GetUserIdEvent());
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
-    indexPageBloc.add(GetUserIdEvent());
-
-    return Scaffold(
+      return Scaffold(
       backgroundColor: AppColor.purple,
       body: Center(
         child: BlocListener(
           bloc: indexPageBloc,
           listener: (context, state) {
-           if (state is GetUserIdState){
-             log(state.id);
-           }
-          },
+            if (state is GetUserIdState) {
+              log(state.id);
+              if (sl<SharedPreferences>().getBool(Con.privacyAccepted) !=
+                  true) {
+          _showDialog(context);
+            }
+            }},
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -208,6 +223,75 @@ class IndexPage extends StatelessWidget {
       ),
     );
   }
+  void _showDialog(BuildContext context) {
+  showDialog(
+      barrierDismissible: false,
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        
+        title:  Directionality(
+          textDirection: TextDirection.rtl,
+          child: Text("تنبيه")),
+        content:  Row(
+          children: [
+            
+            Checkbox( 
+            activeColor:AppColor.purple,
+              value: acceptPrivacy, onChanged: ((value) {
+                print(value);
+              acceptPrivacy = !value!;
+              setState(() {
+                
+              });
+        
+            })),
+            GestureDetector(
+              onTap: (){
+                  launch("https://kernel.services/sidq/sidq.pdf");
+              },
+              child: Text("الموافقة على سياسة الخصوصية",textDirection: TextDirection.rtl,style: TextStyle(  decoration: TextDecoration.underline,),)),
+          ],
+        ),
+        actions: <Widget>[
+             TextButton(
+            child:  GestureDetector(
+              onTap: (() {
+          
+       SystemNavigator.pop();
+                
+              }),
+              child: Text("الغاء",style: TextStyle(color: AppColor.yellow),)),style: ButtonStyle(backgroundColor:  MaterialStatePropertyAll<Color>(AppColor.purple!),),
+            
+            
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+           TextButton(
+            child:  GestureDetector(
+              onTap: (() {
+                if (acceptPrivacy==true){
+                  sl<SharedPreferences>().setBool(Con.privacyAccepted, true)
+;                  Navigator.of(context).pop();
+                }
+                else {
+                  Fluttertoast.showToast(msg: 'نرجوا الموافقة على سياسة الخصوصية اولا');
+                }
+              }),
+              child: Text("موافق",style: TextStyle(color: AppColor.yellow),)),style: ButtonStyle(backgroundColor:  MaterialStatePropertyAll<Color>(AppColor.purple!),),
+            
+            
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        
+        ],
+      );
+    },
+  );
+}
 }
 
 Widget item(String title, Function navigat, String image) {
@@ -264,3 +348,5 @@ Widget socialMediaIcon(String image, String url) {
     ),
   );
 }
+
+  

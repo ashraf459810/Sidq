@@ -3,12 +3,12 @@
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 abstract class NetworkInf {
-  final String baseUrl = "https://80.208.227.48/api/api";
+  final String baseUrl = "https://sidqyem.com/api/api";
   Future<bool>? get isConnected;
 }
 
 class NetworkInfImpl implements NetworkInf {
-  final String baseurl = "https://80.208.227.48/api/api";
+  final String baseurl = "https://sidqyem.com/api/api";
 
   // final String url = "https://fakestoreapi.com/products?limit=";
   InternetConnectionChecker? connectionChecker = InternetConnectionChecker();

@@ -186,11 +186,8 @@ class _NewsDetailsState extends State<NewsDetails> {
                                       AppColor.yellow,
                                       child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
                                         children: [
-                                          SizedBox(
-                                                 width: MediaQuery.of(context).size.width / 3 ,
-                                            child: container(hight: h(40),color: AppColor.purple,child: GestureDetector(onTap: () async {
-                  
-                  
+                                          GestureDetector(onTap: () async {
+                                                              
                                                 
                     final box = context.findRenderObject() as RenderBox?;
                   
@@ -200,15 +197,17 @@ class _NewsDetailsState extends State<NewsDetails> {
                             sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
                                             
                                
-                                            },
-                                              child: Row(
+                                          },
+                                            child: SizedBox(
+                                                   width: MediaQuery.of(context).size.width / 3 ,
+                                              child: container(hight: h(40),color: AppColor.purple,child: Row(
                                                 mainAxisAlignment: MainAxisAlignment.center,
                                                 children: [
                                                 text(text: "مشاركة",color: Colors.white,fontWeight: FontWeight.bold,fontfamily: 'marai'),
                                                 text(text: "  "),
                                                 Image.asset('assets/images/share.png',height: h(30),)
-                                              ],),
-                                            ))),
+                                              ],))),
+                                          ),
                                                          SizedBox(
                                                                 width: MediaQuery.of(context).size.width / 3 ,
                                                            child: Row(mainAxisAlignment: MainAxisAlignment.center,
